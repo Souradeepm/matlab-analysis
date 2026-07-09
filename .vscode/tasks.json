@@ -1,0 +1,293 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run S2422 MATLAB analysis",
+			"type": "shell",
+			"command": "\"C:\\Program Files\\MATLAB\\R2023a\\bin\\matlab.exe\" -batch \"run('c:/Users/mitra/Downloads/matlab analysis/run_s2422_check.m')\" -logfile \"c:/Users/mitra/Downloads/matlab analysis/s2422_run.log\"",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 MATLAB analysis",
+			"type": "shell",
+			"command": "& 'C:\\Program Files\\MATLAB\\R2023a\\bin\\matlab.exe' -batch \"run('c:/Users/mitra/Downloads/matlab analysis/run_s2422_check.m')\" -logfile \"c:/Users/mitra/Downloads/matlab analysis/s2422_run.log\"",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 MATLAB shortpath",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch \"run('c:/Users/mitra/Downloads/matlab analysis/run_s2422_check.m')\" -logfile \"c:/Users/mitra/Downloads/matlab analysis/s2422_run.log\"",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 MATLAB shortpath",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_check -logfile c:/Users/mitra/Downloads/matlab analysis/s2422_run.log",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 MATLAB clean",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_check",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 MATLAB clean",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_check",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 MATLAB clean",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_check",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 MATLAB clean",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_check",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 L-curve",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_lcurve",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 lambda method compare",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_lambda_method_compare",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 two DRT plot",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_plot_two_drt",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 two-method peak fit",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_peakfit_two_methods",
+			"isBackground": false
+		},
+		{
+			"label": "Open S2422 peak component viewer",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -r \"run_s2422_peakfit_components_view\"",
+			"isBackground": true
+		},
+		{
+			"label": "Run S2422 sensitivity around 1e-3",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_sensitivity_1e3",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 Sobol sensitivity",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_sobol_lambda",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 Sobol sensitivity",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_sobol_lambda",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 GSA-DRT",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_gsa_drt",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 GSA-DRT large N",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_gsa_drt_largeN",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 GSA-DRT large N",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_gsa_drt_largeN",
+			"isBackground": false
+		},
+		{
+			"label": "Read largeN summary",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_read_largeN_summary",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 KK on DRT reconstructed",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_kk_on_drt_reconstructed",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 L-curve",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_lcurve",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2422 lambda sweep overlay",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2422_lambda_sweep_overlay",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 lambda sweep near 100K",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_lambda_sweep_overlay_100K",
+			"isBackground": false
+		},
+		{
+			"label": "Scan S2022 3 peaks at lambda1e-3",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_find_temp_with_3peaks_lambda1e3",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 lambda sweep 3peak near100K",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_lambda_sweep_overlay_3peak_near100K",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 lambda sweep 3peak near280K",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_lambda_sweep_overlay_3peak_near280K",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 RBF hidden peakfit 280K",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_peakfit_rbf_hidden_280K",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 RBF hidden peakfit 280K",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_peakfit_rbf_hidden_280K",
+			"isBackground": false
+		},
+		{
+			"label": "Run original Impedance analysis",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch Impedance_analysis",
+			"isBackground": false
+		},
+		{
+			"label": "Run 10-temp validation",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch Impedance_analysis_10temps_validation",
+			"isBackground": false
+		},
+		{
+			"label": "Run 10-temp validation",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch Impedance_analysis_10temps_validation",
+			"isBackground": false
+		},
+		{
+			"label": "Run 10-temp validation v2",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch Impedance_analysis_10temps_validation",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K workflow",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_workflow",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K workflow and save plots",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_workflow_and_save_plots",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV v2",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV v3",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV v4",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV v5",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV v6",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV with SG",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Generate CV iteration plot lambda 1e-3",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K CV with DRT overlay",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 280K with refined peak overlay plot",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_s2022_280k_lambda_sweep_cv",
+			"isBackground": false
+		},
+		{
+			"label": "Check git repo state",
+			"type": "shell",
+			"command": "git rev-parse --is-inside-work-tree && git remote -v && git status --short",
+			"isBackground": false
+		},
+		{
+			"label": "Check git repo state ps",
+			"type": "shell",
+			"command": "git rev-parse --is-inside-work-tree; git remote -v; git status --short",
+			"isBackground": false
+		},
+		{
+			"label": "Check git/gh executables",
+			"type": "shell",
+			"command": "where.exe git; where.exe gh",
+			"isBackground": false
+		}
+	]
+}

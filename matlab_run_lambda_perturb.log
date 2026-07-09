@@ -1,0 +1,4127 @@
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 47.8 - 67694.5 Ohm
+Phase range: -98.84 - 96.68 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   62.400, Mean residual =  161.504
+lambda = 1.0e-03: R_inf =   64.881, Mean residual =  166.695
+lambda = 1.0e-02: R_inf =   62.208, Mean residual =  183.846
+lambda = 1.0e-01: R_inf =   32.372, Mean residual =  346.087
+lambda = 1.0e+00: R_inf =  157.837, Mean residual = 1564.368
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 62.400387
+DRT vector length = 198
+
+Mean absolute residual: 161.503601
+Max absolute residual : 1473.511343
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 161.503601
+  Min residual change   : -0.50 %
+  Max residual change   : 1.24 %
+  Max abs change        : 1.24 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 23113.7
+  Peak 2: gamma = 21800.2
+  Peak 3: gamma = 19563.7
+  Peak 4: gamma = 2432.3
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 23113.7
+  Peak 2: gamma = 21800.2
+  Peak 3: gamma = 19563.7
+  Peak 4: gamma = 2432.3
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 23113.7
+  Peak 2: gamma = 21800.2
+  Peak 3: gamma = 19563.7
+  Peak 4: gamma = 2432.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 23113.7
+  Peak 2: gamma = 21800.2
+  Peak 3: gamma = 19563.7
+
+Using height threshold: 1155.7
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 1.73e-05 s (f = 9212.29 Hz), gamma = 23113.6762
+Peak 2: tau = 4.05e-06 s (f = 39301.09 Hz), gamma = 21800.1614
+Peak 3: tau = 1.01e-06 s (f = 156965.23 Hz), gamma = 19563.7237
+Peak 4: tau = 2.54e-07 s (f = 626905.83 Hz), gamma = 2432.3172
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 1.79e-05 | 2.32e+04 | 1.54e+03 | 1.12e-08 | 0.716
+   2 | 1.78e-05 | 2.32e+04 | 1.44e+03 | 2.81e-09 | 0.584
+   3 | 3.90e-06 | 2.18e+04 | 1.29e+03 | 7.83e-10 | 0.619
+   4 | 1.04e-06 | 1.95e+04 | 1.67e+02 | 1.52e-09 | 0.763
+
+Total series resistance: 4503.73 Ohm
+High-frequency resistance (R_inf): 62.40 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.38 %
+  Imag residual  : 1.78 %
+  Total residual : 0.59 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 2.3108e+03
+  Max std. band  : 3.7250e+03
+  Mean CV        : 30.39 %
+  Max CV         : 152.70 %
+Run complete at 2026-07-09 04:05:38
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 47.9 - 66904.8 Ohm
+Phase range: -98.42 - 96.83 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   79.827, Mean residual =  368.704
+lambda = 1.0e-03: R_inf =   82.029, Mean residual =  369.761
+lambda = 1.0e-02: R_inf =   81.018, Mean residual =  374.956
+lambda = 1.0e-01: R_inf =   53.272, Mean residual =  458.402
+lambda = 1.0e+00: R_inf =  174.001, Mean residual = 1561.982
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 79.827351
+DRT vector length = 198
+
+Mean absolute residual: 368.703908
+Max absolute residual : 1949.646312
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 368.703908
+  Min residual change   : -0.05 %
+  Max residual change   : 0.10 %
+  Max abs change        : 0.10 %
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 10769.3
+  Peak 2: gamma = 23807.1
+  Peak 3: gamma = 20943.1
+  Peak 4: gamma = 18044.0
+  Peak 5: gamma = 1878.6
+Threshold 0.05: Found 5 peaks
+  Peak 1: gamma = 10769.3
+  Peak 2: gamma = 23807.1
+  Peak 3: gamma = 20943.1
+  Peak 4: gamma = 18044.0
+  Peak 5: gamma = 1878.6
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 10769.3
+  Peak 2: gamma = 23807.1
+  Peak 3: gamma = 20943.1
+  Peak 4: gamma = 18044.0
+Threshold 0.15: Found 4 peaks
+  Peak 1: gamma = 10769.3
+  Peak 2: gamma = 23807.1
+  Peak 3: gamma = 20943.1
+  Peak 4: gamma = 18044.0
+
+Using height threshold: 1190.4
+
+Found 5 peaks in original data DRT
+Peak 1: tau = 2.58e-04 s (f = 616.89 Hz), gamma = 10769.2679
+Peak 2: tau = 1.73e-05 s (f = 9212.29 Hz), gamma = 23807.1186
+Peak 3: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 20943.0944
+Peak 4: tau = 9.49e-07 s (f = 167664.65 Hz), gamma = 18044.0177
+Peak 5: tau = 2.23e-07 s (f = 715283.80 Hz), gamma = 1878.6169
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 2.50e-04 | 1.26e+04 | 1.04e+03 | 2.48e-07 | 0.763
+   2 | 1.67e-05 | 2.38e+04 | 1.59e+03 | 1.09e-08 | 0.716
+   3 | 1.66e-05 | 2.38e+04 | 1.39e+03 | 2.73e-09 | 0.584
+   4 | 3.65e-06 | 2.09e+04 | 1.19e+03 | 7.95e-10 | 0.654
+   5 | 9.76e-07 | 1.80e+04 | 1.30e+02 | 1.71e-09 | 0.782
+
+Total series resistance: 5419.15 Ohm
+High-frequency resistance (R_inf): 79.83 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.91 %
+  Imag residual  : 3.47 %
+  Total residual : 1.25 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 3.8985e+03
+  Max std. band  : 5.4171e+03
+  Mean CV        : 53.99 %
+  Max CV         : 209.28 %
+Run complete at 2026-07-09 04:05:49
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 48.1 - 60657.1 Ohm
+Phase range: -98.59 - 96.98 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   73.930, Mean residual =  226.959
+lambda = 1.0e-03: R_inf =   76.053, Mean residual =  227.955
+lambda = 1.0e-02: R_inf =   73.326, Mean residual =  234.540
+lambda = 1.0e-01: R_inf =   46.611, Mean residual =  336.734
+lambda = 1.0e+00: R_inf =  162.194, Mean residual = 1385.285
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 73.930266
+DRT vector length = 198
+
+Mean absolute residual: 226.959424
+Max absolute residual : 1449.873066
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 226.959424
+  Min residual change   : -0.07 %
+  Max residual change   : 0.15 %
+  Max abs change        : 0.15 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 3029.7
+  Peak 2: gamma = 19140.5
+  Peak 3: gamma = 18210.1
+  Peak 4: gamma = 16412.7
+  Peak 5: gamma = 2042.5
+Threshold 0.05: Found 5 peaks
+  Peak 1: gamma = 3029.7
+  Peak 2: gamma = 19140.5
+  Peak 3: gamma = 18210.1
+  Peak 4: gamma = 16412.7
+  Peak 5: gamma = 2042.5
+Threshold 0.10: Found 5 peaks
+  Peak 1: gamma = 3029.7
+  Peak 2: gamma = 19140.5
+  Peak 3: gamma = 18210.1
+  Peak 4: gamma = 16412.7
+  Peak 5: gamma = 2042.5
+Threshold 0.15: Found 4 peaks
+  Peak 1: gamma = 3029.7
+  Peak 2: gamma = 19140.5
+  Peak 3: gamma = 18210.1
+  Peak 4: gamma = 16412.7
+
+Using height threshold: 957.0
+
+Found 5 peaks in original data DRT
+Peak 1: tau = 2.76e-04 s (f = 577.52 Hz), gamma = 3029.7452
+Peak 2: tau = 1.51e-05 s (f = 10511.00 Hz), gamma = 19140.5289
+Peak 3: tau = 3.32e-06 s (f = 47898.15 Hz), gamma = 18210.0570
+Peak 4: tau = 8.89e-07 s (f = 179093.39 Hz), gamma = 16412.7168
+Peak 5: tau = 2.23e-07 s (f = 715283.80 Hz), gamma = 2042.4571
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 2.85e-04 | 3.22e+03 | 2.14e+02 | 1.29e-06 | 1.055
+   2 | 1.56e-05 | 1.91e+04 | 1.27e+03 | 1.19e-08 | 0.700
+   3 | 1.56e-05 | 1.91e+04 | 1.20e+03 | 2.76e-09 | 0.584
+   4 | 3.20e-06 | 1.82e+04 | 1.09e+03 | 8.19e-10 | 0.624
+   5 | 8.55e-07 | 1.64e+04 | 1.42e+02 | 1.56e-09 | 0.754
+
+Total series resistance: 3991.15 Ohm
+High-frequency resistance (R_inf): 73.93 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.53 %
+  Imag residual  : 2.86 %
+  Total residual : 0.90 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 2.0447e+03
+  Max std. band  : 2.7795e+03
+  Mean CV        : 37.40 %
+  Max CV         : 185.90 %
+Run complete at 2026-07-09 04:05:59
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 49.0 - 45395.3 Ohm
+Phase range: -98.11 - 96.67 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   77.298, Mean residual =  234.178
+lambda = 1.0e-03: R_inf =   77.561, Mean residual =  235.033
+lambda = 1.0e-02: R_inf =   71.808, Mean residual =  239.778
+lambda = 1.0e-01: R_inf =   48.021, Mean residual =  312.600
+lambda = 1.0e+00: R_inf =  145.460, Mean residual = 1030.836
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 77.298184
+DRT vector length = 198
+
+Mean absolute residual: 234.178168
+Max absolute residual : 1451.132697
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 234.178168
+  Min residual change   : -0.06 %
+  Max residual change   : 0.13 %
+  Max abs change        : 0.13 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 4525.7
+  Peak 2: gamma = 17171.4
+  Peak 3: gamma = 13010.5
+  Peak 4: gamma = 12150.8
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 4525.7
+  Peak 2: gamma = 17171.4
+  Peak 3: gamma = 13010.5
+  Peak 4: gamma = 12150.8
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 4525.7
+  Peak 2: gamma = 17171.4
+  Peak 3: gamma = 13010.5
+  Peak 4: gamma = 12150.8
+Threshold 0.15: Found 4 peaks
+  Peak 1: gamma = 4525.7
+  Peak 2: gamma = 17171.4
+  Peak 3: gamma = 13010.5
+  Peak 4: gamma = 12150.8
+
+Using height threshold: 858.6
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 2.42e-04 s (f = 658.94 Hz), gamma = 4525.6745
+Peak 2: tau = 1.16e-05 s (f = 13683.46 Hz), gamma = 17171.4094
+Peak 3: tau = 2.39e-06 s (f = 66605.32 Hz), gamma = 13010.5231
+Peak 4: tau = 6.39e-07 s (f = 249040.37 Hz), gamma = 12150.7639
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 2.50e-04 | 4.53e+03 | 3.07e+02 | 7.86e-07 | 1.055
+   2 | 1.20e-05 | 1.72e+04 | 1.14e+03 | 1.02e-08 | 0.708
+   3 | 1.19e-05 | 1.72e+04 | 8.61e+02 | 2.77e-09 | 0.584
+   4 | 2.46e-06 | 1.30e+04 | 8.04e+02 | 7.95e-10 | 0.620
+
+Total series resistance: 3191.23 Ohm
+High-frequency resistance (R_inf): 77.30 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.61 %
+  Imag residual  : 3.96 %
+  Total residual : 1.15 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 2.0798e+03
+  Max std. band  : 2.8622e+03
+  Mean CV        : 40.62 %
+  Max CV         : 220.48 %
+Run complete at 2026-07-09 04:06:07
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 50.8 - 36053.0 Ohm
+Phase range: -96.90 - 96.05 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   71.571, Mean residual =  118.394
+lambda = 1.0e-03: R_inf =   70.008, Mean residual =  120.124
+lambda = 1.0e-02: R_inf =   63.565, Mean residual =  132.720
+lambda = 1.0e-01: R_inf =   41.184, Mean residual =  226.072
+lambda = 1.0e+00: R_inf =  129.219, Mean residual =  818.474
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 71.571250
+DRT vector length = 198
+
+Mean absolute residual: 118.394402
+Max absolute residual : 1441.908914
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 118.394402
+  Min residual change   : -0.64 %
+  Max residual change   : 0.63 %
+  Max abs change        : 0.64 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 1260.4
+  Peak 2: gamma = 14207.4
+  Peak 3: gamma = 10332.9
+  Peak 4: gamma = 9850.8
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 1260.4
+  Peak 2: gamma = 14207.4
+  Peak 3: gamma = 10332.9
+  Peak 4: gamma = 9850.8
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 14207.4
+  Peak 2: gamma = 10332.9
+  Peak 3: gamma = 9850.8
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 14207.4
+  Peak 2: gamma = 10332.9
+  Peak 3: gamma = 9850.8
+
+Using height threshold: 710.4
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 2.76e-04 s (f = 577.52 Hz), gamma = 1260.3952
+Peak 2: tau = 8.93e-06 s (f = 17813.45 Hz), gamma = 14207.3815
+Peak 3: tau = 1.96e-06 s (f = 81175.14 Hz), gamma = 10332.9442
+Peak 4: tau = 5.60e-07 s (f = 284148.80 Hz), gamma = 9850.7874
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 2.85e-04 | 1.28e+03 | 8.07e+01 | 3.42e-06 | 1.055
+   2 | 9.23e-06 | 1.42e+04 | 9.44e+02 | 9.47e-09 | 0.700
+   3 | 9.18e-06 | 1.42e+04 | 6.85e+02 | 2.86e-09 | 0.584
+   4 | 1.89e-06 | 1.03e+04 | 6.52e+02 | 8.59e-10 | 0.633
+
+Total series resistance: 2432.50 Ohm
+High-frequency resistance (R_inf): 71.57 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.36 %
+  Imag residual  : 3.67 %
+  Total residual : 0.97 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6820e+03
+  Max std. band  : 2.2358e+03
+  Mean CV        : 39.46 %
+  Max CV         : 250.17 %
+Run complete at 2026-07-09 04:06:15
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 51.4 - 34677.6 Ohm
+Phase range: -96.69 - 95.84 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   72.595, Mean residual =  108.342
+lambda = 1.0e-03: R_inf =   71.097, Mean residual =  110.886
+lambda = 1.0e-02: R_inf =   65.110, Mean residual =  126.134
+lambda = 1.0e-01: R_inf =   43.193, Mean residual =  218.802
+lambda = 1.0e+00: R_inf =  129.307, Mean residual =  789.005
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 72.595041
+DRT vector length = 198
+
+Mean absolute residual: 108.341549
+Max absolute residual : 1436.881962
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 108.341549
+  Min residual change   : -0.61 %
+  Max residual change   : 0.83 %
+  Max abs change        : 0.83 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 964.3
+  Peak 2: gamma = 13946.6
+  Peak 3: gamma = 9819.0
+  Peak 4: gamma = 9366.3
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 964.3
+  Peak 2: gamma = 13946.6
+  Peak 3: gamma = 9819.0
+  Peak 4: gamma = 9366.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 13946.6
+  Peak 2: gamma = 9819.0
+  Peak 3: gamma = 9366.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 13946.6
+  Peak 2: gamma = 9819.0
+  Peak 3: gamma = 9366.3
+
+Using height threshold: 697.3
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 3.14e-04 s (f = 506.17 Hz), gamma = 964.2570
+Peak 2: tau = 8.93e-06 s (f = 17813.45 Hz), gamma = 13946.5683
+Peak 3: tau = 1.72e-06 s (f = 92618.80 Hz), gamma = 9819.0032
+Peak 4: tau = 5.24e-07 s (f = 303517.59 Hz), gamma = 9366.3329
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.04e-04 | 1.01e+03 | 7.89e+01 | 3.99e-06 | 1.055
+   2 | 8.65e-06 | 1.39e+04 | 9.27e+02 | 9.64e-09 | 0.708
+   3 | 8.59e-06 | 1.39e+04 | 6.50e+02 | 2.64e-09 | 0.584
+   4 | 1.77e-06 | 9.83e+03 | 6.20e+02 | 8.46e-10 | 0.633
+
+Total series resistance: 2347.93 Ohm
+High-frequency resistance (R_inf): 72.60 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.31 %
+  Imag residual  : 1.57 %
+  Total residual : 0.49 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.7523e+03
+  Max std. band  : 2.4485e+03
+  Mean CV        : 40.64 %
+  Max CV         : 225.87 %
+Run complete at 2026-07-09 04:06:24
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.1 - 33488.3 Ohm
+Phase range: -96.64 - 95.03 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   74.762, Mean residual =  104.020
+lambda = 1.0e-03: R_inf =   73.219, Mean residual =  107.011
+lambda = 1.0e-02: R_inf =   67.214, Mean residual =  122.415
+lambda = 1.0e-01: R_inf =   45.696, Mean residual =  211.991
+lambda = 1.0e+00: R_inf =  130.353, Mean residual =  762.743
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 74.761876
+DRT vector length = 198
+
+Mean absolute residual: 104.020143
+Max absolute residual : 1435.334534
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 104.020143
+  Min residual change   : -0.78 %
+  Max residual change   : 0.98 %
+  Max abs change        : 0.98 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 778.9
+  Peak 2: gamma = 14280.0
+  Peak 3: gamma = 9554.5
+  Peak 4: gamma = 9131.2
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 778.9
+  Peak 2: gamma = 14280.0
+  Peak 3: gamma = 9554.5
+  Peak 4: gamma = 9131.2
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 14280.0
+  Peak 2: gamma = 9554.5
+  Peak 3: gamma = 9131.2
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 14280.0
+  Peak 2: gamma = 9554.5
+  Peak 3: gamma = 9131.2
+
+Using height threshold: 714.0
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 1.43e-04 s (f = 1116.74 Hz), gamma = 778.9219
+Peak 2: tau = 8.36e-06 s (f = 19027.69 Hz), gamma = 14279.9724
+Peak 3: tau = 1.84e-06 s (f = 86708.39 Hz), gamma = 9554.4808
+Peak 4: tau = 5.24e-07 s (f = 303517.59 Hz), gamma = 9131.2390
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 1.38e-04 | 7.85e+02 | 8.41e+01 | 1.69e-06 | 0.763
+   2 | 8.64e-06 | 1.43e+04 | 9.49e+02 | 8.81e-09 | 0.708
+   3 | 8.59e-06 | 1.43e+04 | 6.33e+02 | 2.90e-09 | 0.584
+   4 | 1.77e-06 | 9.56e+03 | 6.04e+02 | 8.68e-10 | 0.633
+
+Total series resistance: 2345.59 Ohm
+High-frequency resistance (R_inf): 74.76 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.35 %
+  Imag residual  : 3.91 %
+  Total residual : 1.02 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6509e+03
+  Max std. band  : 2.5251e+03
+  Mean CV        : 36.40 %
+  Max CV         : 258.34 %
+Run complete at 2026-07-09 04:06:31
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.6 - 32570.4 Ohm
+Phase range: -95.86 - 94.91 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   74.600, Mean residual =  101.817
+lambda = 1.0e-03: R_inf =   73.042, Mean residual =  104.692
+lambda = 1.0e-02: R_inf =   67.179, Mean residual =  119.747
+lambda = 1.0e-01: R_inf =   45.732, Mean residual =  208.335
+lambda = 1.0e+00: R_inf =  129.336, Mean residual =  742.565
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 74.600421
+DRT vector length = 198
+
+Mean absolute residual: 101.816736
+Max absolute residual : 1424.855040
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 101.816736
+  Min residual change   : -0.62 %
+  Max residual change   : 0.85 %
+  Max abs change        : 0.85 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 913.2
+  Peak 2: gamma = 14145.3
+  Peak 3: gamma = 9083.8
+  Peak 4: gamma = 8825.3
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 913.2
+  Peak 2: gamma = 14145.3
+  Peak 3: gamma = 9083.8
+  Peak 4: gamma = 8825.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 14145.3
+  Peak 2: gamma = 9083.8
+  Peak 3: gamma = 8825.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 14145.3
+  Peak 2: gamma = 9083.8
+  Peak 3: gamma = 8825.3
+
+Using height threshold: 707.3
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 1.25e-04 s (f = 1274.17 Hz), gamma = 913.2218
+Peak 2: tau = 8.36e-06 s (f = 19027.69 Hz), gamma = 14145.3111
+Peak 3: tau = 1.72e-06 s (f = 92618.80 Hz), gamma = 9083.8270
+Peak 4: tau = 5.24e-07 s (f = 303517.59 Hz), gamma = 8825.2672
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 1.21e-04 | 9.94e+02 | 1.03e+02 | 1.21e-06 | 0.763
+   2 | 8.09e-06 | 1.41e+04 | 9.41e+02 | 8.89e-09 | 0.708
+   3 | 8.59e-06 | 1.41e+04 | 6.01e+02 | 2.86e-09 | 0.584
+   4 | 1.66e-06 | 9.07e+03 | 5.84e+02 | 8.98e-10 | 0.633
+
+Total series resistance: 2304.04 Ohm
+High-frequency resistance (R_inf): 74.60 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.28 %
+  Imag residual  : 1.63 %
+  Total residual : 0.48 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6766e+03
+  Max std. band  : 2.2982e+03
+  Mean CV        : 36.21 %
+  Max CV         : 234.50 %
+Run complete at 2026-07-09 04:06:38
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 53.4 - 29442.1 Ohm
+Phase range: -95.77 - 94.93 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   77.136, Mean residual =   93.516
+lambda = 1.0e-03: R_inf =   75.251, Mean residual =   96.826
+lambda = 1.0e-02: R_inf =   69.172, Mean residual =  111.560
+lambda = 1.0e-01: R_inf =   48.582, Mean residual =  195.186
+lambda = 1.0e+00: R_inf =  128.501, Mean residual =  674.563
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 77.136326
+DRT vector length = 198
+
+Mean absolute residual: 93.516473
+Max absolute residual : 1418.382637
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 93.516473
+  Min residual change   : -0.83 %
+  Max residual change   : 1.13 %
+  Max abs change        : 1.13 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 374.3
+  Peak 2: gamma = 146.6
+  Peak 3: gamma = 12924.3
+  Peak 4: gamma = 8046.7
+  Peak 5: gamma = 7892.5
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 12924.3
+  Peak 2: gamma = 8046.7
+  Peak 3: gamma = 7892.5
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 12924.3
+  Peak 2: gamma = 8046.7
+  Peak 3: gamma = 7892.5
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 12924.3
+  Peak 2: gamma = 8046.7
+  Peak 3: gamma = 7892.5
+
+Using height threshold: 646.2
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 7.33e-06 s (f = 21710.12 Hz), gamma = 12924.3229
+Peak 2: tau = 1.61e-06 s (f = 98932.09 Hz), gamma = 8046.6930
+Peak 3: tau = 4.91e-07 s (f = 324206.64 Hz), gamma = 7892.5397
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 7.58e-06 | 1.30e+04 | 8.59e+02 | 8.53e-09 | 0.708
+   2 | 7.53e-06 | 1.30e+04 | 5.33e+02 | 3.02e-09 | 0.584
+   3 | 1.55e-06 | 8.05e+03 | 5.22e+02 | 9.40e-10 | 0.633
+
+Total series resistance: 1991.41 Ohm
+High-frequency resistance (R_inf): 77.14 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.32 %
+  Imag residual  : 4.38 %
+  Total residual : 1.11 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.7747e+03
+  Max std. band  : 2.4602e+03
+  Mean CV        : 32.72 %
+  Max CV         : 97.80 %
+Run complete at 2026-07-09 04:06:45
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 53.4 - 29001.1 Ohm
+Phase range: -95.33 - 94.60 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   77.508, Mean residual =   92.243
+lambda = 1.0e-03: R_inf =   75.144, Mean residual =   95.285
+lambda = 1.0e-02: R_inf =   68.815, Mean residual =  110.144
+lambda = 1.0e-01: R_inf =   48.334, Mean residual =  193.284
+lambda = 1.0e+00: R_inf =  127.666, Mean residual =  664.574
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 77.507918
+DRT vector length = 198
+
+Mean absolute residual: 92.242923
+Max absolute residual : 1417.047018
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 92.242923
+  Min residual change   : -0.52 %
+  Max residual change   : 0.93 %
+  Max abs change        : 0.93 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 502.3
+  Peak 2: gamma = 12917.6
+  Peak 3: gamma = 8060.3
+  Peak 4: gamma = 7262.5
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 12917.6
+  Peak 2: gamma = 8060.3
+  Peak 3: gamma = 7262.5
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 12917.6
+  Peak 2: gamma = 8060.3
+  Peak 3: gamma = 7262.5
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 12917.6
+  Peak 2: gamma = 8060.3
+  Peak 3: gamma = 7262.5
+
+Using height threshold: 645.9
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 7.33e-06 s (f = 21710.12 Hz), gamma = 12917.6021
+Peak 2: tau = 1.41e-06 s (f = 112879.03 Hz), gamma = 8060.2716
+Peak 3: tau = 4.60e-07 s (f = 346305.95 Hz), gamma = 7262.5127
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 7.58e-06 | 1.29e+04 | 8.59e+02 | 8.53e-09 | 0.708
+   2 | 7.05e-06 | 1.28e+04 | 5.33e+02 | 2.64e-09 | 0.584
+   3 | 1.45e-06 | 8.07e+03 | 4.80e+02 | 9.58e-10 | 0.640
+
+Total series resistance: 1949.87 Ohm
+High-frequency resistance (R_inf): 77.51 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.34 %
+  Imag residual  : 4.44 %
+  Total residual : 1.13 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.7010e+03
+  Max std. band  : 2.4728e+03
+  Mean CV        : 33.70 %
+  Max CV         : 133.76 %
+Run complete at 2026-07-09 04:06:53
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 53.5 - 27183.5 Ohm
+Phase range: -95.02 - 95.08 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   79.778, Mean residual =   89.871
+lambda = 1.0e-03: R_inf =   77.294, Mean residual =   92.780
+lambda = 1.0e-02: R_inf =   70.888, Mean residual =  107.362
+lambda = 1.0e-01: R_inf =   50.835, Mean residual =  186.711
+lambda = 1.0e+00: R_inf =  127.419, Mean residual =  624.482
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 79.777984
+DRT vector length = 198
+
+Mean absolute residual: 89.870684
+Max absolute residual : 1415.147949
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 89.870684
+  Min residual change   : -0.36 %
+  Max residual change   : 0.81 %
+  Max abs change        : 0.81 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 498.4
+  Peak 2: gamma = 12248.2
+  Peak 3: gamma = 7585.5
+  Peak 4: gamma = 6676.5
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 12248.2
+  Peak 2: gamma = 7585.5
+  Peak 3: gamma = 6676.5
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 12248.2
+  Peak 2: gamma = 7585.5
+  Peak 3: gamma = 6676.5
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 12248.2
+  Peak 2: gamma = 7585.5
+  Peak 3: gamma = 6676.5
+
+Using height threshold: 612.4
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 6.86e-06 s (f = 23189.98 Hz), gamma = 12248.2368
+Peak 2: tau = 1.32e-06 s (f = 120573.34 Hz), gamma = 7585.5195
+Peak 3: tau = 4.30e-07 s (f = 369911.63 Hz), gamma = 6676.5315
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 6.64e-06 | 1.22e+04 | 8.15e+02 | 8.42e-09 | 0.708
+   2 | 6.60e-06 | 1.22e+04 | 5.02e+02 | 2.63e-09 | 0.584
+   3 | 1.36e-06 | 7.58e+03 | 4.41e+02 | 9.76e-10 | 0.647
+
+Total series resistance: 1837.34 Ohm
+High-frequency resistance (R_inf): 79.78 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.39 %
+  Imag residual  : 4.63 %
+  Total residual : 1.18 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5361e+03
+  Max std. band  : 2.0861e+03
+  Mean CV        : 39.03 %
+  Max CV         : 211.63 %
+Run complete at 2026-07-09 04:07:01
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 53.5 - 26777.4 Ohm
+Phase range: -95.68 - 95.24 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   76.843, Mean residual =   89.091
+lambda = 1.0e-03: R_inf =   74.297, Mean residual =   91.952
+lambda = 1.0e-02: R_inf =   67.652, Mean residual =  106.628
+lambda = 1.0e-01: R_inf =   47.588, Mean residual =  184.619
+lambda = 1.0e+00: R_inf =  124.014, Mean residual =  615.869
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 76.843166
+DRT vector length = 198
+
+Mean absolute residual: 89.091217
+Max absolute residual : 1413.706790
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 89.091217
+  Min residual change   : -0.43 %
+  Max residual change   : 0.78 %
+  Max abs change        : 0.78 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 433.8
+  Peak 2: gamma = 12008.2
+  Peak 3: gamma = 7564.5
+  Peak 4: gamma = 6765.0
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 12008.2
+  Peak 2: gamma = 7564.5
+  Peak 3: gamma = 6765.0
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 12008.2
+  Peak 2: gamma = 7564.5
+  Peak 3: gamma = 6765.0
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 12008.2
+  Peak 2: gamma = 7564.5
+  Peak 3: gamma = 6765.0
+
+Using height threshold: 600.4
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 6.86e-06 s (f = 23189.98 Hz), gamma = 12008.1758
+Peak 2: tau = 1.32e-06 s (f = 120573.34 Hz), gamma = 7564.5380
+Peak 3: tau = 4.03e-07 s (f = 395126.38 Hz), gamma = 6764.9822
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 6.64e-06 | 1.20e+04 | 7.99e+02 | 8.59e-09 | 0.708
+   2 | 6.60e-06 | 1.20e+04 | 5.01e+02 | 2.64e-09 | 0.584
+   3 | 1.36e-06 | 7.56e+03 | 4.47e+02 | 9.01e-10 | 0.654
+
+Total series resistance: 1823.35 Ohm
+High-frequency resistance (R_inf): 76.84 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.32 %
+  Imag residual  : 4.79 %
+  Total residual : 1.20 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5740e+03
+  Max std. band  : 2.2664e+03
+  Mean CV        : 37.13 %
+  Max CV         : 181.28 %
+Run complete at 2026-07-09 04:07:10
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 51.2 - 24143.3 Ohm
+Phase range: -96.25 - 96.81 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   72.966, Mean residual =   85.818
+lambda = 1.0e-03: R_inf =   70.579, Mean residual =   88.714
+lambda = 1.0e-02: R_inf =   64.439, Mean residual =  102.393
+lambda = 1.0e-01: R_inf =   45.291, Mean residual =  174.551
+lambda = 1.0e+00: R_inf =  117.401, Mean residual =  559.868
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 72.966118
+DRT vector length = 198
+
+Mean absolute residual: 85.817924
+Max absolute residual : 1434.849657
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 85.817924
+  Min residual change   : -0.28 %
+  Max residual change   : 0.81 %
+  Max abs change        : 0.81 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 368.2
+  Peak 2: gamma = 10784.7
+  Peak 3: gamma = 6690.1
+  Peak 4: gamma = 5955.2
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 10784.7
+  Peak 2: gamma = 6690.1
+  Peak 3: gamma = 5955.2
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 10784.7
+  Peak 2: gamma = 6690.1
+  Peak 3: gamma = 5955.2
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 10784.7
+  Peak 2: gamma = 6690.1
+  Peak 3: gamma = 5955.2
+
+Using height threshold: 539.2
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 6.02e-06 s (f = 26459.18 Hz), gamma = 10784.6987
+Peak 2: tau = 1.16e-06 s (f = 137571.16 Hz), gamma = 6690.0802
+Peak 3: tau = 3.77e-07 s (f = 422059.88 Hz), gamma = 5955.2121
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 6.22e-06 | 1.08e+04 | 7.17e+02 | 8.39e-09 | 0.708
+   2 | 5.78e-06 | 1.07e+04 | 4.43e+02 | 2.61e-09 | 0.584
+   3 | 1.11e-06 | 6.69e+03 | 3.93e+02 | 9.59e-10 | 0.647
+
+Total series resistance: 1625.83 Ohm
+High-frequency resistance (R_inf): 72.97 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.40 %
+  Imag residual  : 5.39 %
+  Total residual : 1.35 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6386e+03
+  Max std. band  : 2.0408e+03
+  Mean CV        : 43.05 %
+  Max CV         : 268.59 %
+Run complete at 2026-07-09 04:07:17
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 51.1 - 23856.2 Ohm
+Phase range: -96.26 - 96.92 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   70.995, Mean residual =   84.210
+lambda = 1.0e-03: R_inf =   68.412, Mean residual =   87.367
+lambda = 1.0e-02: R_inf =   61.699, Mean residual =  100.457
+lambda = 1.0e-01: R_inf =   42.237, Mean residual =  172.257
+lambda = 1.0e+00: R_inf =  114.037, Mean residual =  554.787
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 70.994518
+DRT vector length = 198
+
+Mean absolute residual: 84.210113
+Max absolute residual : 1432.808592
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 84.210113
+  Min residual change   : -0.54 %
+  Max residual change   : 1.07 %
+  Max abs change        : 1.07 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 164.7
+  Peak 2: gamma = 11020.3
+  Peak 3: gamma = 6748.4
+  Peak 4: gamma = 6324.8
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 11020.3
+  Peak 2: gamma = 6748.4
+  Peak 3: gamma = 6324.8
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 11020.3
+  Peak 2: gamma = 6748.4
+  Peak 3: gamma = 6324.8
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 11020.3
+  Peak 2: gamma = 6748.4
+  Peak 3: gamma = 6324.8
+
+Using height threshold: 551.0
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 6.02e-06 s (f = 26459.18 Hz), gamma = 11020.2926
+Peak 2: tau = 1.24e-06 s (f = 128792.14 Hz), gamma = 6748.3917
+Peak 3: tau = 3.30e-07 s (f = 481559.72 Hz), gamma = 6324.8423
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 6.22e-06 | 1.10e+04 | 7.33e+02 | 8.20e-09 | 0.708
+   2 | 6.18e-06 | 1.10e+04 | 4.47e+02 | 2.76e-09 | 0.584
+   3 | 1.19e-06 | 6.75e+03 | 4.18e+02 | 7.91e-10 | 0.661
+
+Total series resistance: 1669.07 Ohm
+High-frequency resistance (R_inf): 70.99 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.41 %
+  Imag residual  : 5.41 %
+  Total residual : 1.36 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4570e+03
+  Max std. band  : 2.3456e+03
+  Mean CV        : 39.27 %
+  Max CV         : 209.05 %
+Run complete at 2026-07-09 04:07:25
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 50.9 - 22079.1 Ohm
+Phase range: -96.73 - 97.54 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   72.064, Mean residual =   83.537
+lambda = 1.0e-03: R_inf =   69.865, Mean residual =   86.498
+lambda = 1.0e-02: R_inf =   63.923, Mean residual =   98.721
+lambda = 1.0e-01: R_inf =   45.780, Mean residual =  164.772
+lambda = 1.0e+00: R_inf =  114.482, Mean residual =  515.043
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 72.063737
+DRT vector length = 198
+
+Mean absolute residual: 83.536836
+Max absolute residual : 1429.635711
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 83.536836
+  Min residual change   : -0.44 %
+  Max residual change   : 1.02 %
+  Max abs change        : 1.02 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 355.1
+  Peak 2: gamma = 10208.4
+  Peak 3: gamma = 5996.7
+  Peak 4: gamma = 5585.8
+  Peak 5: gamma = 5239.0
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 10208.4
+  Peak 2: gamma = 5996.7
+  Peak 3: gamma = 5585.8
+  Peak 4: gamma = 5239.0
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 10208.4
+  Peak 2: gamma = 5996.7
+  Peak 3: gamma = 5585.8
+  Peak 4: gamma = 5239.0
+Threshold 0.15: Found 4 peaks
+  Peak 1: gamma = 10208.4
+  Peak 2: gamma = 5996.7
+  Peak 3: gamma = 5585.8
+  Peak 4: gamma = 5239.0
+
+Using height threshold: 510.4
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 5.63e-06 s (f = 28262.75 Hz), gamma = 10208.3931
+Peak 2: tau = 1.08e-06 s (f = 146948.59 Hz), gamma = 5996.6676
+Peak 3: tau = 3.77e-07 s (f = 422059.88 Hz), gamma = 5585.8426
+Peak 4: tau = 1.95e-07 s (f = 816120.85 Hz), gamma = 5239.0163
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 5.45e-06 | 1.02e+04 | 6.79e+02 | 8.29e-09 | 0.716
+   2 | 5.42e-06 | 1.02e+04 | 3.97e+02 | 2.73e-09 | 0.584
+   3 | 1.11e-06 | 6.00e+03 | 3.69e+02 | 1.02e-09 | 0.640
+   4 | 9.75e-07 | 5.86e+03 | 3.47e+02 | 5.63e-10 | 0.716
+
+Total series resistance: 1863.82 Ohm
+High-frequency resistance (R_inf): 72.06 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.40 %
+  Imag residual  : 5.83 %
+  Total residual : 1.44 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6129e+03
+  Max std. band  : 2.0456e+03
+  Mean CV        : 41.80 %
+  Max CV         : 118.49 %
+Run complete at 2026-07-09 04:07:33
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 50.8 - 21669.8 Ohm
+Phase range: -96.30 - 97.47 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   70.631, Mean residual =   80.930
+lambda = 1.0e-03: R_inf =   68.365, Mean residual =   83.941
+lambda = 1.0e-02: R_inf =   62.499, Mean residual =   95.970
+lambda = 1.0e-01: R_inf =   45.271, Mean residual =  160.410
+lambda = 1.0e+00: R_inf =  113.765, Mean residual =  505.458
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 70.631007
+DRT vector length = 198
+
+Mean absolute residual: 80.930358
+Max absolute residual : 1426.427738
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 80.930358
+  Min residual change   : -0.62 %
+  Max residual change   : 1.11 %
+  Max abs change        : 1.11 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 214.7
+  Peak 2: gamma = 9981.9
+  Peak 3: gamma = 6018.9
+  Peak 4: gamma = 5326.0
+  Peak 5: gamma = 5225.8
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 9981.9
+  Peak 2: gamma = 6018.9
+  Peak 3: gamma = 5326.0
+  Peak 4: gamma = 5225.8
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 9981.9
+  Peak 2: gamma = 6018.9
+  Peak 3: gamma = 5326.0
+  Peak 4: gamma = 5225.8
+Threshold 0.15: Found 4 peaks
+  Peak 1: gamma = 9981.9
+  Peak 2: gamma = 6018.9
+  Peak 3: gamma = 5326.0
+  Peak 4: gamma = 5225.8
+
+Using height threshold: 499.1
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 5.63e-06 s (f = 28262.75 Hz), gamma = 9981.8976
+Peak 2: tau = 1.08e-06 s (f = 146948.59 Hz), gamma = 6018.8969
+Peak 3: tau = 3.77e-07 s (f = 422059.88 Hz), gamma = 5326.0063
+Peak 4: tau = 1.95e-07 s (f = 816120.85 Hz), gamma = 5225.8476
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 5.45e-06 | 9.98e+03 | 6.64e+02 | 8.48e-09 | 0.716
+   2 | 5.42e-06 | 9.97e+03 | 3.98e+02 | 2.72e-09 | 0.584
+   3 | 1.11e-06 | 6.02e+03 | 3.52e+02 | 1.07e-09 | 0.640
+   4 | 9.75e-07 | 5.89e+03 | 3.45e+02 | 5.65e-10 | 0.716
+
+Total series resistance: 1830.39 Ohm
+High-frequency resistance (R_inf): 70.63 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.40 %
+  Imag residual  : 5.90 %
+  Total residual : 1.45 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6537e+03
+  Max std. band  : 2.3338e+03
+  Mean CV        : 44.94 %
+  Max CV         : 159.10 %
+Run complete at 2026-07-09 04:07:42
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 51.0 - 20497.0 Ohm
+Phase range: -96.30 - 97.44 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   70.901, Mean residual =   79.396
+lambda = 1.0e-03: R_inf =   68.009, Mean residual =   82.196
+lambda = 1.0e-02: R_inf =   61.308, Mean residual =   94.413
+lambda = 1.0e-01: R_inf =   43.323, Mean residual =  158.696
+lambda = 1.0e+00: R_inf =  110.462, Mean residual =  483.895
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 70.901376
+DRT vector length = 198
+
+Mean absolute residual: 79.395858
+Max absolute residual : 1428.600287
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 79.395858
+  Min residual change   : -0.06 %
+  Max residual change   : 0.76 %
+  Max abs change        : 0.76 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 9613.9
+  Peak 2: gamma = 6136.9
+  Peak 3: gamma = 6213.3
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 9613.9
+  Peak 2: gamma = 6136.9
+  Peak 3: gamma = 6213.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 9613.9
+  Peak 2: gamma = 6136.9
+  Peak 3: gamma = 6213.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 9613.9
+  Peak 2: gamma = 6136.9
+  Peak 3: gamma = 6213.3
+
+Using height threshold: 480.7
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 5.27e-06 s (f = 30189.26 Hz), gamma = 9613.9039
+Peak 2: tau = 9.49e-07 s (f = 167664.65 Hz), gamma = 6136.9352
+Peak 3: tau = 2.08e-07 s (f = 764040.59 Hz), gamma = 6213.3104
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 5.10e-06 | 9.63e+03 | 6.40e+02 | 8.24e-09 | 0.716
+   2 | 4.75e-06 | 9.39e+03 | 4.06e+02 | 2.34e-09 | 0.584
+   3 | 2.02e-07 | 6.21e+03 | 4.12e+02 | 5.06e-10 | 0.716
+
+Total series resistance: 1528.74 Ohm
+High-frequency resistance (R_inf): 70.90 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.39 %
+  Imag residual  : 6.19 %
+  Total residual : 1.51 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6819e+03
+  Max std. band  : 2.2334e+03
+  Mean CV        : 43.88 %
+  Max CV         : 142.04 %
+Run complete at 2026-07-09 04:07:50
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 51.6 - 19097.4 Ohm
+Phase range: -96.17 - 97.65 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   74.434, Mean residual =   76.802
+lambda = 1.0e-03: R_inf =   71.976, Mean residual =   79.634
+lambda = 1.0e-02: R_inf =   65.826, Mean residual =   90.479
+lambda = 1.0e-01: R_inf =   49.178, Mean residual =  148.920
+lambda = 1.0e+00: R_inf =  114.054, Mean residual =  451.561
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 74.433843
+DRT vector length = 198
+
+Mean absolute residual: 76.801713
+Max absolute residual : 1431.781042
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 76.801713
+  Min residual change   : -0.59 %
+  Max residual change   : 1.07 %
+  Max abs change        : 1.07 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 150.5
+  Peak 2: gamma = 8643.8
+  Peak 3: gamma = 5352.5
+  Peak 4: gamma = 5698.1
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 8643.8
+  Peak 2: gamma = 5352.5
+  Peak 3: gamma = 5698.1
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 8643.8
+  Peak 2: gamma = 5352.5
+  Peak 3: gamma = 5698.1
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 8643.8
+  Peak 2: gamma = 5352.5
+  Peak 3: gamma = 5698.1
+
+Using height threshold: 432.2
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.94e-06 s (f = 32247.09 Hz), gamma = 8643.7518
+Peak 2: tau = 8.89e-07 s (f = 179093.39 Hz), gamma = 5352.5437
+Peak 3: tau = 1.83e-07 s (f = 871751.11 Hz), gamma = 5698.1398
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 4.78e-06 | 8.66e+03 | 5.75e+02 | 8.58e-09 | 0.708
+   2 | 4.44e-06 | 8.44e+03 | 3.54e+02 | 2.51e-09 | 0.584
+   3 | 1.77e-07 | 5.71e+03 | 3.78e+02 | 4.83e-10 | 0.716
+
+Total series resistance: 1381.90 Ohm
+High-frequency resistance (R_inf): 74.43 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.38 %
+  Imag residual  : 6.65 %
+  Total residual : 1.60 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5271e+03
+  Max std. band  : 2.1745e+03
+  Mean CV        : 43.52 %
+  Max CV         : 167.59 %
+Run complete at 2026-07-09 04:07:59
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 51.9 - 17841.4 Ohm
+Phase range: -97.16 - 96.97 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   75.785, Mean residual =   76.002
+lambda = 1.0e-03: R_inf =   73.498, Mean residual =   78.306
+lambda = 1.0e-02: R_inf =   67.117, Mean residual =   89.234
+lambda = 1.0e-01: R_inf =   50.553, Mean residual =  147.086
+lambda = 1.0e+00: R_inf =  114.310, Mean residual =  422.078
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 75.784901
+DRT vector length = 198
+
+Mean absolute residual: 76.002440
+Max absolute residual : 1433.037410
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 76.002440
+  Min residual change   : -0.56 %
+  Max residual change   : 0.86 %
+  Max abs change        : 0.86 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 167.1
+  Peak 2: gamma = 8100.2
+  Peak 3: gamma = 4402.4
+  Peak 4: gamma = 5559.3
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 8100.2
+  Peak 2: gamma = 4402.4
+  Peak 3: gamma = 5559.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 8100.2
+  Peak 2: gamma = 4402.4
+  Peak 3: gamma = 5559.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 8100.2
+  Peak 2: gamma = 4402.4
+  Peak 3: gamma = 5559.3
+
+Using height threshold: 405.0
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.62e-06 s (f = 34445.19 Hz), gamma = 8100.2304
+Peak 2: tau = 7.79e-07 s (f = 204341.05 Hz), gamma = 4402.4440
+Peak 3: tau = 1.71e-07 s (f = 931173.38 Hz), gamma = 5559.3347
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 4.47e-06 | 8.10e+03 | 5.39e+02 | 8.57e-09 | 0.708
+   2 | 3.89e-06 | 7.45e+03 | 2.91e+02 | 2.68e-09 | 0.584
+   3 | 1.65e-07 | 5.58e+03 | 3.70e+02 | 4.62e-10 | 0.725
+
+Total series resistance: 1275.07 Ohm
+High-frequency resistance (R_inf): 75.78 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.28 %
+  Imag residual  : 2.39 %
+  Total residual : 0.62 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5533e+03
+  Max std. band  : 2.1990e+03
+  Mean CV        : 48.16 %
+  Max CV         : 141.94 %
+Run complete at 2026-07-09 04:08:07
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.4 - 16871.1 Ohm
+Phase range: -97.31 - 97.52 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   77.088, Mean residual =   75.894
+lambda = 1.0e-03: R_inf =   74.638, Mean residual =   78.457
+lambda = 1.0e-02: R_inf =   69.018, Mean residual =   87.109
+lambda = 1.0e-01: R_inf =   54.715, Mean residual =  136.385
+lambda = 1.0e+00: R_inf =  116.512, Mean residual =  401.611
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 77.087536
+DRT vector length = 198
+
+Mean absolute residual: 75.893743
+Max absolute residual : 1434.446952
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 75.893743
+  Min residual change   : -0.49 %
+  Max residual change   : 0.94 %
+  Max abs change        : 0.94 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 7534.0
+  Peak 2: gamma = 4611.1
+  Peak 3: gamma = 5628.0
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 7534.0
+  Peak 2: gamma = 4611.1
+  Peak 3: gamma = 5628.0
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 7534.0
+  Peak 2: gamma = 4611.1
+  Peak 3: gamma = 5628.0
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 7534.0
+  Peak 2: gamma = 4611.1
+  Peak 3: gamma = 5628.0
+
+Using height threshold: 376.7
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.33e-06 s (f = 36793.12 Hz), gamma = 7534.0056
+Peak 2: tau = 8.32e-07 s (f = 191301.15 Hz), gamma = 4611.0820
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5628.0237
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 4.47e-06 | 7.53e+03 | 5.01e+02 | 8.63e-09 | 0.708
+   2 | 4.16e-06 | 7.46e+03 | 3.05e+02 | 2.73e-09 | 0.584
+   3 | 1.55e-07 | 5.64e+03 | 3.75e+02 | 4.00e-10 | 0.734
+
+Total series resistance: 1257.77 Ohm
+High-frequency resistance (R_inf): 77.09 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.30 %
+  Imag residual  : 2.30 %
+  Total residual : 0.61 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4973e+03
+  Max std. band  : 2.0640e+03
+  Mean CV        : 50.43 %
+  Max CV         : 178.40 %
+Run complete at 2026-07-09 04:08:15
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.3 - 16348.8 Ohm
+Phase range: -99.22 - 97.72 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   77.920, Mean residual =   73.686
+lambda = 1.0e-03: R_inf =   75.272, Mean residual =   76.188
+lambda = 1.0e-02: R_inf =   69.794, Mean residual =   84.733
+lambda = 1.0e-01: R_inf =   55.937, Mean residual =  132.708
+lambda = 1.0e+00: R_inf =  117.160, Mean residual =  389.909
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 77.919656
+DRT vector length = 198
+
+Mean absolute residual: 73.686196
+Max absolute residual : 1432.208563
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 73.686196
+  Min residual change   : -0.30 %
+  Max residual change   : 0.87 %
+  Max abs change        : 0.87 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 7176.3
+  Peak 2: gamma = 4851.6
+  Peak 3: gamma = 6126.2
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 7176.3
+  Peak 2: gamma = 4851.6
+  Peak 3: gamma = 6126.2
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 7176.3
+  Peak 2: gamma = 4851.6
+  Peak 3: gamma = 6126.2
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 7176.3
+  Peak 2: gamma = 4851.6
+  Peak 3: gamma = 6126.2
+
+Using height threshold: 358.8
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.33e-06 s (f = 36793.12 Hz), gamma = 7176.2526
+Peak 2: tau = 6.83e-07 s (f = 233148.01 Hz), gamma = 4851.5591
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 6126.1534
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 4.19e-06 | 7.19e+03 | 4.77e+02 | 9.07e-09 | 0.708
+   2 | 3.41e-06 | 6.17e+03 | 3.21e+02 | 2.13e-09 | 0.584
+   3 | 1.55e-07 | 6.13e+03 | 4.08e+02 | 3.67e-10 | 0.734
+
+Total series resistance: 1284.35 Ohm
+High-frequency resistance (R_inf): 77.92 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.33 %
+  Total residual : 0.61 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5742e+03
+  Max std. band  : 2.6154e+03
+  Mean CV        : 53.63 %
+  Max CV         : 219.77 %
+Run complete at 2026-07-09 04:08:23
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.5 - 16336.1 Ohm
+Phase range: -99.98 - 97.34 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   80.256, Mean residual =   73.761
+lambda = 1.0e-03: R_inf =   77.708, Mean residual =   76.455
+lambda = 1.0e-02: R_inf =   72.098, Mean residual =   85.070
+lambda = 1.0e-01: R_inf =   57.881, Mean residual =  132.728
+lambda = 1.0e+00: R_inf =  118.753, Mean residual =  390.440
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 80.256409
+DRT vector length = 198
+
+Mean absolute residual: 73.761381
+Max absolute residual : 1436.531596
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 73.761381
+  Min residual change   : -0.53 %
+  Max residual change   : 1.16 %
+  Max abs change        : 1.16 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 115.5
+  Peak 2: gamma = 7364.4
+  Peak 3: gamma = 4736.1
+  Peak 4: gamma = 5735.7
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 7364.4
+  Peak 2: gamma = 4736.1
+  Peak 3: gamma = 5735.7
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 7364.4
+  Peak 2: gamma = 4736.1
+  Peak 3: gamma = 5735.7
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 7364.4
+  Peak 2: gamma = 4736.1
+  Peak 3: gamma = 5735.7
+
+Using height threshold: 368.2
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.33e-06 s (f = 36793.12 Hz), gamma = 7364.3546
+Peak 2: tau = 7.29e-07 s (f = 218269.81 Hz), gamma = 4736.1412
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5735.6874
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 4.19e-06 | 7.38e+03 | 4.90e+02 | 8.83e-09 | 0.716
+   2 | 3.65e-06 | 6.82e+03 | 3.13e+02 | 2.33e-09 | 0.584
+   3 | 1.55e-07 | 5.75e+03 | 3.82e+02 | 3.92e-10 | 0.734
+
+Total series resistance: 1265.61 Ohm
+High-frequency resistance (R_inf): 80.26 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.28 %
+  Imag residual  : 2.36 %
+  Total residual : 0.61 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5773e+03
+  Max std. band  : 2.2292e+03
+  Mean CV        : 57.50 %
+  Max CV         : 190.09 %
+Run complete at 2026-07-09 04:08:31
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.4 - 16139.5 Ohm
+Phase range: -100.95 - 97.78 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   76.564, Mean residual =   74.714
+lambda = 1.0e-03: R_inf =   74.161, Mean residual =   76.941
+lambda = 1.0e-02: R_inf =   68.541, Mean residual =   85.729
+lambda = 1.0e-01: R_inf =   54.087, Mean residual =  133.772
+lambda = 1.0e+00: R_inf =  114.931, Mean residual =  386.917
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 76.564107
+DRT vector length = 198
+
+Mean absolute residual: 74.714379
+Max absolute residual : 1431.708037
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 74.714379
+  Min residual change   : -0.06 %
+  Max residual change   : 0.62 %
+  Max abs change        : 0.62 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 163.5
+  Peak 2: gamma = 7165.3
+  Peak 3: gamma = 4661.2
+  Peak 4: gamma = 5839.3
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 7165.3
+  Peak 2: gamma = 4661.2
+  Peak 3: gamma = 5839.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 7165.3
+  Peak 2: gamma = 4661.2
+  Peak 3: gamma = 5839.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 7165.3
+  Peak 2: gamma = 4661.2
+  Peak 3: gamma = 5839.3
+
+Using height threshold: 358.3
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.05e-06 s (f = 39301.09 Hz), gamma = 7165.2868
+Peak 2: tau = 6.83e-07 s (f = 233148.01 Hz), gamma = 4661.2131
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5839.3086
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 4.18e-06 | 7.17e+03 | 4.76e+02 | 8.50e-09 | 0.708
+   2 | 3.41e-06 | 6.36e+03 | 3.08e+02 | 2.22e-09 | 0.584
+   3 | 1.55e-07 | 5.84e+03 | 3.89e+02 | 3.85e-10 | 0.734
+
+Total series resistance: 1250.00 Ohm
+High-frequency resistance (R_inf): 76.56 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.28 %
+  Imag residual  : 2.36 %
+  Total residual : 0.61 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4271e+03
+  Max std. band  : 1.9779e+03
+  Mean CV        : 46.27 %
+  Max CV         : 155.31 %
+Run complete at 2026-07-09 04:08:40
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.6 - 15915.0 Ohm
+Phase range: -100.13 - 97.39 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   81.373, Mean residual =   76.089
+lambda = 1.0e-03: R_inf =   79.288, Mean residual =   77.827
+lambda = 1.0e-02: R_inf =   73.649, Mean residual =   85.438
+lambda = 1.0e-01: R_inf =   58.979, Mean residual =  131.423
+lambda = 1.0e+00: R_inf =  118.699, Mean residual =  383.881
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 81.373333
+DRT vector length = 198
+
+Mean absolute residual: 76.088814
+Max absolute residual : 1430.565346
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 76.088814
+  Min residual change   : -0.31 %
+  Max residual change   : 0.68 %
+  Max abs change        : 0.68 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 198.1
+  Peak 2: gamma = 6742.5
+  Peak 3: gamma = 4307.9
+  Peak 4: gamma = 5235.5
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6742.5
+  Peak 2: gamma = 4307.9
+  Peak 3: gamma = 5235.5
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6742.5
+  Peak 2: gamma = 4307.9
+  Peak 3: gamma = 5235.5
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6742.5
+  Peak 2: gamma = 4307.9
+  Peak 3: gamma = 5235.5
+
+Using height threshold: 337.1
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.05e-06 s (f = 39301.09 Hz), gamma = 6742.5073
+Peak 2: tau = 7.29e-07 s (f = 218269.81 Hz), gamma = 4307.9365
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5235.5433
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.74e+03 | 4.48e+02 | 9.04e-09 | 0.708
+   2 | 3.65e-06 | 6.51e+03 | 2.85e+02 | 2.56e-09 | 0.584
+   3 | 1.45e-07 | 5.24e+03 | 3.49e+02 | 4.29e-10 | 0.725
+
+Total series resistance: 1163.12 Ohm
+High-frequency resistance (R_inf): 81.37 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.39 %
+  Total residual : 0.62 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6595e+03
+  Max std. band  : 2.4168e+03
+  Mean CV        : 62.48 %
+  Max CV         : 262.41 %
+Run complete at 2026-07-09 04:08:48
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.8 - 15768.3 Ohm
+Phase range: -100.61 - 97.68 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   83.235, Mean residual =   82.766
+lambda = 1.0e-03: R_inf =   81.152, Mean residual =   83.358
+lambda = 1.0e-02: R_inf =   76.243, Mean residual =   89.094
+lambda = 1.0e-01: R_inf =   63.071, Mean residual =  128.993
+lambda = 1.0e+00: R_inf =  122.132, Mean residual =  377.575
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 83.234850
+DRT vector length = 198
+
+Mean absolute residual: 82.765686
+Max absolute residual : 1434.924852
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 82.765686
+  Min residual change   : -0.00 %
+  Max residual change   : 0.07 %
+  Max abs change        : 0.07 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 283.4
+  Peak 2: gamma = 6299.0
+  Peak 3: gamma = 4468.3
+  Peak 4: gamma = 5558.2
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6299.0
+  Peak 2: gamma = 4468.3
+  Peak 3: gamma = 5558.2
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6299.0
+  Peak 2: gamma = 4468.3
+  Peak 3: gamma = 5558.2
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6299.0
+  Peak 2: gamma = 4468.3
+  Peak 3: gamma = 5558.2
+
+Using height threshold: 315.0
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.33e-06 s (f = 36793.12 Hz), gamma = 6299.0043
+Peak 2: tau = 5.60e-07 s (f = 284148.80 Hz), gamma = 4468.3308
+Peak 3: tau = 1.40e-07 s (f = 1134866.23 Hz), gamma = 5558.2170
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 4.19e-06 | 6.31e+03 | 4.19e+02 | 1.03e-08 | 0.708
+   2 | 1.46e-07 | 5.52e+03 | 2.95e+02 | 1.90e-09 | 0.584
+   3 | 1.45e-07 | 5.56e+03 | 3.71e+02 | 3.78e-10 | 0.734
+
+Total series resistance: 1168.18 Ohm
+High-frequency resistance (R_inf): 83.23 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.30 %
+  Imag residual  : 2.43 %
+  Total residual : 0.63 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6834e+03
+  Max std. band  : 2.2545e+03
+  Mean CV        : 53.98 %
+  Max CV         : 153.93 %
+Run complete at 2026-07-09 04:08:57
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.3 - 15428.5 Ohm
+Phase range: -100.42 - 97.58 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   76.016, Mean residual =   78.589
+lambda = 1.0e-03: R_inf =   73.323, Mean residual =   79.636
+lambda = 1.0e-02: R_inf =   67.440, Mean residual =   85.464
+lambda = 1.0e-01: R_inf =   53.529, Mean residual =  129.364
+lambda = 1.0e+00: R_inf =  113.677, Mean residual =  372.087
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 76.015572
+DRT vector length = 198
+
+Mean absolute residual: 78.588682
+Max absolute residual : 1434.497780
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 78.588682
+  Min residual change   : 0.00 %
+  Max residual change   : 0.18 %
+  Max abs change        : 0.18 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 7167.1
+  Peak 2: gamma = 4668.4
+  Peak 3: gamma = 5975.8
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 7167.1
+  Peak 2: gamma = 4668.4
+  Peak 3: gamma = 5975.8
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 7167.1
+  Peak 2: gamma = 4668.4
+  Peak 3: gamma = 5975.8
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 7167.1
+  Peak 2: gamma = 4668.4
+  Peak 3: gamma = 5975.8
+
+Using height threshold: 358.4
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.05e-06 s (f = 39301.09 Hz), gamma = 7167.1170
+Peak 2: tau = 7.29e-07 s (f = 218269.81 Hz), gamma = 4668.4254
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5975.7572
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 7.17e+03 | 4.77e+02 | 8.49e-09 | 0.716
+   2 | 3.65e-06 | 6.93e+03 | 3.09e+02 | 2.36e-09 | 0.584
+   3 | 1.55e-07 | 5.98e+03 | 3.98e+02 | 3.76e-10 | 0.734
+
+Total series resistance: 1260.41 Ohm
+High-frequency resistance (R_inf): 76.02 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.55 %
+  Imag residual  : 7.96 %
+  Total residual : 1.92 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4113e+03
+  Max std. band  : 2.0173e+03
+  Mean CV        : 52.36 %
+  Max CV         : 190.22 %
+Run complete at 2026-07-09 04:09:06
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.2 - 16080.9 Ohm
+Phase range: -100.58 - 97.60 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   79.086, Mean residual =   75.889
+lambda = 1.0e-03: R_inf =   76.606, Mean residual =   78.176
+lambda = 1.0e-02: R_inf =   70.449, Mean residual =   86.130
+lambda = 1.0e-01: R_inf =   54.808, Mean residual =  134.339
+lambda = 1.0e+00: R_inf =  114.849, Mean residual =  392.214
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 79.086406
+DRT vector length = 198
+
+Mean absolute residual: 75.889100
+Max absolute residual : 1435.607821
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 75.889100
+  Min residual change   : -0.41 %
+  Max residual change   : 0.97 %
+  Max abs change        : 0.97 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 127.5
+  Peak 2: gamma = 6834.8
+  Peak 3: gamma = 4874.9
+  Peak 4: gamma = 5930.8
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6834.8
+  Peak 2: gamma = 4874.9
+  Peak 3: gamma = 5930.8
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6834.8
+  Peak 2: gamma = 4874.9
+  Peak 3: gamma = 5930.8
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6834.8
+  Peak 2: gamma = 4874.9
+  Peak 3: gamma = 5930.8
+
+Using height threshold: 341.7
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.05e-06 s (f = 39301.09 Hz), gamma = 6834.7934
+Peak 2: tau = 6.83e-07 s (f = 233148.01 Hz), gamma = 4874.9352
+Peak 3: tau = 1.60e-07 s (f = 994646.12 Hz), gamma = 5930.7982
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.84e+03 | 4.54e+02 | 8.91e-09 | 0.708
+   2 | 3.41e-06 | 6.31e+03 | 3.22e+02 | 2.12e-09 | 0.584
+   3 | 1.65e-07 | 5.93e+03 | 3.96e+02 | 4.04e-10 | 0.725
+
+Total series resistance: 1251.80 Ohm
+High-frequency resistance (R_inf): 79.09 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.55 %
+  Total residual : 0.65 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4394e+03
+  Max std. band  : 2.2500e+03
+  Mean CV        : 50.15 %
+  Max CV         : 167.95 %
+Run complete at 2026-07-09 04:09:14
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.1 - 15869.6 Ohm
+Phase range: -101.51 - 97.40 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   79.174, Mean residual =   74.439
+lambda = 1.0e-03: R_inf =   76.525, Mean residual =   76.590
+lambda = 1.0e-02: R_inf =   69.579, Mean residual =   84.611
+lambda = 1.0e-01: R_inf =   53.577, Mean residual =  134.006
+lambda = 1.0e+00: R_inf =  113.948, Mean residual =  386.434
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 79.173664
+DRT vector length = 198
+
+Mean absolute residual: 74.439352
+Max absolute residual : 1432.363816
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 74.439352
+  Min residual change   : -0.44 %
+  Max residual change   : 1.00 %
+  Max abs change        : 1.00 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 126.7
+  Peak 2: gamma = 6878.9
+  Peak 3: gamma = 4440.7
+  Peak 4: gamma = 5823.1
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6878.9
+  Peak 2: gamma = 4440.7
+  Peak 3: gamma = 5823.1
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6878.9
+  Peak 2: gamma = 4440.7
+  Peak 3: gamma = 5823.1
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6878.9
+  Peak 2: gamma = 4440.7
+  Peak 3: gamma = 5823.1
+
+Using height threshold: 343.9
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.05e-06 s (f = 39301.09 Hz), gamma = 6878.8744
+Peak 2: tau = 7.79e-07 s (f = 204341.05 Hz), gamma = 4440.7407
+Peak 3: tau = 1.60e-07 s (f = 994646.12 Hz), gamma = 5823.0959
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.89e+03 | 4.58e+02 | 8.85e-09 | 0.708
+   2 | 3.89e-06 | 6.88e+03 | 2.94e+02 | 2.65e-09 | 0.584
+   3 | 1.65e-07 | 5.85e+03 | 3.88e+02 | 4.12e-10 | 0.725
+
+Total series resistance: 1219.01 Ohm
+High-frequency resistance (R_inf): 79.17 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.63 %
+  Total residual : 0.67 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6349e+03
+  Max std. band  : 2.5188e+03
+  Mean CV        : 51.27 %
+  Max CV         : 206.20 %
+Run complete at 2026-07-09 04:09:22
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.3 - 15797.8 Ohm
+Phase range: -100.86 - 97.59 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   81.001, Mean residual =   78.003
+lambda = 1.0e-03: R_inf =   78.862, Mean residual =   79.669
+lambda = 1.0e-02: R_inf =   72.121, Mean residual =   88.031
+lambda = 1.0e-01: R_inf =   55.891, Mean residual =  136.451
+lambda = 1.0e+00: R_inf =  115.999, Mean residual =  384.101
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 81.001241
+DRT vector length = 198
+
+Mean absolute residual: 78.003015
+Max absolute residual : 1437.540208
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 78.003015
+  Min residual change   : -0.32 %
+  Max residual change   : 0.60 %
+  Max abs change        : 0.60 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 172.3
+  Peak 2: gamma = 6512.0
+  Peak 3: gamma = 5272.1
+Threshold 0.05: Found 2 peaks
+  Peak 1: gamma = 6512.0
+  Peak 2: gamma = 5272.1
+Threshold 0.10: Found 2 peaks
+  Peak 1: gamma = 6512.0
+  Peak 2: gamma = 5272.1
+Threshold 0.15: Found 2 peaks
+  Peak 1: gamma = 6512.0
+  Peak 2: gamma = 5272.1
+
+Using height threshold: 325.6
+
+Found 2 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6512.0275
+Peak 2: tau = 1.60e-07 s (f = 994646.12 Hz), gamma = 5272.1400
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.52e+03 | 4.32e+02 | 8.77e-09 | 0.700
+   2 | 1.55e-07 | 5.28e+03 | 3.51e+02 | 4.56e-10 | 0.725
+
+Total series resistance: 864.19 Ohm
+High-frequency resistance (R_inf): 81.00 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.28 %
+  Imag residual  : 2.66 %
+  Total residual : 0.67 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5322e+03
+  Max std. band  : 2.0692e+03
+  Mean CV        : 52.24 %
+  Max CV         : 195.71 %
+Run complete at 2026-07-09 04:09:31
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.5 - 15547.4 Ohm
+Phase range: -100.94 - 97.57 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   80.512, Mean residual =   74.786
+lambda = 1.0e-03: R_inf =   78.026, Mean residual =   76.990
+lambda = 1.0e-02: R_inf =   70.914, Mean residual =   85.395
+lambda = 1.0e-01: R_inf =   54.877, Mean residual =  135.640
+lambda = 1.0e+00: R_inf =  114.952, Mean residual =  378.240
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 80.511608
+DRT vector length = 198
+
+Mean absolute residual: 74.786001
+Max absolute residual : 1432.861307
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 74.786001
+  Min residual change   : -0.48 %
+  Max residual change   : 1.00 %
+  Max abs change        : 1.00 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 185.0
+  Peak 2: gamma = 6711.9
+  Peak 3: gamma = 3886.7
+  Peak 4: gamma = 5514.4
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6711.9
+  Peak 2: gamma = 3886.7
+  Peak 3: gamma = 5514.4
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6711.9
+  Peak 2: gamma = 3886.7
+  Peak 3: gamma = 5514.4
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6711.9
+  Peak 2: gamma = 3886.7
+  Peak 3: gamma = 5514.4
+
+Using height threshold: 335.6
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 4.05e-06 s (f = 39301.09 Hz), gamma = 6711.9453
+Peak 2: tau = 7.29e-07 s (f = 218269.81 Hz), gamma = 3886.7045
+Peak 3: tau = 1.60e-07 s (f = 994646.12 Hz), gamma = 5514.3922
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.74e+03 | 4.47e+02 | 9.07e-09 | 0.716
+   2 | 3.65e-06 | 6.61e+03 | 2.57e+02 | 2.84e-09 | 0.584
+   3 | 1.65e-07 | 5.51e+03 | 3.67e+02 | 4.36e-10 | 0.725
+
+Total series resistance: 1151.13 Ohm
+High-frequency resistance (R_inf): 80.51 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.72 %
+  Total residual : 0.69 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4507e+03
+  Max std. band  : 1.9514e+03
+  Mean CV        : 43.93 %
+  Max CV         : 125.46 %
+Run complete at 2026-07-09 04:09:39
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.5 - 15484.5 Ohm
+Phase range: -101.83 - 97.42 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   80.165, Mean residual =   75.072
+lambda = 1.0e-03: R_inf =   77.811, Mean residual =   77.161
+lambda = 1.0e-02: R_inf =   71.137, Mean residual =   85.517
+lambda = 1.0e-01: R_inf =   55.670, Mean residual =  133.600
+lambda = 1.0e+00: R_inf =  115.873, Mean residual =  376.478
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 80.165203
+DRT vector length = 198
+
+Mean absolute residual: 75.071849
+Max absolute residual : 1433.139973
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 75.071849
+  Min residual change   : -0.38 %
+  Max residual change   : 0.87 %
+  Max abs change        : 0.87 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 180.1
+  Peak 2: gamma = 6628.2
+  Peak 3: gamma = 3952.2
+  Peak 4: gamma = 5624.3
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6628.2
+  Peak 2: gamma = 3952.2
+  Peak 3: gamma = 5624.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6628.2
+  Peak 2: gamma = 3952.2
+  Peak 3: gamma = 5624.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6628.2
+  Peak 2: gamma = 3952.2
+  Peak 3: gamma = 5624.3
+
+Using height threshold: 331.4
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6628.2440
+Peak 2: tau = 6.83e-07 s (f = 233148.01 Hz), gamma = 3952.2294
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5624.3388
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.63e+03 | 4.40e+02 | 8.61e-09 | 0.708
+   2 | 3.41e-06 | 6.28e+03 | 2.61e+02 | 2.62e-09 | 0.584
+   3 | 1.55e-07 | 5.64e+03 | 3.75e+02 | 4.00e-10 | 0.734
+
+Total series resistance: 1156.21 Ohm
+High-frequency resistance (R_inf): 80.17 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.67 %
+  Total residual : 0.68 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6408e+03
+  Max std. band  : 2.5199e+03
+  Mean CV        : 59.51 %
+  Max CV         : 171.64 %
+Run complete at 2026-07-09 04:09:47
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.5 - 15332.4 Ohm
+Phase range: -100.80 - 97.56 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   80.324, Mean residual =   74.029
+lambda = 1.0e-03: R_inf =   77.849, Mean residual =   76.110
+lambda = 1.0e-02: R_inf =   71.031, Mean residual =   84.278
+lambda = 1.0e-01: R_inf =   55.437, Mean residual =  133.401
+lambda = 1.0e+00: R_inf =  115.491, Mean residual =  372.376
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 80.324288
+DRT vector length = 198
+
+Mean absolute residual: 74.028814
+Max absolute residual : 1434.364177
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 74.028814
+  Min residual change   : -0.40 %
+  Max residual change   : 0.90 %
+  Max abs change        : 0.90 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 155.8
+  Peak 2: gamma = 6576.8
+  Peak 3: gamma = 3935.1
+  Peak 4: gamma = 5789.3
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6576.8
+  Peak 2: gamma = 3935.1
+  Peak 3: gamma = 5789.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6576.8
+  Peak 2: gamma = 3935.1
+  Peak 3: gamma = 5789.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6576.8
+  Peak 2: gamma = 3935.1
+  Peak 3: gamma = 5789.3
+
+Using height threshold: 328.8
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6576.8180
+Peak 2: tau = 6.83e-07 s (f = 233148.01 Hz), gamma = 3935.0712
+Peak 3: tau = 1.60e-07 s (f = 994646.12 Hz), gamma = 5789.3292
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.60e+03 | 4.37e+02 | 8.67e-09 | 0.708
+   2 | 3.41e-06 | 6.19e+03 | 2.60e+02 | 2.63e-09 | 0.584
+   3 | 1.55e-07 | 5.81e+03 | 3.86e+02 | 4.15e-10 | 0.725
+
+Total series resistance: 1163.32 Ohm
+High-frequency resistance (R_inf): 80.32 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.69 %
+  Total residual : 0.68 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5566e+03
+  Max std. band  : 2.1223e+03
+  Mean CV        : 53.61 %
+  Max CV         : 182.08 %
+Run complete at 2026-07-09 04:09:55
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.5 - 15265.7 Ohm
+Phase range: -101.54 - 97.66 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   79.724, Mean residual =   74.053
+lambda = 1.0e-03: R_inf =   77.484, Mean residual =   75.676
+lambda = 1.0e-02: R_inf =   70.631, Mean residual =   83.830
+lambda = 1.0e-01: R_inf =   54.883, Mean residual =  133.057
+lambda = 1.0e+00: R_inf =  114.736, Mean residual =  370.914
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 79.723982
+DRT vector length = 198
+
+Mean absolute residual: 74.053264
+Max absolute residual : 1436.784394
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 74.053264
+  Min residual change   : -0.30 %
+  Max residual change   : 0.68 %
+  Max abs change        : 0.68 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 74.7
+  Peak 2: gamma = 88.2
+  Peak 3: gamma = 6360.7
+  Peak 4: gamma = 3693.9
+  Peak 5: gamma = 5441.5
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6360.7
+  Peak 2: gamma = 3693.9
+  Peak 3: gamma = 5441.5
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6360.7
+  Peak 2: gamma = 3693.9
+  Peak 3: gamma = 5441.5
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6360.7
+  Peak 2: gamma = 3693.9
+  Peak 3: gamma = 5441.5
+
+Using height threshold: 318.0
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6360.7213
+Peak 2: tau = 6.39e-07 s (f = 249040.37 Hz), gamma = 3693.8660
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5441.5339
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.36e+03 | 4.23e+02 | 8.97e-09 | 0.700
+   2 | 3.20e-06 | 5.68e+03 | 2.44e+02 | 2.62e-09 | 0.584
+   3 | 1.55e-07 | 5.45e+03 | 3.62e+02 | 4.13e-10 | 0.734
+
+Total series resistance: 1108.31 Ohm
+High-frequency resistance (R_inf): 79.72 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.28 %
+  Imag residual  : 2.74 %
+  Total residual : 0.69 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4977e+03
+  Max std. band  : 2.1018e+03
+  Mean CV        : 58.89 %
+  Max CV         : 185.50 %
+Run complete at 2026-07-09 04:10:03
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.7 - 15081.7 Ohm
+Phase range: -100.79 - 97.72 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   79.342, Mean residual =   73.691
+lambda = 1.0e-03: R_inf =   77.087, Mean residual =   75.395
+lambda = 1.0e-02: R_inf =   70.418, Mean residual =   83.497
+lambda = 1.0e-01: R_inf =   55.149, Mean residual =  132.063
+lambda = 1.0e+00: R_inf =  114.991, Mean residual =  367.044
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 79.341928
+DRT vector length = 198
+
+Mean absolute residual: 73.691207
+Max absolute residual : 1435.099902
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 73.691207
+  Min residual change   : -0.30 %
+  Max residual change   : 0.69 %
+  Max abs change        : 0.69 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 131.2
+  Peak 2: gamma = 6365.2
+  Peak 3: gamma = 3855.1
+  Peak 4: gamma = 5791.8
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6365.2
+  Peak 2: gamma = 3855.1
+  Peak 3: gamma = 5791.8
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6365.2
+  Peak 2: gamma = 3855.1
+  Peak 3: gamma = 5791.8
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6365.2
+  Peak 2: gamma = 3855.1
+  Peak 3: gamma = 5791.8
+
+Using height threshold: 318.3
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6365.2169
+Peak 2: tau = 5.60e-07 s (f = 284148.80 Hz), gamma = 3855.1393
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5791.7529
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.67e-06 | 6.37e+03 | 4.23e+02 | 8.96e-09 | 0.708
+   2 | 1.46e-07 | 5.76e+03 | 2.54e+02 | 2.20e-09 | 0.590
+   3 | 1.55e-07 | 5.79e+03 | 3.86e+02 | 3.88e-10 | 0.734
+
+Total series resistance: 1142.79 Ohm
+High-frequency resistance (R_inf): 79.34 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.74 %
+  Total residual : 0.69 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4312e+03
+  Max std. band  : 1.9670e+03
+  Mean CV        : 47.95 %
+  Max CV         : 179.03 %
+Run complete at 2026-07-09 04:10:11
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.6 - 15011.7 Ohm
+Phase range: -100.18 - 97.26 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   80.909, Mean residual =   73.880
+lambda = 1.0e-03: R_inf =   78.774, Mean residual =   75.838
+lambda = 1.0e-02: R_inf =   72.080, Mean residual =   83.723
+lambda = 1.0e-01: R_inf =   56.592, Mean residual =  132.003
+lambda = 1.0e+00: R_inf =  115.978, Mean residual =  365.449
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 80.909334
+DRT vector length = 198
+
+Mean absolute residual: 73.880281
+Max absolute residual : 1441.066218
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 73.880281
+  Min residual change   : -0.51 %
+  Max residual change   : 0.90 %
+  Max abs change        : 0.90 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 87.1
+  Peak 2: gamma = 6469.8
+  Peak 3: gamma = 3567.9
+  Peak 4: gamma = 3714.3
+  Peak 5: gamma = 5340.8
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 6469.8
+  Peak 2: gamma = 3567.9
+  Peak 3: gamma = 3714.3
+  Peak 4: gamma = 5340.8
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 6469.8
+  Peak 2: gamma = 3567.9
+  Peak 3: gamma = 3714.3
+  Peak 4: gamma = 5340.8
+Threshold 0.15: Found 4 peaks
+  Peak 1: gamma = 6469.8
+  Peak 2: gamma = 3567.9
+  Peak 3: gamma = 3714.3
+  Peak 4: gamma = 5340.8
+
+Using height threshold: 323.5
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6469.8414
+Peak 2: tau = 6.39e-07 s (f = 249040.37 Hz), gamma = 3567.8574
+Peak 3: tau = 3.30e-07 s (f = 481559.72 Hz), gamma = 3714.2837
+Peak 4: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5340.8468
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.92e-06 | 6.47e+03 | 4.30e+02 | 8.81e-09 | 0.708
+   2 | 3.20e-06 | 5.73e+03 | 2.35e+02 | 2.72e-09 | 0.584
+   3 | 1.45e-07 | 5.33e+03 | 2.45e+02 | 1.35e-09 | 0.633
+   4 | 1.45e-07 | 5.34e+03 | 3.56e+02 | 4.21e-10 | 0.725
+
+Total series resistance: 1347.28 Ohm
+High-frequency resistance (R_inf): 80.91 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.54 %
+  Imag residual  : 8.29 %
+  Total residual : 1.98 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5800e+03
+  Max std. band  : 2.4819e+03
+  Mean CV        : 54.74 %
+  Max CV         : 175.11 %
+Run complete at 2026-07-09 04:10:20
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.8 - 14966.8 Ohm
+Phase range: -100.82 - 97.62 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   80.650, Mean residual =   74.021
+lambda = 1.0e-03: R_inf =   78.364, Mean residual =   75.731
+lambda = 1.0e-02: R_inf =   71.608, Mean residual =   83.345
+lambda = 1.0e-01: R_inf =   56.372, Mean residual =  131.261
+lambda = 1.0e+00: R_inf =  115.881, Mean residual =  364.207
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 80.650224
+DRT vector length = 198
+
+Mean absolute residual: 74.020882
+Max absolute residual : 1433.914934
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 74.020882
+  Min residual change   : -0.27 %
+  Max residual change   : 0.65 %
+  Max abs change        : 0.65 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 129.2
+  Peak 2: gamma = 6329.5
+  Peak 3: gamma = 3753.7
+  Peak 4: gamma = 5623.3
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6329.5
+  Peak 2: gamma = 3753.7
+  Peak 3: gamma = 5623.3
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6329.5
+  Peak 2: gamma = 3753.7
+  Peak 3: gamma = 5623.3
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6329.5
+  Peak 2: gamma = 3753.7
+  Peak 3: gamma = 5623.3
+
+Using height threshold: 316.5
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6329.4774
+Peak 2: tau = 6.39e-07 s (f = 249040.37 Hz), gamma = 3753.6992
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5623.2642
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.67e-06 | 6.33e+03 | 4.21e+02 | 9.01e-09 | 0.708
+   2 | 3.20e-06 | 5.74e+03 | 2.48e+02 | 2.58e-09 | 0.584
+   3 | 1.55e-07 | 5.62e+03 | 3.75e+02 | 4.00e-10 | 0.725
+
+Total series resistance: 1124.05 Ohm
+High-frequency resistance (R_inf): 80.65 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.29 %
+  Imag residual  : 2.75 %
+  Total residual : 0.69 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4513e+03
+  Max std. band  : 2.2772e+03
+  Mean CV        : 49.45 %
+  Max CV         : 177.46 %
+Run complete at 2026-07-09 04:10:30
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 53.0 - 14207.0 Ohm
+Phase range: -100.92 - 97.56 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   81.943, Mean residual =   76.657
+lambda = 1.0e-03: R_inf =   79.270, Mean residual =   78.542
+lambda = 1.0e-02: R_inf =   72.417, Mean residual =   85.037
+lambda = 1.0e-01: R_inf =   57.700, Mean residual =  128.254
+lambda = 1.0e+00: R_inf =  115.986, Mean residual =  347.529
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 81.943036
+DRT vector length = 198
+
+Mean absolute residual: 76.656612
+Max absolute residual : 1430.843971
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 76.656612
+  Min residual change   : -0.36 %
+  Max residual change   : 0.83 %
+  Max abs change        : 0.83 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 236.8
+  Peak 2: gamma = 6376.5
+  Peak 3: gamma = 3904.0
+  Peak 4: gamma = 5438.6
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6376.5
+  Peak 2: gamma = 3904.0
+  Peak 3: gamma = 5438.6
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6376.5
+  Peak 2: gamma = 3904.0
+  Peak 3: gamma = 5438.6
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6376.5
+  Peak 2: gamma = 3904.0
+  Peak 3: gamma = 5438.6
+
+Using height threshold: 318.8
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.55e-06 s (f = 44841.56 Hz), gamma = 6376.5052
+Peak 2: tau = 7.29e-07 s (f = 218269.81 Hz), gamma = 3903.9535
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5438.5704
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.67e-06 | 6.38e+03 | 4.24e+02 | 8.37e-09 | 0.708
+   2 | 3.65e-06 | 6.38e+03 | 2.59e+02 | 2.82e-09 | 0.584
+   3 | 1.55e-07 | 5.44e+03 | 3.62e+02 | 4.13e-10 | 0.725
+
+Total series resistance: 1127.02 Ohm
+High-frequency resistance (R_inf): 81.94 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.36 %
+  Imag residual  : 3.13 %
+  Total residual : 0.80 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5867e+03
+  Max std. band  : 2.2821e+03
+  Mean CV        : 66.04 %
+  Max CV         : 338.90 %
+Run complete at 2026-07-09 04:10:40
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.9 - 14183.6 Ohm
+Phase range: -100.98 - 97.59 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   80.850, Mean residual =   74.214
+lambda = 1.0e-03: R_inf =   78.346, Mean residual =   75.967
+lambda = 1.0e-02: R_inf =   71.775, Mean residual =   83.305
+lambda = 1.0e-01: R_inf =   57.120, Mean residual =  128.921
+lambda = 1.0e+00: R_inf =  115.699, Mean residual =  347.828
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 80.850094
+DRT vector length = 198
+
+Mean absolute residual: 74.214442
+Max absolute residual : 1429.767493
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 74.214442
+  Min residual change   : -0.16 %
+  Max residual change   : 0.63 %
+  Max abs change        : 0.63 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 6408.6
+  Peak 2: gamma = 3707.1
+  Peak 3: gamma = 5758.9
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 6408.6
+  Peak 2: gamma = 3707.1
+  Peak 3: gamma = 5758.9
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 6408.6
+  Peak 2: gamma = 3707.1
+  Peak 3: gamma = 5758.9
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 6408.6
+  Peak 2: gamma = 3707.1
+  Peak 3: gamma = 5758.9
+
+Using height threshold: 320.4
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.79e-06 s (f = 41980.02 Hz), gamma = 6408.6380
+Peak 2: tau = 6.39e-07 s (f = 249040.37 Hz), gamma = 3707.0644
+Peak 3: tau = 1.50e-07 s (f = 1062445.43 Hz), gamma = 5758.8588
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.67e-06 | 6.43e+03 | 4.27e+02 | 8.89e-09 | 0.716
+   2 | 3.20e-06 | 5.94e+03 | 2.45e+02 | 2.61e-09 | 0.584
+   3 | 1.45e-07 | 5.79e+03 | 3.85e+02 | 3.90e-10 | 0.725
+
+Total series resistance: 1136.84 Ohm
+High-frequency resistance (R_inf): 80.85 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.38 %
+  Imag residual  : 3.07 %
+  Total residual : 0.79 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.6769e+03
+  Max std. band  : 2.3413e+03
+  Mean CV        : 60.19 %
+  Max CV         : 181.50 %
+Run complete at 2026-07-09 04:10:49
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 53.4 - 13652.4 Ohm
+Phase range: -100.58 - 97.63 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   83.840, Mean residual =   75.221
+lambda = 1.0e-03: R_inf =   81.498, Mean residual =   76.640
+lambda = 1.0e-02: R_inf =   74.921, Mean residual =   82.662
+lambda = 1.0e-01: R_inf =   60.685, Mean residual =  124.360
+lambda = 1.0e+00: R_inf =  117.885, Mean residual =  334.693
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 83.839843
+DRT vector length = 198
+
+Mean absolute residual: 75.220833
+Max absolute residual : 1438.624690
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 75.220833
+  Min residual change   : -0.11 %
+  Max residual change   : 0.53 %
+  Max abs change        : 0.53 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 333.6
+  Peak 2: gamma = 5610.7
+  Peak 3: gamma = 3553.5
+  Peak 4: gamma = 5445.7
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 333.6
+  Peak 2: gamma = 5610.7
+  Peak 3: gamma = 3553.5
+  Peak 4: gamma = 5445.7
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 5610.7
+  Peak 2: gamma = 3553.5
+  Peak 3: gamma = 5445.7
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 5610.7
+  Peak 2: gamma = 3553.5
+  Peak 3: gamma = 5445.7
+
+Using height threshold: 280.5
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 5.30e-05 s (f = 3002.76 Hz), gamma = 333.5880
+Peak 2: tau = 3.55e-06 s (f = 44841.56 Hz), gamma = 5610.7198
+Peak 3: tau = 5.98e-07 s (f = 266016.02 Hz), gamma = 3553.5322
+Peak 4: tau = 1.40e-07 s (f = 1134866.23 Hz), gamma = 5445.7050
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 5.13e-05 | 3.34e+02 | 3.77e+01 | 1.41e-06 | 0.763
+   2 | 3.43e-06 | 5.62e+03 | 3.73e+02 | 9.52e-09 | 0.708
+   3 | 1.46e-07 | 5.42e+03 | 2.35e+02 | 2.55e-09 | 0.584
+   4 | 1.45e-07 | 5.45e+03 | 3.63e+02 | 3.86e-10 | 0.734
+
+Total series resistance: 1092.25 Ohm
+High-frequency resistance (R_inf): 83.84 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.34 %
+  Imag residual  : 3.19 %
+  Total residual : 0.80 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4363e+03
+  Max std. band  : 1.9843e+03
+  Mean CV        : 61.07 %
+  Max CV         : 381.27 %
+Run complete at 2026-07-09 04:10:59
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 55.0 - 12910.0 Ohm
+Phase range: -100.33 - 97.50 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   94.754, Mean residual =  110.640
+lambda = 1.0e-03: R_inf =   92.626, Mean residual =  110.665
+lambda = 1.0e-02: R_inf =   88.111, Mean residual =  110.787
+lambda = 1.0e-01: R_inf =   78.060, Mean residual =  129.988
+lambda = 1.0e+00: R_inf =  133.302, Mean residual =  315.171
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 94.754093
+DRT vector length = 198
+
+Mean absolute residual: 110.640128
+Max absolute residual : 1431.189117
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 110.640128
+  Min residual change   : -0.01 %
+  Max residual change   : 0.02 %
+  Max abs change        : 0.02 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 706.7
+  Peak 2: gamma = 424.6
+  Peak 3: gamma = 5097.4
+  Peak 4: gamma = 3765.3
+  Peak 5: gamma = 5227.0
+Threshold 0.05: Found 5 peaks
+  Peak 1: gamma = 706.7
+  Peak 2: gamma = 424.6
+  Peak 3: gamma = 5097.4
+  Peak 4: gamma = 3765.3
+  Peak 5: gamma = 5227.0
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 706.7
+  Peak 2: gamma = 5097.4
+  Peak 3: gamma = 3765.3
+  Peak 4: gamma = 5227.0
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 5097.4
+  Peak 2: gamma = 3765.3
+  Peak 3: gamma = 5227.0
+
+Using height threshold: 261.3
+
+Found 5 peaks in original data DRT
+Peak 1: tau = 8.41e-05 s (f = 1892.58 Hz), gamma = 706.6855
+Peak 2: tau = 1.42e-05 s (f = 11227.47 Hz), gamma = 424.5797
+Peak 3: tau = 3.32e-06 s (f = 47898.15 Hz), gamma = 5097.4045
+Peak 4: tau = 5.60e-07 s (f = 284148.80 Hz), gamma = 3765.2923
+Peak 5: tau = 1.15e-07 s (f = 1383116.60 Hz), gamma = 5226.9914
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 8.14e-05 | 7.54e+02 | 5.79e+01 | 1.45e-06 | 1.036
+   2 | 3.23e-06 | 5.11e+03 | 2.88e+01 | 4.92e-07 | 0.925
+   3 | 3.22e-06 | 5.11e+03 | 3.39e+02 | 9.82e-09 | 0.692
+   4 | 1.20e-07 | 5.28e+03 | 2.49e+02 | 2.25e-09 | 0.584
+   5 | 1.19e-07 | 5.28e+03 | 3.56e+02 | 3.23e-10 | 0.743
+
+Total series resistance: 1124.86 Ohm
+High-frequency resistance (R_inf): 94.75 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.46 %
+  Imag residual  : 4.01 %
+  Total residual : 1.00 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.2834e+03
+  Max std. band  : 1.7691e+03
+  Mean CV        : 85.72 %
+  Max CV         : 418.59 %
+Run complete at 2026-07-09 04:11:09
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 54.9 - 12361.9 Ohm
+Phase range: -100.47 - 97.53 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   88.196, Mean residual =   71.655
+lambda = 1.0e-03: R_inf =   86.123, Mean residual =   73.180
+lambda = 1.0e-02: R_inf =   81.006, Mean residual =   78.561
+lambda = 1.0e-01: R_inf =   69.815, Mean residual =  113.195
+lambda = 1.0e+00: R_inf =  125.408, Mean residual =  299.011
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 88.195538
+DRT vector length = 198
+
+Mean absolute residual: 71.655160
+Max absolute residual : 1433.308033
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 71.655160
+  Min residual change   : -0.24 %
+  Max residual change   : 0.60 %
+  Max abs change        : 0.60 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 101.0
+  Peak 2: gamma = 5236.8
+  Peak 3: gamma = 3189.7
+  Peak 4: gamma = 5322.9
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 5236.8
+  Peak 2: gamma = 3189.7
+  Peak 3: gamma = 5322.9
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 5236.8
+  Peak 2: gamma = 3189.7
+  Peak 3: gamma = 5322.9
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 5236.8
+  Peak 2: gamma = 3189.7
+  Peak 3: gamma = 5322.9
+
+Using height threshold: 266.1
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.32e-06 s (f = 47898.15 Hz), gamma = 5236.8079
+Peak 2: tau = 4.91e-07 s (f = 324206.64 Hz), gamma = 3189.6734
+Peak 3: tau = 1.23e-07 s (f = 1294853.85 Hz), gamma = 5322.9120
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.43e-06 | 5.24e+03 | 3.48e+02 | 9.55e-09 | 0.700
+   2 | 1.20e-07 | 5.36e+03 | 2.11e+02 | 2.33e-09 | 0.584
+   3 | 1.19e-07 | 5.36e+03 | 3.55e+02 | 3.46e-10 | 0.734
+
+Total series resistance: 1001.77 Ohm
+High-frequency resistance (R_inf): 88.20 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.57 %
+  Imag residual  : 10.33 %
+  Total residual : 2.40 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5520e+03
+  Max std. band  : 2.3415e+03
+  Mean CV        : 73.77 %
+  Max CV         : 246.08 %
+Run complete at 2026-07-09 04:11:20
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 54.2 - 12436.4 Ohm
+Phase range: -102.28 - 97.40 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   88.121, Mean residual =   73.861
+lambda = 1.0e-03: R_inf =   85.853, Mean residual =   75.026
+lambda = 1.0e-02: R_inf =   80.486, Mean residual =   79.687
+lambda = 1.0e-01: R_inf =   68.538, Mean residual =  112.716
+lambda = 1.0e+00: R_inf =  123.408, Mean residual =  306.804
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 88.121297
+DRT vector length = 198
+
+Mean absolute residual: 73.860961
+Max absolute residual : 1436.388206
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 73.860961
+  Min residual change   : -0.02 %
+  Max residual change   : 0.35 %
+  Max abs change        : 0.35 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 172.5
+  Peak 2: gamma = 4898.9
+  Peak 3: gamma = 3681.6
+  Peak 4: gamma = 5397.7
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 4898.9
+  Peak 2: gamma = 3681.6
+  Peak 3: gamma = 5397.7
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 4898.9
+  Peak 2: gamma = 3681.6
+  Peak 3: gamma = 5397.7
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 4898.9
+  Peak 2: gamma = 3681.6
+  Peak 3: gamma = 5397.7
+
+Using height threshold: 269.9
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.32e-06 s (f = 47898.15 Hz), gamma = 4898.9412
+Peak 2: tau = 5.60e-07 s (f = 284148.80 Hz), gamma = 3681.5614
+Peak 3: tau = 1.23e-07 s (f = 1294853.85 Hz), gamma = 5397.6671
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.22e-06 | 4.90e+03 | 3.25e+02 | 1.02e-08 | 0.700
+   2 | 1.28e-07 | 5.43e+03 | 2.44e+02 | 2.30e-09 | 0.584
+   3 | 1.27e-07 | 5.44e+03 | 3.64e+02 | 3.38e-10 | 0.734
+
+Total series resistance: 1020.82 Ohm
+High-frequency resistance (R_inf): 88.12 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.57 %
+  Imag residual  : 10.23 %
+  Total residual : 2.38 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4502e+03
+  Max std. band  : 2.1164e+03
+  Mean CV        : 58.35 %
+  Max CV         : 177.56 %
+Run complete at 2026-07-09 04:11:28
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 55.5 - 11417.0 Ohm
+Phase range: -104.02 - 97.47 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   92.250, Mean residual =   69.584
+lambda = 1.0e-03: R_inf =   89.936, Mean residual =   71.745
+lambda = 1.0e-02: R_inf =   85.646, Mean residual =   76.776
+lambda = 1.0e-01: R_inf =   76.540, Mean residual =  103.065
+lambda = 1.0e+00: R_inf =  130.002, Mean residual =  278.422
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 92.249520
+DRT vector length = 198
+
+Mean absolute residual: 69.583857
+Max absolute residual : 1438.344688
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 69.583857
+  Min residual change   : -0.26 %
+  Max residual change   : 0.91 %
+  Max abs change        : 0.91 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 129.3
+  Peak 2: gamma = 4908.1
+  Peak 3: gamma = 3767.1
+  Peak 4: gamma = 5671.5
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 4908.1
+  Peak 2: gamma = 3767.1
+  Peak 3: gamma = 5671.5
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 4908.1
+  Peak 2: gamma = 3767.1
+  Peak 3: gamma = 5671.5
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 4908.1
+  Peak 2: gamma = 3767.1
+  Peak 3: gamma = 5671.5
+
+Using height threshold: 283.6
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.11e-06 s (f = 51163.09 Hz), gamma = 4908.1064
+Peak 2: tau = 4.91e-07 s (f = 324206.64 Hz), gamma = 3767.0918
+Peak 3: tau = 1.15e-07 s (f = 1383116.60 Hz), gamma = 5671.4734
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.21e-06 | 4.91e+03 | 3.26e+02 | 9.54e-09 | 0.700
+   2 | 1.12e-07 | 5.65e+03 | 2.49e+02 | 1.97e-09 | 0.584
+   3 | 1.11e-07 | 5.67e+03 | 3.80e+02 | 3.02e-10 | 0.734
+
+Total series resistance: 1048.21 Ohm
+High-frequency resistance (R_inf): 92.25 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.61 %
+  Imag residual  : 11.18 %
+  Total residual : 2.58 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.2974e+03
+  Max std. band  : 2.1484e+03
+  Mean CV        : 69.47 %
+  Max CV         : 337.11 %
+Run complete at 2026-07-09 04:11:37
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 55.4 - 11402.6 Ohm
+Phase range: -104.58 - 97.85 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   91.860, Mean residual =   70.123
+lambda = 1.0e-03: R_inf =   89.654, Mean residual =   71.655
+lambda = 1.0e-02: R_inf =   85.257, Mean residual =   76.984
+lambda = 1.0e-01: R_inf =   75.787, Mean residual =  104.186
+lambda = 1.0e+00: R_inf =  129.186, Mean residual =  279.052
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 91.859674
+DRT vector length = 198
+
+Mean absolute residual: 70.122899
+Max absolute residual : 1435.515470
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 70.122899
+  Min residual change   : -0.26 %
+  Max residual change   : 0.50 %
+  Max abs change        : 0.50 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 4811.9
+  Peak 2: gamma = 3397.4
+  Peak 3: gamma = 5446.9
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 4811.9
+  Peak 2: gamma = 3397.4
+  Peak 3: gamma = 5446.9
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 4811.9
+  Peak 2: gamma = 3397.4
+  Peak 3: gamma = 5446.9
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 4811.9
+  Peak 2: gamma = 3397.4
+  Peak 3: gamma = 5446.9
+
+Using height threshold: 272.3
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.11e-06 s (f = 51163.09 Hz), gamma = 4811.9464
+Peak 2: tau = 4.91e-07 s (f = 324206.64 Hz), gamma = 3397.4351
+Peak 3: tau = 1.15e-07 s (f = 1383116.60 Hz), gamma = 5446.8615
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.21e-06 | 4.82e+03 | 3.20e+02 | 9.73e-09 | 0.700
+   2 | 1.12e-07 | 5.46e+03 | 2.25e+02 | 2.19e-09 | 0.584
+   3 | 1.11e-07 | 5.45e+03 | 3.64e+02 | 3.16e-10 | 0.734
+
+Total series resistance: 1000.40 Ohm
+High-frequency resistance (R_inf): 91.86 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.62 %
+  Imag residual  : 11.15 %
+  Total residual : 2.58 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4393e+03
+  Max std. band  : 1.9518e+03
+  Mean CV        : 71.81 %
+  Max CV         : 334.62 %
+Run complete at 2026-07-09 04:11:49
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 55.1 - 11473.6 Ohm
+Phase range: -104.37 - 97.73 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   92.519, Mean residual =   79.754
+lambda = 1.0e-03: R_inf =   90.143, Mean residual =   81.379
+lambda = 1.0e-02: R_inf =   85.306, Mean residual =   86.133
+lambda = 1.0e-01: R_inf =   74.978, Mean residual =  113.279
+lambda = 1.0e+00: R_inf =  128.436, Mean residual =  285.822
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 92.518752
+DRT vector length = 198
+
+Mean absolute residual: 79.754145
+Max absolute residual : 1438.120905
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 79.754145
+  Min residual change   : -0.08 %
+  Max residual change   : 0.46 %
+  Max abs change        : 0.46 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 561.1
+  Peak 2: gamma = 4802.2
+  Peak 3: gamma = 3716.6
+  Peak 4: gamma = 5586.8
+Threshold 0.05: Found 4 peaks
+  Peak 1: gamma = 561.1
+  Peak 2: gamma = 4802.2
+  Peak 3: gamma = 3716.6
+  Peak 4: gamma = 5586.8
+Threshold 0.10: Found 4 peaks
+  Peak 1: gamma = 561.1
+  Peak 2: gamma = 4802.2
+  Peak 3: gamma = 3716.6
+  Peak 4: gamma = 5586.8
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 4802.2
+  Peak 2: gamma = 3716.6
+  Peak 3: gamma = 5586.8
+
+Using height threshold: 279.3
+
+Found 4 peaks in original data DRT
+Peak 1: tau = 2.26e-04 s (f = 703.86 Hz), gamma = 561.0604
+Peak 2: tau = 3.11e-06 s (f = 51163.09 Hz), gamma = 4802.1847
+Peak 3: tau = 5.24e-07 s (f = 303517.59 Hz), gamma = 3716.6143
+Peak 4: tau = 1.15e-07 s (f = 1383116.60 Hz), gamma = 5586.8132
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 2.19e-04 | 5.76e+02 | 4.32e+01 | 5.24e-06 | 1.055
+   2 | 3.01e-06 | 4.80e+03 | 3.19e+02 | 9.75e-09 | 0.708
+   3 | 1.20e-07 | 5.64e+03 | 2.46e+02 | 2.13e-09 | 0.584
+   4 | 1.19e-07 | 5.64e+03 | 3.80e+02 | 3.03e-10 | 0.743
+
+Total series resistance: 1080.98 Ohm
+High-frequency resistance (R_inf): 92.52 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.64 %
+  Imag residual  : 11.29 %
+  Total residual : 2.61 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.5490e+03
+  Max std. band  : 2.0656e+03
+  Mean CV        : 81.30 %
+  Max CV         : 344.16 %
+Run complete at 2026-07-09 04:12:03
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 55.8 - 11135.3 Ohm
+Phase range: -103.88 - 97.73 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   95.568, Mean residual =   75.961
+lambda = 1.0e-03: R_inf =   93.337, Mean residual =   77.053
+lambda = 1.0e-02: R_inf =   88.778, Mean residual =   80.482
+lambda = 1.0e-01: R_inf =   79.593, Mean residual =  104.403
+lambda = 1.0e+00: R_inf =  132.668, Mean residual =  273.182
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 95.567733
+DRT vector length = 198
+
+Mean absolute residual: 75.961136
+Max absolute residual : 1437.796651
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 75.961136
+  Min residual change   : -0.06 %
+  Max residual change   : 0.32 %
+  Max abs change        : 0.32 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 5 peaks
+  Peak 1: gamma = 247.6
+  Peak 2: gamma = 205.3
+  Peak 3: gamma = 4638.0
+  Peak 4: gamma = 3444.4
+  Peak 5: gamma = 5212.5
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 4638.0
+  Peak 2: gamma = 3444.4
+  Peak 3: gamma = 5212.5
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 4638.0
+  Peak 2: gamma = 3444.4
+  Peak 3: gamma = 5212.5
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 4638.0
+  Peak 2: gamma = 3444.4
+  Peak 3: gamma = 5212.5
+
+Using height threshold: 260.6
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 3.11e-06 s (f = 51163.09 Hz), gamma = 4638.0124
+Peak 2: tau = 5.24e-07 s (f = 303517.59 Hz), gamma = 3444.3560
+Peak 3: tau = 1.15e-07 s (f = 1383116.60 Hz), gamma = 5212.4565
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.01e-06 | 4.65e+03 | 3.08e+02 | 1.01e-08 | 0.708
+   2 | 1.12e-07 | 5.26e+03 | 2.28e+02 | 2.30e-09 | 0.584
+   3 | 1.11e-07 | 5.27e+03 | 3.48e+02 | 3.31e-10 | 0.734
+
+Total series resistance: 979.71 Ohm
+High-frequency resistance (R_inf): 95.57 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.63 %
+  Imag residual  : 11.61 %
+  Total residual : 2.66 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4194e+03
+  Max std. band  : 2.2726e+03
+  Mean CV        : 80.98 %
+  Max CV         : 389.64 %
+Run complete at 2026-07-09 04:12:16
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 55.7 - 10835.3 Ohm
+Phase range: -103.63 - 97.84 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   93.646, Mean residual =   70.337
+lambda = 1.0e-03: R_inf =   91.311, Mean residual =   71.963
+lambda = 1.0e-02: R_inf =   86.549, Mean residual =   76.389
+lambda = 1.0e-01: R_inf =   76.776, Mean residual =  102.382
+lambda = 1.0e+00: R_inf =  129.360, Mean residual =  267.880
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 93.645504
+DRT vector length = 198
+
+Mean absolute residual: 70.337356
+Max absolute residual : 1439.031034
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 70.337356
+  Min residual change   : -0.12 %
+  Max residual change   : 0.59 %
+  Max abs change        : 0.59 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 4 peaks
+  Peak 1: gamma = 120.9
+  Peak 2: gamma = 4454.7
+  Peak 3: gamma = 3513.3
+  Peak 4: gamma = 5630.9
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 4454.7
+  Peak 2: gamma = 3513.3
+  Peak 3: gamma = 5630.9
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 4454.7
+  Peak 2: gamma = 3513.3
+  Peak 3: gamma = 5630.9
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 4454.7
+  Peak 2: gamma = 3513.3
+  Peak 3: gamma = 5630.9
+
+Using height threshold: 281.5
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 2.91e-06 s (f = 54650.59 Hz), gamma = 4454.7447
+Peak 2: tau = 4.91e-07 s (f = 324206.64 Hz), gamma = 3513.2799
+Peak 3: tau = 1.15e-07 s (f = 1383116.60 Hz), gamma = 5630.8670
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 3.01e-06 | 4.46e+03 | 2.96e+02 | 9.85e-09 | 0.700
+   2 | 1.12e-07 | 5.63e+03 | 2.33e+02 | 2.11e-09 | 0.584
+   3 | 1.11e-07 | 5.63e+03 | 3.76e+02 | 3.06e-10 | 0.734
+
+Total series resistance: 998.47 Ohm
+High-frequency resistance (R_inf): 93.65 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.63 %
+  Imag residual  : 11.78 %
+  Total residual : 2.71 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.3807e+03
+  Max std. band  : 2.2358e+03
+  Mean CV        : 68.56 %
+  Max CV         : 243.57 %
+Run complete at 2026-07-09 04:12:35
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 55.3 - 11004.7 Ohm
+Phase range: -103.62 - 97.76 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   94.418, Mean residual =   86.830
+lambda = 1.0e-03: R_inf =   91.913, Mean residual =   87.660
+lambda = 1.0e-02: R_inf =   87.093, Mean residual =   90.352
+lambda = 1.0e-01: R_inf =   76.151, Mean residual =  114.962
+lambda = 1.0e+00: R_inf =  129.262, Mean residual =  279.431
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 94.417653
+DRT vector length = 198
+
+Mean absolute residual: 86.829960
+Max absolute residual : 1439.706263
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 86.829960
+  Min residual change   : 0.00 %
+  Max residual change   : 0.19 %
+  Max abs change        : 0.19 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 7643.7
+  Peak 2: gamma = 4080.2
+  Peak 3: gamma = 5619.0
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 7643.7
+  Peak 2: gamma = 4080.2
+  Peak 3: gamma = 5619.0
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 7643.7
+  Peak 2: gamma = 4080.2
+  Peak 3: gamma = 5619.0
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 7643.7
+  Peak 2: gamma = 4080.2
+  Peak 3: gamma = 5619.0
+
+Using height threshold: 382.2
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 2.73e-06 s (f = 58375.80 Hz), gamma = 7643.6933
+Peak 2: tau = 5.60e-07 s (f = 284148.80 Hz), gamma = 4080.1938
+Peak 3: tau = 1.23e-07 s (f = 1294853.85 Hz), gamma = 5619.0018
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 2.82e-06 | 7.68e+03 | 5.13e+02 | 5.32e-09 | 0.680
+   2 | 2.80e-06 | 7.69e+03 | 2.71e+02 | 2.07e-09 | 0.582
+   3 | 1.19e-07 | 5.67e+03 | 3.76e+02 | 3.27e-10 | 0.734
+
+Total series resistance: 1253.44 Ohm
+High-frequency resistance (R_inf): 94.42 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 0.57 %
+  Imag residual  : 4.08 %
+  Total residual : 1.07 %
+  Status         : pass
+
+Sensitivity analysis (24 bootstrap runs):
+  Mean std. band : 1.4103e+03
+  Max std. band  : 2.3910e+03
+  Mean CV        : 52.54 %
+  Max CV         : 108.85 %
+Run complete at 2026-07-09 04:12:48
+Running MATLAB 2011-compatible DRT workflow from: C:\Users\mitra\Downloads\matlab analysis
+Removing 2 zero/negative frequency points
+Loaded 198 frequency points (sorted by increasing frequency)
+Frequency range: 24.4 - 10000000.0 Hz
+Magnitude range: 52.5 - 14049.0 Ohm
+Phase range: -103.76 - 97.79 deg
+
+Testing different lambda values...
+lambda = 1.0e-04: R_inf =   73.010, Mean residual =  179.581
+lambda = 1.0e-03: R_inf =   70.705, Mean residual =  180.351
+lambda = 1.0e-02: R_inf =   59.191, Mean residual =  187.249
+lambda = 1.0e-01: R_inf =   38.243, Mean residual =  226.765
+lambda = 1.0e+00: R_inf =   96.343, Mean residual =  460.024
+
+Selected lambda = 1.0e-04 (best fit)
+Recovered R_inf = 73.010497
+DRT vector length = 198
+
+Mean absolute residual: 179.581125
+Max absolute residual : 1447.459383
+
+Lambda perturbation sensitivity around selected lambda:
+  Reference lambda      : 1.000e-04
+  Reference mean resid  : 179.581125
+  Min residual change   : -0.14 %
+  Max residual change   : 0.21 %
+  Max abs change        : 0.21 %
+[Warning: Added specified worksheet.] 
+[> In xlswrite>activate_sheet (line 317)
+In xlswrite/ExecuteWrite (line 283)
+In xlswrite (line 237)
+In drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+In drt_input_analysis_matlab2011 (line 203)
+In Impedance_analysis (line 17)] 
+Threshold 0.01: Found 3 peaks
+  Peak 1: gamma = 11454.7
+  Peak 2: gamma = 6301.8
+  Peak 3: gamma = 8046.1
+Threshold 0.05: Found 3 peaks
+  Peak 1: gamma = 11454.7
+  Peak 2: gamma = 6301.8
+  Peak 3: gamma = 8046.1
+Threshold 0.10: Found 3 peaks
+  Peak 1: gamma = 11454.7
+  Peak 2: gamma = 6301.8
+  Peak 3: gamma = 8046.1
+Threshold 0.15: Found 3 peaks
+  Peak 1: gamma = 11454.7
+  Peak 2: gamma = 6301.8
+  Peak 3: gamma = 8046.1
+
+Using height threshold: 572.7
+
+Found 3 peaks in original data DRT
+Peak 1: tau = 2.39e-06 s (f = 66605.32 Hz), gamma = 11454.6664
+Peak 2: tau = 5.24e-07 s (f = 303517.59 Hz), gamma = 6301.7935
+Peak 3: tau = 1.95e-07 s (f = 816120.85 Hz), gamma = 8046.1239
+
+Fitted Original Data Circuit Parameters:
+Peak | tau (s) | gamma (1/Ohm) | R (Ohm) | C (F) | n
+----------------------------------------------------------
+   1 | 2.31e-06 | 1.15e+04 | 7.98e+02 | 3.00e-09 | 0.681
+   2 | 2.30e-06 | 1.14e+04 | 4.19e+02 | 1.25e-09 | 0.606
+   3 | 1.89e-07 | 8.10e+03 | 5.38e+02 | 3.62e-10 | 0.752
+
+Total series resistance: 1828.05 Ohm
+High-frequency resistance (R_inf): 73.01 Ohm
+Exiting: Iteration count is exceeded, exiting LSQNONNEG.
+Try raising the tolerance (OPTIONS.TolX).
+
+Kramers-Kronig consistency test:
+  Real residual  : 1.69 %
+  Imag residual  : 9.00 %
+  Total residual : 2.68 %
+  Status         : pass
+{Error using xlswrite
+The file C:\Users\mitra\Downloads\matlab analysis\kk_result.xlsx is not writable.  It might be locked by another process.
+
+Error in drt_input_analysis_matlab2011>write_matrix_with_header_2011 (line 1007)
+xlswrite(file_name, header_row, sheet_name, 'A1');
+
+Error in drt_input_analysis_matlab2011 (line 297)
+write_matrix_with_header_2011(kk_output_file, kk_sheet, ...
+
+Error in Impedance_analysis (line 17)
+drt_input_analysis_matlab2011(repo_root,input_path,temperature,data);
+} 
