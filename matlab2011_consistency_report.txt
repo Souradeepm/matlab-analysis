@@ -1,0 +1,40 @@
+MATLAB checkcode consistency report
+Generated: 10-Jul-2026 16:36:56
+
+File: C:\Users\mitra\Downloads\matlab analysis\Impedance_analysis.m
+Issues: 13
+  Line 2, Col 7, ID 	: CLALL
+  Line 85, Col 115, ID ing 'clear' with the 'all' option usually decreases code performance and is often unnecessary.:   Line 7, Col 7, ID 
+: NCOMMA
+  Line 66, Col 101, ID st practice is to separate output variables with commas.:   Line 7, Col 12, ID : NCOMMA
+  Line 66, Col 101, ID st practice is to separate output variables with commas.:   Line 7, Col 17, ID : XLSRD
+  Line 39, Col 120, ID lsread' is not recommended. With appropriate code changes, use 'readtable', 'readmatrix' or 'readcell' instead.:   Line 16, Col 4, ID : NOSEMI
+  Line 69, Col 120, ID tra semicolon is unnecessary.:   Line 30, Col 21, ID =: STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.:   Line 31, Col 3, ID : STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.:   Line 32, Col 3, ID (: STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.:   Line 33, Col 11, ID +: STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.:   Line 34, Col 3, ID #: STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.:   Line 35, Col 17, ID @: STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.:   Line 36, Col 3, ID &: STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.:   Line 37, Col 11, ID >: STREMP
+  Line 70, Col 111, ID r readability, use '~contains(str1, str2)' instead of 'isempty(strfind(str1, str2))'.: 
+File: C:\Users\mitra\Downloads\matlab analysis\drt_input_analysis_matlab2011.m
+Issues: 17
+  Line 120, Col 1, ID : AGROW
+  Line 86, Col 97, ID riable appears to change size on every loop iteration. Consider preallocating for speed.:   Line 327, Col 9, ID : AGROW
+  Line 86, Col 97, ID riable appears to change size on every loop iteration. Consider preallocating for speed.:   Line 328, Col 9, ID : AGROW
+  Line 86, Col 97, ID riable appears to change size on every loop iteration. Consider preallocating for speed.:   Line 329, Col 9, ID : AGROW
+  Line 86, Col 97, ID riable appears to change size on every loop iteration. Consider preallocating for speed.:   Line 330, Col 9, ID : AGROW
+  Line 86, Col 97, ID riable appears to change size on every loop iteration. Consider preallocating for speed.:   Line 331, Col 9, ID : AGROW
+  Line 86, Col 97, ID riable appears to change size on every loop iteration. Consider preallocating for speed.:   Line 332, Col 9, ID : AGROW
+  Line 86, Col 97, ID riable appears to change size on every loop iteration. Consider preallocating for speed.:   Line 468, Col 33, ID ': DATST
+  Line 39, Col 100, ID atestr' is not recommended. With appropriate code changes, use 'datetime' instead.:   Line 468, Col 41, ID +: TNOW1
+  Line 39, Col 110, ID ow' is not recommended. With appropriate code changes, use 'datetime("now")' instead.:   Line 488, Col 1, ID : XLSWT
+  Line 39, Col 120, ID lswrite' is not recommended. With appropriate code changes, use 'writematrix' or 'writecell' instead.:   Line 489, Col 1, ID : XLSWT
+  Line 39, Col 120, ID lswrite' is not recommended. With appropriate code changes, use 'writematrix' or 'writecell' instead.:   Line 901, Col 38, ID :: DEFNU
+  Line 70, Col 117, ID nction might be unused.:   Line 1306, Col 14, ID : UDIM
+  Line 73, Col 110, ID stead of using transpose (' or .'), consider using a different DIMENSION input argument to SORT.:   Line 1441, Col 6, ID : RAND
+  Line 82, Col 65, ID ND or RANDN with the 'seed', 'state', or 'twister' inputs is not recommended. Use RNG instead.:   Line 1442, Col 7, ID : RAND
+  Line 82, Col 65, ID ND or RANDN with the 'seed', 'state', or 'twister' inputs is not recommended. Use RNG instead.:   Line 1539, Col 1, ID : XLSWT
+  Line 39, Col 120, ID lswrite' is not recommended. With appropriate code changes, use 'writematrix' or 'writecell' instead.:   Line 1540, Col 1, ID : XLSWT
+  Line 39, Col 120, ID lswrite' is not recommended. With appropriate code changes, use 'writematrix' or 'writecell' instead.: 

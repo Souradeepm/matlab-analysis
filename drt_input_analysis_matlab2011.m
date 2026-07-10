@@ -6,11 +6,13 @@ function drt_input_analysis_matlab2011(repo_root,input_path,temperature,indata)
 % WORKFLOW OVERVIEW:
 %   1. LOAD DATA: Read impedance data (frequency, magnitude, phase) from Excel file
 %   2. VALIDATE: Remove zero/negative frequencies, sort data
-%   3. INVERT: Test multiple lambda regularization values, select best fit via residual minimization
-%   4. CALCULATE: Compute fitted impedance from recovered DRT
-%   5. ANALYZE PEAKS: Detect peaks in DRT, characterize them with RBF interpolation
-%   6. EXTRACT PARAMETERS: Calculate equivalent circuit R and C for each peak
-%   7. VISUALIZE: Generate plots (console only, no PNG files for easy script copying)
+%   3. INVERT: Test multiple lambda values and select lambda using
+%      ChemElectroChem-style criteria (RID + Re/Im CV + resampling variance)
+%   4. CALCULATE: Compute fitted impedance and residual metrics from recovered DRT
+%   5. VALIDATE: Run Kramers-Kronig (KK) consistency tests on measured and DRT-fitted impedance
+%   6. ANALYZE PEAKS: Detect peaks in DRT, characterize them with RBF interpolation
+%   7. EXTRACT PARAMETERS: Calculate equivalent circuit R and C for each peak
+%   8. VISUALIZE: Generate plots (console only, no PNG files for easy script copying)
 %
 % KEY VARIABLES:
 %   freq_vec - Measurement frequencies (Hz), log-spaced preferred
