@@ -13,12 +13,16 @@ out_cv_png = fullfile(repo_root, 's2022_280k_cv_resampling.png');
 out_cv_iter_png = fullfile(repo_root, 's2022_280k_cv_iterations_lambda_1e3.png');
 out_cv_drt_overlay_png = fullfile(repo_root, 's2022_280k_cv_drt_overlay_lambda_1e3.png');
 out_lambda1e3_refined_overlay_png = fullfile(repo_root, 's2022_280k_lambda_1e3_refined_peak_overlay.png');
+out_summary_txt = fullfile(repo_root, 's2022_280k_chemelectrochem_summary.txt');
+headless_summary_only = strcmpi(getenv('CHEMELECTROCHEM_HEADLESS'), '1');
+enable_excel_output = ~headless_summary_only;
+enable_plot_output = ~headless_summary_only;
 
 if exist(input_path, 'file') ~= 2
     error('Input file not found: %s', input_path);
 end
 
-[data, text, raw] = xlsread(input_path); %#ok<ASGLU>
+[data, text, raw] = read_excel_robust_2011(input_path); %#ok<ASGLU>
 text = char(text(1,:));
 [p1, ~] = size(text);
 temperature = zeros(p1,1);
@@ -57,6 +61,10 @@ base_peak_count = zeros(n_lambda, 1);
 hidden_peak_count = zeros(n_lambda, 1);
 fit_rmse = zeros(n_lambda, 1);
 gamma_all = zeros(numel(freq_vec), n_lambda);
+rid_metric = zeros(n_lambda, 1);
+cv_real_metric = zeros(n_lambda, 1);
+cv_imag_metric = zeros(n_lambda, 1);
+resample_var_metric = zeros(n_lambda, 1);
 lambda_peak_overlay = 1e-3;
 fit_peaks_1e3 = [];
 peak_refine_1e3 = [];
@@ -69,6 +77,17 @@ for i = 1:n_lambda
     [gamma_i, R_inf_i] = tr_drt_general(freq_vec, Z_exp, lam, tau_basis);
     Z_fit_i = calc_eis_general(freq_vec, gamma_i, R_inf_i, tau_basis);
     [fit_peaks, peak_refine] = refine_rbf_peak_fitting_general(tau_basis, gamma_i);
+
+    [gamma_re_only, R_re_only] = tr_drt_component_general(freq_vec, Z_exp, lam, tau_basis, 'real');
+    [gamma_im_only, ~] = tr_drt_component_general(freq_vec, Z_exp, lam, tau_basis, 'imag');
+    rid_metric(i) = mean((gamma_re_only - gamma_im_only).^2);
+
+    Z_from_re_only = calc_eis_general(freq_vec, gamma_re_only, R_re_only, tau_basis);
+    R_from_im = estimate_rinf_for_gamma_general(freq_vec, Z_exp, gamma_im_only, tau_basis);
+    Z_from_im_only = calc_eis_general(freq_vec, gamma_im_only, R_from_im, tau_basis);
+    cv_imag_metric(i) = mean((imag(Z_exp) - imag(Z_from_re_only)).^2);
+    cv_real_metric(i) = mean((real(Z_exp) - real(Z_from_im_only)).^2);
+    resample_var_metric(i) = estimate_resample_variance_general(freq_vec, Z_exp, lam, tau_basis, 8);
 
     gamma_all(:, i) = gamma_i(:);
     mean_resid(i) = mean(abs(Z_exp - Z_fit_i));
@@ -83,27 +102,60 @@ for i = 1:n_lambda
         peak_refine_1e3 = peak_refine;
     end
 
-    fprintf('  lambda=%8.1e | mean residual=%9.6f | refined peaks=%d (base=%d hidden=%d)\n', ...
-        lam, mean_resid(i), refined_peak_count(i), base_peak_count(i), hidden_peak_count(i));
+    fprintf('  lambda=%8.1e | mean residual=%9.6f | refined peaks=%d (base=%d hidden=%d) | RID=%.3e CV=%.3e Var=%.3e\n', ...
+        lam, mean_resid(i), refined_peak_count(i), base_peak_count(i), hidden_peak_count(i), ...
+        rid_metric(i), cv_real_metric(i) + cv_imag_metric(i), resample_var_metric(i));
 end
 
-% If 1e-4 and 1e-3 are nearly identical in fit quality, prefer 1e-3.
-resid_1e4 = mean_resid(1);
-resid_1e3 = mean_resid(2);
-resid_diff_pct = 100 * abs(resid_1e3 - resid_1e4) / max(resid_1e4, eps);
-small_diff_threshold_pct = 2.0;
-if resid_diff_pct <= small_diff_threshold_pct
-    lambda_cv = 1e-3;
-    lambda_cv_reason = 1;
+cv_total_metric = cv_real_metric + cv_imag_metric;
+[~, idx_cv_min] = min(cv_total_metric);
+[~, idx_var_min] = min(resample_var_metric);
+idx_low = min(idx_cv_min, idx_var_min);
+idx_high = max(idx_cv_min, idx_var_min);
+if idx_low == idx_high
+    idx_candidates = (1:n_lambda).';
 else
-    lambda_cv = 1e-4;
-    lambda_cv_reason = 0;
+    idx_candidates = (idx_low:idx_high).';
 end
+
+[~, rid_rel] = min(rid_metric(idx_candidates));
+idx_rid_choice = idx_candidates(rid_rel);
+score_metric = normalize_metric_2011(rid_metric) + normalize_metric_2011(cv_total_metric) + normalize_metric_2011(resample_var_metric);
+[~, idx_score_choice] = min(score_metric);
+
+idx_lambda_cv = idx_score_choice;
+if idx_lambda_cv ~= idx_rid_choice
+    idx_lambda_cv = idx_rid_choice;
+end
+lambda_cv = lambda_values(idx_lambda_cv);
+lambda_cv_reason = idx_lambda_cv;
 
 fprintf('\nLambda choice for CV:\n');
-fprintf('  Residual difference between 1e-4 and 1e-3: %.3f %%\n', resid_diff_pct);
-fprintf('  Small-difference threshold                : %.3f %%\n', small_diff_threshold_pct);
+fprintf('  Method: ChemElectroChem (RID + Re/Im CV + resampling variance)\n');
+fprintf('  Boundary index from CV/variance          : [%d, %d]\n', idx_low, idx_high);
+fprintf('  Selected index                            : %d\n', idx_lambda_cv);
+fprintf('  RID(selected)                             : %.3e\n', rid_metric(idx_lambda_cv));
+fprintf('  CV(selected)                              : %.3e\n', cv_total_metric(idx_lambda_cv));
+fprintf('  Var(selected)                             : %.3e\n', resample_var_metric(idx_lambda_cv));
 fprintf('  Selected CV lambda                        : %.1e\n', lambda_cv);
+
+fid_sum = fopen(out_summary_txt, 'w');
+if fid_sum > 0
+    fprintf(fid_sum, 'Selected temperature: %.6f K\n', selected_temperature);
+    fprintf(fid_sum, 'Method: ChemElectroChem (RID + Re/Im CV + resampling variance)\n');
+    fprintf(fid_sum, 'Boundary index from CV/variance: [%d, %d]\n', idx_low, idx_high);
+    fprintf(fid_sum, 'Selected index: %d\n', idx_lambda_cv);
+    fprintf(fid_sum, 'Selected lambda: %.8e\n', lambda_cv);
+    fprintf(fid_sum, 'RID(selected): %.8e\n', rid_metric(idx_lambda_cv));
+    fprintf(fid_sum, 'CV(selected): %.8e\n', cv_total_metric(idx_lambda_cv));
+    fprintf(fid_sum, 'Var(selected): %.8e\n', resample_var_metric(idx_lambda_cv));
+    fprintf(fid_sum, '\nLambda table:\n');
+    fprintf(fid_sum, 'lambda,mean_resid,RID,CV_total,Var,score\n');
+    for i = 1:n_lambda
+        fprintf(fid_sum, '%.8e,%.8e,%.8e,%.8e,%.8e,%.8e\n', lambda_values(i), mean_resid(i), rid_metric(i), cv_total_metric(i), resample_var_metric(i), score_metric(i));
+    end
+    fclose(fid_sum);
+end
 
 % 15% holdout CV using the selected lambda.
 rand('twister', 280);
@@ -151,24 +203,26 @@ fprintf('  Mean holdout residual : %.6f\n', mean(holdout_resid));
 fprintf('  Std holdout residual  : %.6f\n', std(holdout_resid));
 fprintf('  Peak count mode       : %d\n', mode(train_peak_count));
 
-figure('Color', 'w', 'Name', 'S2022 280 K lambda sweep refined peaks');
-cm = lines(n_lambda);
-for i = 1:n_lambda
-    semilogx(tau, gamma_all(:, i), 'Color', cm(i,:), 'LineWidth', 1.2); hold on;
+if enable_plot_output
+    figure('Color', 'w', 'Name', 'S2022 280 K lambda sweep refined peaks');
+    cm = lines(n_lambda);
+    for i = 1:n_lambda
+        semilogx(tau, gamma_all(:, i), 'Color', cm(i,:), 'LineWidth', 1.2); hold on;
+    end
+    set(gca, 'XDir', 'reverse');
+    xlabel('Relaxation time tau (s)');
+    ylabel('gamma(tau)');
+    title(sprintf('S2022 %.2f K lambda sweep with refined peak counts', selected_temperature));
+    grid on;
+    legend_text = cell(n_lambda, 1);
+    for i = 1:n_lambda
+        legend_text{i} = sprintf('\\lambda=%.1e | peaks=%d', lambda_values(i), refined_peak_count(i));
+    end
+    legend(legend_text, 'Location', 'best');
+    saveas(gcf, out_sweep_png);
 end
-set(gca, 'XDir', 'reverse');
-xlabel('Relaxation time tau (s)');
-ylabel('gamma(tau)');
-title(sprintf('S2022 %.2f K lambda sweep with refined peak counts', selected_temperature));
-grid on;
-legend_text = cell(n_lambda, 1);
-for i = 1:n_lambda
-    legend_text{i} = sprintf('\\lambda=%.1e | peaks=%d', lambda_values(i), refined_peak_count(i));
-end
-legend(legend_text, 'Location', 'best');
-saveas(gcf, out_sweep_png);
 
-if ~isempty(fit_peaks_1e3) && ~isempty(peak_refine_1e3)
+if enable_plot_output && ~isempty(fit_peaks_1e3) && ~isempty(peak_refine_1e3)
     tau_dense_1e3 = peak_refine_1e3.tau_dense(:);
     x_dense_1e3 = log(tau_dense_1e3);
     gamma_rbf_1e3 = peak_refine_1e3.gamma_rbf(:);
@@ -226,96 +280,105 @@ if ~isempty(fit_peaks_1e3) && ~isempty(peak_refine_1e3)
     saveas(gcf, out_lambda1e3_refined_overlay_png);
 end
 
-figure('Color', 'w', 'Name', 'S2022 280 K holdout CV');
-subplot(2,1,1);
-plot(1:n_cv, train_resid, 'bo-'); hold on;
-plot(1:n_cv, holdout_resid, 'rs-');
-xlabel('Resample run');
-ylabel('Mean residual');
-title(sprintf('15%% holdout CV at \\lambda=%.1e', lambda_cv));
-grid on;
-legend('Train residual', 'Holdout residual', 'Location', 'best');
+if enable_plot_output
+    figure('Color', 'w', 'Name', 'S2022 280 K holdout CV');
+    subplot(2,1,1);
+    plot(1:n_cv, train_resid, 'bo-'); hold on;
+    plot(1:n_cv, holdout_resid, 'rs-');
+    xlabel('Resample run');
+    ylabel('Mean residual');
+    title(sprintf('15%% holdout CV at \\lambda=%.1e', lambda_cv));
+    grid on;
+    legend('Train residual', 'Holdout residual', 'Location', 'best');
 
-subplot(2,1,2);
-stem(1:n_cv, train_peak_count, 'filled');
-xlabel('Resample run');
-ylabel('Refined peak count');
-grid on;
-legend('Peak count on training fit', 'Location', 'best');
-saveas(gcf, out_cv_png);
+    subplot(2,1,2);
+    stem(1:n_cv, train_peak_count, 'filled');
+    xlabel('Resample run');
+    ylabel('Refined peak count');
+    grid on;
+    legend('Peak count on training fit', 'Location', 'best');
+    saveas(gcf, out_cv_png);
+end
 
 % Dedicated per-iteration plot for lambda=1e-3-style CV view.
-figure('Color', 'w', 'Name', 'S2022 280 K CV iterations detail');
-cv_gap = holdout_resid - train_resid;
-subplot(3,1,1);
-bar(1:n_cv, [train_resid, holdout_resid], 0.9);
-xlabel('CV iteration');
-ylabel('Mean residual');
-title(sprintf('CV iterations at selected \\lambda=%.1e', lambda_cv));
-grid on;
-legend('Train', 'Holdout', 'Location', 'best');
+if enable_plot_output
+    figure('Color', 'w', 'Name', 'S2022 280 K CV iterations detail');
+    cv_gap = holdout_resid - train_resid;
+    subplot(3,1,1);
+    bar(1:n_cv, [train_resid, holdout_resid], 0.9);
+    xlabel('CV iteration');
+    ylabel('Mean residual');
+    title(sprintf('CV iterations at selected \\lambda=%.1e', lambda_cv));
+    grid on;
+    legend('Train', 'Holdout', 'Location', 'best');
 
-subplot(3,1,2);
-plot(1:n_cv, cv_gap, 'k-o', 'LineWidth', 1.2, 'MarkerSize', 5);
-xlabel('CV iteration');
-ylabel('Holdout - Train residual');
-grid on;
+    subplot(3,1,2);
+    plot(1:n_cv, cv_gap, 'k-o', 'LineWidth', 1.2, 'MarkerSize', 5);
+    xlabel('CV iteration');
+    ylabel('Holdout - Train residual');
+    grid on;
 
-subplot(3,1,3);
-stem(1:n_cv, train_peak_count, 'filled');
-xlabel('CV iteration');
-ylabel('Refined peak count');
-grid on;
-saveas(gcf, out_cv_iter_png);
+    subplot(3,1,3);
+    stem(1:n_cv, train_peak_count, 'filled');
+    xlabel('CV iteration');
+    ylabel('Refined peak count');
+    grid on;
+    saveas(gcf, out_cv_iter_png);
 
-figure('Color', 'w', 'Name', 'S2022 280 K CV DRT overlay (lambda 1e-3)');
-cm_cv = lines(n_cv);
-for r = 1:n_cv
-    semilogx(tau, gamma_cv_overlay(:, r), 'Color', cm_cv(r,:), 'LineWidth', 1.2); hold on;
+    figure('Color', 'w', 'Name', 'S2022 280 K CV DRT overlay (lambda 1e-3)');
+    cm_cv = lines(n_cv);
+    for r = 1:n_cv
+        semilogx(tau, gamma_cv_overlay(:, r), 'Color', cm_cv(r,:), 'LineWidth', 1.2); hold on;
+    end
+    set(gca, 'XDir', 'reverse');
+    xlabel('Relaxation time tau (s)');
+    ylabel('gamma(tau)');
+    title('Training DRT overlay across CV iterations at \lambda=1e-3');
+    grid on;
+    legend_text_cv = cell(n_cv, 1);
+    for r = 1:n_cv
+        legend_text_cv{r} = sprintf('CV run %d', r);
+    end
+    legend(legend_text_cv, 'Location', 'best');
+    saveas(gcf, out_cv_drt_overlay_png);
 end
-set(gca, 'XDir', 'reverse');
-xlabel('Relaxation time tau (s)');
-ylabel('gamma(tau)');
-title('Training DRT overlay across CV iterations at \lambda=1e-3');
-grid on;
-legend_text_cv = cell(n_cv, 1);
-for r = 1:n_cv
-    legend_text_cv{r} = sprintf('CV run %d', r);
+
+if enable_excel_output
+    xlswrite(out_xlsx, {'selected_temperature_K','cv_boundary_low_idx','cv_boundary_high_idx','selected_cv_lambda','selected_lambda_index'}, 'meta', 'A1');
+    xlswrite(out_xlsx, [selected_temperature, idx_low, idx_high, lambda_cv, lambda_cv_reason], 'meta', 'A2');
+
+    xlswrite(out_xlsx, {'lambda','mean_abs_residual','R_inf','refined_peak_count','base_peak_count','hidden_peak_count','fit_rmse','RID','CV_real','CV_imag','resample_variance','score'}, 'lambda_sweep', 'A1');
+    xlswrite(out_xlsx, [lambda_values, mean_resid, R_inf_all, refined_peak_count, base_peak_count, hidden_peak_count, fit_rmse, rid_metric, cv_real_metric, cv_imag_metric, resample_var_metric, score_metric], 'lambda_sweep', 'A2');
+
+    xlswrite(out_xlsx, {'cv_run','train_mean_residual','holdout_mean_residual','train_refined_peak_count'}, 'cv_resampling', 'A1');
+    xlswrite(out_xlsx, [(1:n_cv).', train_resid, holdout_resid, train_peak_count], 'cv_resampling', 'A2');
+
+    curve_header = cell(1, n_lambda + 1);
+    curve_header{1} = 'tau_s';
+    for i = 1:n_lambda
+        curve_header{i+1} = sprintf('gamma_lambda_%0.1e', lambda_values(i));
+    end
+    xlswrite(out_xlsx, curve_header, 'drt_curves', 'A1');
+    xlswrite(out_xlsx, [tau, gamma_all], 'drt_curves', 'A2');
+
+    cv_overlay_header = cell(1, n_cv + 1);
+    cv_overlay_header{1} = 'tau_s';
+    for r = 1:n_cv
+        cv_overlay_header{r+1} = sprintf('gamma_cv_run_%d_lambda_1e3', r);
+    end
+    xlswrite(out_xlsx, cv_overlay_header, 'cv_drt_overlay_1e3', 'A1');
+    xlswrite(out_xlsx, [tau, gamma_cv_overlay], 'cv_drt_overlay_1e3', 'A2');
 end
-legend(legend_text_cv, 'Location', 'best');
-saveas(gcf, out_cv_drt_overlay_png);
 
-xlswrite(out_xlsx, {'selected_temperature_K','resid_diff_pct_1e4_vs_1e3','small_diff_threshold_pct','selected_cv_lambda','used_1e3_flag'}, 'meta', 'A1');
-xlswrite(out_xlsx, [selected_temperature, resid_diff_pct, small_diff_threshold_pct, lambda_cv, lambda_cv_reason], 'meta', 'A2');
-
-xlswrite(out_xlsx, {'lambda','mean_abs_residual','R_inf','refined_peak_count','base_peak_count','hidden_peak_count','fit_rmse'}, 'lambda_sweep', 'A1');
-xlswrite(out_xlsx, [lambda_values, mean_resid, R_inf_all, refined_peak_count, base_peak_count, hidden_peak_count, fit_rmse], 'lambda_sweep', 'A2');
-
-xlswrite(out_xlsx, {'cv_run','train_mean_residual','holdout_mean_residual','train_refined_peak_count'}, 'cv_resampling', 'A1');
-xlswrite(out_xlsx, [(1:n_cv).', train_resid, holdout_resid, train_peak_count], 'cv_resampling', 'A2');
-
-curve_header = cell(1, n_lambda + 1);
-curve_header{1} = 'tau_s';
-for i = 1:n_lambda
-    curve_header{i+1} = sprintf('gamma_lambda_%0.1e', lambda_values(i));
+if enable_excel_output
+    fprintf('\nSaved: %s\n', out_xlsx);
 end
-xlswrite(out_xlsx, curve_header, 'drt_curves', 'A1');
-xlswrite(out_xlsx, [tau, gamma_all], 'drt_curves', 'A2');
-
-cv_overlay_header = cell(1, n_cv + 1);
-cv_overlay_header{1} = 'tau_s';
-for r = 1:n_cv
-    cv_overlay_header{r+1} = sprintf('gamma_cv_run_%d_lambda_1e3', r);
-end
-xlswrite(out_xlsx, cv_overlay_header, 'cv_drt_overlay_1e3', 'A1');
-xlswrite(out_xlsx, [tau, gamma_cv_overlay], 'cv_drt_overlay_1e3', 'A2');
-
-fprintf('\nSaved: %s\n', out_xlsx);
 fprintf('Saved: %s\n', out_sweep_png);
 fprintf('Saved: %s\n', out_cv_png);
 fprintf('Saved: %s\n', out_cv_iter_png);
 fprintf('Saved: %s\n', out_cv_drt_overlay_png);
-if ~isempty(fit_peaks_1e3) && ~isempty(peak_refine_1e3)
+fprintf('Saved: %s\n', out_summary_txt);
+if enable_plot_output && ~isempty(fit_peaks_1e3) && ~isempty(peak_refine_1e3)
     fprintf('Saved: %s\n', out_lambda1e3_refined_overlay_png);
 end
 end
@@ -341,6 +404,72 @@ function Z_cal = calc_eis_general(freq_eval, gamma, R_inf, tau_basis)
 A_re = calc_A_re_general(freq_eval, tau_basis);
 A_im = calc_A_im_general(freq_eval, tau_basis);
 Z_cal = R_inf + A_re * gamma + 1i * (A_im * gamma);
+end
+
+function [gamma, R_inf] = tr_drt_component_general(freq_eval, Z_exp, lam, tau_basis, component)
+A_re = calc_A_re_general(freq_eval, tau_basis);
+A_im = calc_A_im_general(freq_eval, tau_basis);
+Z_re = real(Z_exp(:));
+Z_im = imag(Z_exp(:));
+n_eval = numel(freq_eval);
+n_basis = numel(tau_basis);
+
+switch lower(component)
+    case 'real'
+        M = [A_re, ones(n_eval,1); sqrt(lam/2) * eye(n_basis), zeros(n_basis,1)];
+        b = [Z_re; zeros(n_basis,1)];
+    case 'imag'
+        M = [A_im, zeros(n_eval,1); sqrt(lam/2) * eye(n_basis), zeros(n_basis,1)];
+        b = [Z_im; zeros(n_basis,1)];
+    otherwise
+        error('Unknown component mode: %s', component);
+end
+
+x = lsqnonneg(M, b);
+gamma = x(1:end-1);
+R_inf = x(end);
+end
+
+function R_inf = estimate_rinf_for_gamma_general(freq_eval, Z_exp, gamma, tau_basis)
+A_re = calc_A_re_general(freq_eval, tau_basis);
+r_est = mean(real(Z_exp(:)) - A_re * gamma(:));
+if r_est > 0
+    R_inf = r_est;
+else
+    R_inf = 0;
+end
+end
+
+function mean_var = estimate_resample_variance_general(freq_eval, Z_exp, lam, tau_basis, n_boot)
+if nargin < 5 || isempty(n_boot)
+    n_boot = 8;
+end
+n_eval = numel(freq_eval);
+n_basis = numel(tau_basis);
+
+sigma_re = max(0.005 * max(abs(real(Z_exp))), eps);
+sigma_im = max(0.005 * max(abs(imag(Z_exp))), eps);
+
+gamma_samples = zeros(n_basis, n_boot);
+for k = 1:n_boot
+    noise = sigma_re * randn(n_eval,1) + 1i * sigma_im * randn(n_eval,1);
+    Z_boot = Z_exp(:) + noise;
+    [gk, ~] = tr_drt_general(freq_eval, Z_boot, lam, tau_basis);
+    gamma_samples(:, k) = gk(:);
+end
+
+mean_var = mean(var(gamma_samples, 0, 2));
+end
+
+function nvec = normalize_metric_2011(vec)
+vec = vec(:);
+vmin = min(vec);
+vmax = max(vec);
+if vmax > vmin
+    nvec = (vec - vmin) / (vmax - vmin);
+else
+    nvec = zeros(size(vec));
+end
 end
 
 function A_re = calc_A_re_general(freq_eval, tau_basis)
@@ -739,6 +868,25 @@ n = numel(y);
 if n < 5
     ysm = y;
     return;
+end
+
+function [data, text, raw] = read_excel_robust_2011(file_path)
+% read_excel_robust_2011 - Read Excel with fallback when COM/Excel automation fails.
+
+try
+    [data, text, raw] = xlsread(file_path);
+    return;
+catch
+end
+
+try
+    data = readmatrix(file_path);
+    hdr = readcell(file_path, 'Range', '1:1');
+    text = hdr;
+    raw = [];
+catch ME
+    error('Failed to read Excel file %s: %s', file_path, ME.message);
+end
 end
 
 if mod(frame_len, 2) == 0

@@ -288,6 +288,484 @@
 			"type": "shell",
 			"command": "where.exe git; where.exe gh",
 			"isBackground": false
+		},
+		{
+			"label": "Verify git publish state via full path",
+			"type": "shell",
+			"command": "& \"C:\\Program Files\\Git\\cmd\\git.exe\" -C \"C:\\Users\\mitra\\Downloads\\matlab analysis\" branch -vv; & \"C:\\Program Files\\Git\\cmd\\git.exe\" -C \"C:\\Users\\mitra\\Downloads\\matlab analysis\" status -sb; & \"C:\\Program Files\\Git\\cmd\\git.exe\" -C \"C:\\Users\\mitra\\Downloads\\matlab analysis\" remote -v",
+			"isBackground": false
+		},
+		{
+			"label": "Push to GitHub via short path",
+			"type": "shell",
+			"command": "C:\\Progra~1\\Git\\cmd\\git.exe -C \"C:\\Users\\mitra\\Downloads\\matlab analysis\" push -u origin main",
+			"isBackground": false
+		},
+		{
+			"label": "Push to GitHub from cwd",
+			"type": "shell",
+			"command": "cd 'C:\\Users\\mitra\\Downloads\\matlab analysis'; C:\\Progra~1\\Git\\cmd\\git.exe push -u origin main",
+			"isBackground": false
+		},
+		{
+			"label": "Push to GitHub retry clean",
+			"type": "shell",
+			"command": "C:\\Program Files\\Git\\cmd\\git.exe",
+			"args": [
+				"-C",
+				"C:\\Users\\mitra\\Downloads\\matlab analysis",
+				"push",
+				"-u",
+				"origin",
+				"main",
+				"-v"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check GitHub CLI",
+			"type": "shell",
+			"command": "C:\\Program Files\\GitHub CLI\\gh.exe",
+			"args": [
+				"--version"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check gh auth",
+			"type": "shell",
+			"command": "C:\\Program Files\\GitHub CLI\\gh.exe",
+			"args": [
+				"auth",
+				"status"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Push local main to GitHub",
+			"type": "shell",
+			"command": "C:\\Program Files\\Git\\cmd\\git.exe",
+			"args": [
+				"-C",
+				"C:\\Users\\mitra\\Downloads\\matlab analysis",
+				"push",
+				"-u",
+				"origin",
+				"main",
+				"-v"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify remote main",
+			"type": "shell",
+			"command": "C:\\Program Files\\Git\\cmd\\git.exe",
+			"args": [
+				"-C",
+				"C:\\Users\\mitra\\Downloads\\matlab analysis",
+				"ls-remote",
+				"--heads",
+				"origin",
+				"main"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Set canonical origin URL",
+			"type": "shell",
+			"command": "C:\\Program Files\\Git\\cmd\\git.exe",
+			"args": [
+				"-C",
+				"C:\\Users\\mitra\\Downloads\\matlab analysis",
+				"remote",
+				"set-url",
+				"origin",
+				"https://github.com/Souradeepm/matlab-analysis.git"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify origin URL",
+			"type": "shell",
+			"command": "C:\\Program Files\\Git\\cmd\\git.exe",
+			"args": [
+				"-C",
+				"C:\\Users\\mitra\\Downloads\\matlab analysis",
+				"remote",
+				"-v"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Impedance analysis with ChemElectroChem optimization",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"Impedance_analysis"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run 280K workflow after optimization update",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_workflow_and_save_plots"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run 280K lambda sweep with paper optimization",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run 280K lambda sweep with ChemElectroChem method",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run 280K ChemElectroChem clean rerun",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run 280K ChemElectroChem no-excel",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run 280K ChemElectroChem headless",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-nojvm",
+				"-nodesktop",
+				"-nosplash",
+				"-r",
+				"run_s2022_280k_lambda_sweep_cv; exit"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run headless and write ChemElectroChem summary",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-nojvm",
+				"-nodesktop",
+				"-nosplash",
+				"-r",
+				"run_s2022_280k_lambda_sweep_cv; exit"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "MATLAB smoke test output",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-nojvm",
+				"-nodesktop",
+				"-nosplash",
+				"-r",
+				"disp('HELLO_CHEM_TEST'); exit"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "MATLAB smoke test batch",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"disp('HELLO_CHEM_TEST')"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill MATLAB and Excel processes",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"MATLAB.exe",
+				"/T"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Force stop MATLAB and Excel",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$ErrorActionPreference='SilentlyContinue'; Get-Process MATLAB,EXCEL | Stop-Process -Force; Start-Sleep -Milliseconds 300; Get-Process MATLAB,EXCEL | Select-Object Name,Id | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Restart 280K workflow",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Hard kill all MATLAB",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe",
+				"/T"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "PID kill MATLAB Excel",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$ErrorActionPreference='SilentlyContinue'; $procs = Get-Process | Where-Object { $_.ProcessName -match '^(MATLAB|EXCEL)$' }; if($procs){ $ids = $procs | Select-Object -ExpandProperty Id; foreach($id in $ids){ Stop-Process -Id $id -Force -ErrorAction SilentlyContinue }; \"Killed PIDs: $($ids -join ', ')\" } else { 'No MATLAB/EXCEL process found' }; $left = Get-Process | Where-Object { $_.ProcessName -match '^(MATLAB|EXCEL)$' } | Select-Object ProcessName,Id; if($left){ 'Still running:'; $left | Format-Table -AutoSize } else { 'Remaining: none' }"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Restart clean 280K workflow",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "MATLAB env flag check",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"setenv('CHEMELECTROCHEM_HEADLESS','1'); disp(getenv('CHEMELECTROCHEM_HEADLESS'))"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run ChemElectroChem with MATLAB-set env",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"setenv('CHEMELECTROCHEM_HEADLESS','1'); run_s2022_280k_lambda_sweep_cv; exit"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run ChemElectroChem wrapper",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_chemelectrochem_headless"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Batch write test",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"write_test"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check S2022 280K in MATLAB",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"setenv('CHEMELECTROCHEM_HEADLESS','1'); run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run ChemElectroChem headless",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_chemelectrochem_headless",
+			"isBackground": false
+		},
+		{
+			"label": "ChemElectroChem DRT optimization",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_chemelectrochem_headless",
+			"isBackground": false
+		},
+		{
+			"label": "MATLAB smoke test",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch \"disp('MATLAB_OK'); disp(version)\"",
+			"isBackground": false
+		},
+		{
+			"label": "Run ChemElectroChem test",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_chemelectrochem_test",
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 paper refine plot only",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Rerun paper refine marker fix",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Rerun paper refine marker fix v2",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine LM Gaussian",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine LM Gaussian clean",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine LM Gaussian tuned",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine LM Gaussian tuned v2",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine fixed lambda 1e-3",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine adaptive thresholds",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine auto lambda retuned",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run paper refine auto lambda visibility filter",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_random10_paper_peak_refine"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run S2022 tau grid report",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_tau_grid_report"
+			],
+			"isBackground": false
 		}
 	]
 }

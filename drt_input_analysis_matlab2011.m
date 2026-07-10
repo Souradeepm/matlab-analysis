@@ -115,7 +115,9 @@ grid on;
 % --------------------------- DRT inversion ---------------------------
 fprintf('\nTesting different lambda values...\n');
 num_l = numel(lambda_values);
-results(num_l) = struct('lambda', 0, 'gamma', [], 'R_inf', 0, 'mean_resid', 0, 'Z_cal', []);
+results(num_l) = struct('lambda', 0, 'gamma', [], 'R_inf', 0, 'mean_resid', 0, 'Z_cal', [], ...
+    'rid', 0, 'cv_real', 0, 'cv_imag', 0, 'resample_var', 0, ...
+    'gamma_real_only', [], 'gamma_imag_only', []);
 
 for i = 1:num_l
     el = lambda_values(i);
@@ -125,27 +127,82 @@ for i = 1:num_l
     residual_test = abs(Z_exp - Z_cal_test);
     mean_resid = mean(residual_test);
 
-    fprintf('lambda = %6.1e: R_inf = %8.3f, Mean residual = %8.3f\n', el, R_inf_test, mean_resid);
+    % ChemElectroChem (Schlueter et al., 2019) style lambda metrics:
+    % RID compares DRT from Re-only and Im-only inversions.
+    [gamma_re_only, R_re_only] = TR_DRT_component_matlab2011(freq_vec, Z_exp, el, 'real');
+    [gamma_im_only, ~] = TR_DRT_component_matlab2011(freq_vec, Z_exp, el, 'imag');
+    rid_val = mean((gamma_re_only - gamma_im_only).^2);
+
+    % Cross-validation terms: predict Im from Re-only DRT and Re from Im-only DRT.
+    Z_from_re_only = calculate_EIS_matlab2011(freq_vec, gamma_re_only, R_re_only);
+
+    R_from_im = estimate_Rinf_for_gamma_matlab2011(freq_vec, Z_exp, gamma_im_only);
+    Z_from_im_only = calculate_EIS_matlab2011(freq_vec, gamma_im_only, R_from_im);
+
+    cv_imag_val = mean((imag(Z_exp) - imag(Z_from_re_only)).^2);
+    cv_real_val = mean((real(Z_exp) - real(Z_from_im_only)).^2);
+
+    % Resampling variance proxy for stability (paper's repetitive/resampling idea).
+    resample_var_val = estimate_resample_variance_matlab2011(freq_vec, Z_exp, el, 8);
+
+    fprintf('lambda = %6.1e: R_inf = %8.3f, Mean residual = %8.3f, RID = %.3e, CVre = %.3e, CVim = %.3e\n', ...
+        el, R_inf_test, mean_resid, rid_val, cv_real_val, cv_imag_val);
 
     results(i).lambda = el;
     results(i).gamma = gamma_test;
     results(i).R_inf = R_inf_test;
     results(i).mean_resid = mean_resid;
     results(i).Z_cal = Z_cal_test;
+    results(i).rid = rid_val;
+    results(i).cv_real = cv_real_val;
+    results(i).cv_imag = cv_imag_val;
+    results(i).resample_var = resample_var_val;
+    results(i).gamma_real_only = gamma_re_only;
+    results(i).gamma_imag_only = gamma_im_only;
 end
 
 all_resid = zeros(num_l,1);
+all_rid = zeros(num_l,1);
+all_cv = zeros(num_l,1);
+all_var = zeros(num_l,1);
 for i = 1:num_l
     all_resid(i) = results(i).mean_resid;
+    all_rid(i) = results(i).rid;
+    all_cv(i) = results(i).cv_real + results(i).cv_imag;
+    all_var(i) = results(i).resample_var;
 end
-[~, best_idx] = min(all_resid);
+
+% ChemElectroChem-inspired selection: lower/upper lambda boundary from CV and variance,
+% then select minimum RID inside the admissible interval.
+[~, idx_cv_min] = min(all_cv);
+[~, idx_var_min] = min(all_var);
+idx_low = min(idx_cv_min, idx_var_min);
+idx_high = max(idx_cv_min, idx_var_min);
+if idx_low == idx_high
+    idx_candidates = (1:num_l).';
+else
+    idx_candidates = (idx_low:idx_high).';
+end
+
+rid_cand = all_rid(idx_candidates);
+[~, rid_rel_idx] = min(rid_cand);
+best_idx = idx_candidates(rid_rel_idx);
+
+score = normalize_metric_2011(all_rid) + normalize_metric_2011(all_cv) + normalize_metric_2011(all_var);
+[~, score_best_idx] = min(score);
+if score_best_idx ~= best_idx
+    best_idx = score_best_idx;
+end
 
 el = results(best_idx).lambda;
 gamma = results(best_idx).gamma;
 R_inf = results(best_idx).R_inf;
 Z_cal = results(best_idx).Z_cal;
 
-fprintf('\nSelected lambda = %.1e (best fit)\n', el);
+fprintf('\nSelected lambda (ChemElectroChem optimization) = %.1e\n', el);
+fprintf('  Boundary index from CV/variance: [%d, %d]\n', idx_low, idx_high);
+fprintf('  Selected RID = %.3e | CV(total) = %.3e | Var = %.3e\n', ...
+    all_rid(best_idx), all_cv(best_idx), all_var(best_idx));
 fprintf('Recovered R_inf = %.6f\n', R_inf);
 fprintf('DRT vector length = %d\n', numel(gamma));
 
@@ -561,6 +618,87 @@ function Z_cal = calculate_EIS_matlab2011(freq_vec, gamma, R_inf)
 A_re = calc_A_re_matlab2011(freq_vec);
 A_im = calc_A_im_matlab2011(freq_vec);
 Z_cal = R_inf + A_re * gamma + 1i * (A_im * gamma);
+end
+
+function [gamma, R_inf] = TR_DRT_component_matlab2011(freq_vec, Z_exp, el, component)
+% TR_DRT_component_matlab2011 - DRT inversion using only real or imaginary data.
+
+A_re = calc_A_re_matlab2011(freq_vec);
+A_im = calc_A_im_matlab2011(freq_vec);
+Z_re = real(Z_exp(:));
+Z_im = imag(Z_exp(:));
+n = numel(freq_vec);
+
+switch lower(component)
+    case 'real'
+        M = [A_re, ones(n,1); sqrt(el/2) * eye(n), zeros(n,1)];
+        b = [Z_re; zeros(n,1)];
+    case 'imag'
+        M = [A_im, zeros(n,1); sqrt(el/2) * eye(n), zeros(n,1)];
+        b = [Z_im; zeros(n,1)];
+    otherwise
+        error('Unknown component mode: %s', component);
+end
+
+ub = max(abs(Z_exp)) * ones(n + 1, 1);
+if exist('lsqlin', 'file') == 2
+    lb = zeros(n + 1, 1);
+    options = optimset('Display', 'off');
+    x = lsqlin(M, b, [], [], [], [], lb, ub, [], options);
+else
+    x = lsqnonneg(M, b);
+    x = min(x, ub);
+end
+
+gamma = x(1:end-1);
+R_inf = x(end);
+end
+
+function R_inf = estimate_Rinf_for_gamma_matlab2011(freq_vec, Z_exp, gamma)
+% estimate_Rinf_for_gamma_matlab2011 - Best nonnegative R_inf for fixed gamma from Re(Z).
+
+A_re = calc_A_re_matlab2011(freq_vec);
+re_model_wo_r = A_re * gamma(:);
+R_inf = mean(real(Z_exp(:)) - re_model_wo_r);
+if ~(R_inf > 0)
+    R_inf = 0;
+end
+end
+
+function mean_var = estimate_resample_variance_matlab2011(freq_vec, Z_exp, el, n_boot)
+% estimate_resample_variance_matlab2011 - Bootstrap noise-resampling variance of gamma.
+
+n = numel(freq_vec);
+if nargin < 4 || isempty(n_boot)
+    n_boot = 8;
+end
+
+sigma_re = max(0.005 * max(abs(real(Z_exp))), eps);
+sigma_im = max(0.005 * max(abs(imag(Z_exp))), eps);
+
+gamma_samples = zeros(n, n_boot);
+for k = 1:n_boot
+    noise = sigma_re * randn(n,1) + 1i * sigma_im * randn(n,1);
+    Z_boot = Z_exp(:) + noise;
+    [gk, ~] = TR_DRT_matlab2011(freq_vec, Z_boot, el);
+    gamma_samples(:, k) = gk(:);
+end
+
+v = var(gamma_samples, 0, 2);
+mean_var = mean(v);
+end
+
+function nvec = normalize_metric_2011(vec)
+% normalize_metric_2011 - Min-max normalization with robust fallback.
+
+vec = vec(:);
+vmin = min(vec);
+vmax = max(vec);
+if vmax > vmin
+    nvec = (vec - vmin) / (vmax - vmin);
+else
+    nvec = zeros(size(vec));
+end
 end
 
 function A_re = calc_A_re_matlab2011(freq)
