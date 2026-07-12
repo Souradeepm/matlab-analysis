@@ -766,6 +766,767 @@
 				"run_s2022_tau_grid_report"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "Run full all-datasets residual-sensitivity check",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_full_wait.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check MATLAB process while full wait runs",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU,StartTime | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check MATLAB CPU progress full run",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU | Sort-Object CPU -Descending | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Stop all MATLAB before clean full rerun",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Stop-Process -Force; 'stopped'"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify MATLAB cleared",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"(Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Measure-Object).Count"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Force kill MATLAB exact",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Stop-Process -Force; Write-Output DONE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify zero MATLAB processes",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"(Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Measure-Object).Count"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Taskkill all matlab.exe",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify matlab killed now",
+			"type": "shell",
+			"command": "tasklist",
+			"args": [
+				"/FI",
+				"IMAGENAME eq matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill stale all-datasets powershell loops",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$procs=Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'powershell.exe' -and $_.CommandLine -match 'run_all_datasets' }; $procs | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }; ($procs | Measure-Object).Count"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Execute stale loop killer",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"kill_stale_all_datasets_loops.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill all matlab after loop killer",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Verify no matlab after cleanup",
+			"type": "shell",
+			"command": "tasklist",
+			"args": [
+				"/FI",
+				"IMAGENAME eq matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run full all-datasets residual-sensitivity check clean",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_full_wait.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check matlab processes during clean full run",
+			"type": "shell",
+			"command": "tasklist",
+			"args": [
+				"/FI",
+				"IMAGENAME eq matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check matlab CPU full run",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU,StartTime | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Stop current long full run",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run all datasets full wait restored settings",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_full_wait.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check CPU while dataset 2 runs",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU,StartTime | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check matlab still running after dataset2 file",
+			"type": "shell",
+			"command": "tasklist",
+			"args": [
+				"/FI",
+				"IMAGENAME eq matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check matlab CPU mid-run 3rd dataset",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check CPU delta for stalled dataset",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU,Responding | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Wait for full run MATLAB completion",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Wait-Process; Write-Output DONE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Regenerate all-datasets absolute-delta summary",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"build_all_datasets_compare_summary.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Build all-datasets lambda values reports",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"build_all_datasets_lambda_values.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Stop MATLAB before rerun with percent sensitivity",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run all datasets with percent sensitivity",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_full_wait.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Wait until matlab rerun completes",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Wait-Process; Write-Output DONE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Wait for remaining percent-sensitivity run",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Wait-Process; Write-Output DONE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Rebuild consolidated summary after percent rerun",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"build_all_datasets_compare_summary.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run robust all-temperatures check",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_robust.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check MATLAB processes all-temperatures run",
+			"type": "shell",
+			"command": "tasklist",
+			"args": [
+				"/FI",
+				"IMAGENAME eq matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check CPU progress all-temp run",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU,StartTime | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check matlab CPU second probe",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Select-Object Id,CPU | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Wait for robust all-temp run completion",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Wait-Process; Write-Output DONE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run all datasets all temps isolated",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_isolated.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Wait for isolated all-temps completion",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Wait-Process; Write-Output DONE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check if isolated runner process still active",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'powershell.exe' -and $_.CommandLine -match 'run_all_datasets_all_temps_isolated.ps1' } | Select-Object ProcessId,CommandLine | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill stale dataset loop processes",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"kill_all_stale_dataset_loops.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill all MATLAB before single-pass run",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run single-pass all temps all datasets",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_singlepass.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Wait for single-pass completion",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Process -Name MATLAB -ErrorAction SilentlyContinue | Wait-Process; Write-Output DONE"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check active MATLAB after crash",
+			"type": "shell",
+			"command": "tasklist",
+			"args": [
+				"/FI",
+				"IMAGENAME eq matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check active single-pass runner process",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-CimInstance Win32_Process | Where-Object { $_.Name -like '*powershell*' -and $_.CommandLine -match 'run_all_datasets_all_temps_singlepass.ps1' } | Select-Object ProcessId,CommandLine | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill stale loops before NSENS1 rerun",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"kill_all_stale_dataset_loops.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill all MATLAB before NSENS1 rerun",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Start all-temperatures NSENS1 run",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_singlepass.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Stop MATLAB before batched10 run",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run all datasets in 10-temp batches",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_batched10.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run all datasets in 10-temp batches retry",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_batched10.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Debug batch 1 direct via task",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-Command",
+				"$env:COMPARE_DATASET='S2022Sap.xlsx'; $env:COMPARE_START_IDX='1'; $env:COMPARE_MAX_TEMPS='10'; $env:COMPARE_OUT_TAG='debug_b1_10'; $env:COMPARE_NBOOT='1'; $env:COMPARE_NSENS='1'; $env:COMPARE_DROP_RATIO='0.15'; & 'C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe' -wait -batch run_paper_vs_residual_peak_cv_compare; Write-Host ('EXIT=' + $LASTEXITCODE); Get-ChildItem -Filter '*debug_b1_10*.txt' | Select-Object -ExpandProperty Name"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill stale loops before batch debug",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"kill_all_stale_dataset_loops.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Kill MATLAB before batch debug",
+			"type": "shell",
+			"command": "taskkill",
+			"args": [
+				"/F",
+				"/IM",
+				"matlab.exe"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Debug one failing batch S2022Al 11-20",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$env:COMPARE_DATASET='S2022Al.xlsx'; $env:COMPARE_START_IDX='11'; $env:COMPARE_MAX_TEMPS='10'; $env:COMPARE_OUT_TAG='debug_b11_20'; $env:COMPARE_NBOOT='1'; $env:COMPARE_DROP_RATIO='0.15'; $env:COMPARE_NSENS='1'; & 'C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe' -wait -batch run_paper_vs_residual_peak_cv_compare"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run all datasets all temps batched10 hardened",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_batched10.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Resume all datasets batched10 timeout+retry",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_batched10.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Resume all datasets batched10 fixed exit handling",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_all_temps_batched10.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Sanity output check",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Write-Output 'PING'"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check active orchestrator/matlab processes",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-CimInstance Win32_Process | Where-Object { $_.Name -match 'powershell' -and $_.CommandLine -match 'run_all_datasets_all_temps_batched10\\\\.ps1' } | Select-Object ProcessId,Name,CommandLine | Format-List; Get-Process -Name matlab,MATLAB -ErrorAction SilentlyContinue | Select-Object Name,Id,CPU,StartTime,Responding | Format-Table -AutoSize"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check final status markers/tail",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$s=Get-Content .\\all_datasets_all_temps_batched10_status.txt; 'CompletedMarkers=' + (($s|Select-String '^Completed:').Count); 'FailedMarkers=' + (($s|Select-String 'FAILED').Count); 'DoneDatasetLines=' + (($s|Select-String '^Done dataset:').Count); '---TAIL---'; $s | Select-Object -Last 80"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check batched10 final state script",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"check_batched10_final_state.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Wait until batched10 ends",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"wait_batched10_until_end.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Poll orchestrator alive",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"check_batched10_final_state.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check live orchestrator/matlab state",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"check_batched10_final_state.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Check live batched sweep state",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"check_batched10_final_state.ps1"
+			],
+			"isBackground": false
 		}
 	]
 }

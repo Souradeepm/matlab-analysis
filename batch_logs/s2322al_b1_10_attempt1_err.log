@@ -1,0 +1,66 @@
+Assertion failed: init_pnpthread
+
+Function: void __cdecl mcr_initialize_window_system(void), file B:\matlab\src\mcr\runtime\runtime.cpp, line 1264
+
+--------------------------------------------------------------------------------
+                Assertion detected at 2026-07-13 00:31:22 +0530
+--------------------------------------------------------------------------------
+
+Configuration:
+  Crash Decoding           : Disabled - No sandbox or build area path
+  Crash Mode               : continue (default)
+  Default Encoding         : UTF-8
+  MATLAB Architecture      : win64
+  MATLAB Root              : C:\Program Files\MATLAB\R2023a
+  MATLAB Version           : 9.14.0.2206163 (R2023a)
+  Operating System         : Microsoft Windows 11 Home Single Language
+  Process ID               : 124940
+  Processor ID             : x86 Family 23 Model 24 Stepping 1, AuthenticAMD
+  Session Key              : 476c7eec-26b5-4eeb-b131-25f08a50e6f2
+  Window System            : Version 10.0 (Build 26200)
+
+Fault Count: 1
+
+
+Assertion in void __cdecl mcr_initialize_window_system(void) at B:\matlab\src\mcr\runtime\runtime.cpp line 1264:
+init_pnpthread
+
+Current Thread: 'MCR 0 interpreter thread' id 129104
+
+Register State (captured):
+  RAX = 00007ffaf1d5bd58  RBX = 00007ffaf1d5bd58
+  RCX = 000000e512ffd860  RDX = 0000000000000000
+  RSP = 000000e512ffd7a0  RBP = 00000000000004f0
+  RSI = 00007ffac03d4630  RDI = 00007ffaf1d5bd58
+ 
+   R8 = 0000000000000004   R9 = 000000e512ffd718
+  R10 = 00007ffb1b6a0000  R11 = 000000e512ffd598
+  R12 = 000000e512ffe490  R13 = 00000288b63655a0
+  R14 = 00007ffaf1d4bc88  R15 = 000000e512ffdea0
+ 
+  RIP = 00007ffaf1c5164a  EFL = 00000206
+ 
+   CS = 0033   FS = 0053   GS = 002b
+
+Stack Trace (captured):
+[  0] 0x00007ffaf1c4ac63    C:\Progra~1\MATLAB\R2023a\bin\win64\libmwfl.dll+00044131 foundation::core::diag::thread_context::unspecified_bool+00000051
+[  1] 0x00007ffaf1c49238    C:\Progra~1\MATLAB\R2023a\bin\win64\libmwfl.dll+00037432 foundation::core::diag::stacktrace_base::capture+00000024
+[  2] 0x00007ffaf1c4d35e    C:\Progra~1\MATLAB\R2023a\bin\win64\libmwfl.dll+00054110 foundation::core::diag::symbols::getSymbolAddress+00009454
+[  3] 0x00007ffaf1c4c581    C:\Progra~1\MATLAB\R2023a\bin\win64\libmwfl.dll+00050561 foundation::core::diag::symbols::getSymbolAddress+00005905
+[  4] 0x00007ffaf1c50fad    C:\Progra~1\MATLAB\R2023a\bin\win64\libmwfl.dll+00069549 foundation::core::diag::terminate+00000077
+[  5] 0x00007ffac0395d3f        C:\Progra~1\MATLAB\R2023a\bin\win64\mcr.dll+00810303 mcr_inhibit_shutdown+00001663
+[  6] 0x00007ffac0337014        C:\Progra~1\MATLAB\R2023a\bin\win64\mcr.dll+00421908 installMOCmdWinSink+00080196
+[  7] 0x00007ffac036a839        C:\Progra~1\MATLAB\R2023a\bin\win64\mcr.dll+00632889 mcrInstance::GetMCR+00005817
+[  8] 0x00007ffac032261f        C:\Progra~1\MATLAB\R2023a\bin\win64\mcr.dll+00337439 mcrInstantiationError::operator=+00012383
+[  9] 0x00007ffac0320050        C:\Progra~1\MATLAB\R2023a\bin\win64\mcr.dll+00327760 mcrInstantiationError::operator=+00002704
+[ 10] 0x00007ffb057e92ea C:\Progra~1\MATLAB\R2023a\bin\win64\mwboost_thread-vc142-mt-x64-1_78.dll+00037610 mwboost::detail::win32::handle_manager::swap+00001642
+[ 11] 0x00007ffb30a537b0                   C:\WINDOWS\System32\ucrtbase.dll+00014256 wcsrchr+00000336
+[ 12] 0x00007ffb3230e8d7                   C:\WINDOWS\System32\KERNEL32.DLL+00190679 BaseThreadInitThunk+00000023
+[ 13] 0x00007ffb334ac53c                      C:\WINDOWS\SYSTEM32\ntdll.dll+00574780 RtlUserThreadStart+00000044
+
+** This crash report has been saved to disk as C:\Users\mitra\AppData\Local\Temp\matlab_crash_dump.124940-1 **
+
+
+
+MATLAB is exiting because of fatal error
+ERROR: MATLAB error Exit Status: 0x00000003, abort()

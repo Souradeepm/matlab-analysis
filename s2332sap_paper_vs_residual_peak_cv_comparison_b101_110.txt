@@ -1,0 +1,42 @@
+Paper vs minimum-residual DRT comparison
+Dataset: S2332Sap.xlsx
+Generated: 13-Jul-2026 00:44:52
+Batch start index: 101
+Batch end index  : 110
+Total available temperatures: 220
+Total temperatures: 10
+
+Bootstrap repeats for variance metric: 1
+
+Drop ratio for sensitivity metric: 0.15
+Sensitivity repeats per lambda: 1
+
+Aggregate comparison
+Mean peaks (residual method): 1.8000
+Mean peaks (paper method)   : 1.0000
+Mean peak delta abs |paper-res| : 0.8000
+Median peak delta abs |paper-res|: 0.0000
+Temps paper has more peaks      : 0
+Temps equal peaks               : 6
+Temps paper has fewer peaks     : 4
+
+Mean residual-change sensitivity % (residual-selected lambda): 3.91048726e+00
+Mean residual-change sensitivity % (paper-selected lambda)   : 1.66326064e+00
+Mean sensitivity delta abs % |paper-res|                    : 2.24722663e+00
+Median sensitivity delta abs % |paper-res|                  : 2.03474064e+00
+Temps paper lower sensitivity                             : 8
+Temps equal sensitivity                                   : 2
+Temps paper higher sensitivity                            : 0
+
+Per-temperature detail
+TemperatureK,ResidualLambda,PaperLambda,ResidualPeaks,PaperPeaks,PeakDeltaAbs_PaperMinusRes,ResidualSensitivity,PaperSensitivity,SensitivityDeltaAbs_PaperMinusRes
+95.030000,1.00000000e-04,1.00000000e-01,2,1,1,5.45848944e+00,8.62744041e-01,4.59574540e+00
+95.030000,1.00000000e-04,1.00000000e+00,2,1,1,1.12502392e+00,1.65460657e-01,9.59563260e-01
+95.450000,1.00000000e-04,1.00000000e-02,1,1,0,4.30325733e+00,1.88777778e+00,2.41547955e+00
+95.450000,1.00000000e-04,1.00000000e-04,1,1,0,6.14120124e+00,6.14120124e+00,0.00000000e+00
+96.530000,1.00000000e-04,1.00000000e+00,4,1,3,2.94140890e+00,1.62820429e-01,2.77858848e+00
+96.530000,1.00000000e-04,1.00000000e+00,4,1,3,2.76459873e+00,4.70769009e-01,2.29382972e+00
+96.770000,1.00000000e-04,1.00000000e-03,1,1,0,8.61512556e+00,2.53405084e+00,6.08107471e+00
+96.770000,1.00000000e-04,1.00000000e-04,1,1,0,5.22783287e-01,5.22783287e-01,0.00000000e+00
+96.930000,1.00000000e-04,1.00000000e-02,1,1,0,3.90876781e+00,2.13311625e+00,1.77565156e+00
+96.930000,1.00000000e-04,1.00000000e+00,1,1,0,3.32421638e+00,1.75188281e+00,1.57233357e+00

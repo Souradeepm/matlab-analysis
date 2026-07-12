@@ -1,0 +1,370 @@
+Start: 2026-07-12T23:39:04.6593458+05:30
+Running dataset: S2022Sap.xlsx at 2026-07-12T23:39:04.7233497+05:30
+Total temperatures for S2022Sap.xlsx: 69
+  Batch 1-10 already complete, skipping at 2026-07-12T23:39:39.0042432+05:30
+  Batch 11-20 already complete, skipping at 2026-07-12T23:39:39.0072464+05:30
+  Batch 21-30 already complete, skipping at 2026-07-12T23:39:39.0102410+05:30
+  Batch 31-40 already complete, skipping at 2026-07-12T23:39:39.0132435+05:30
+  Batch 41-50 already complete, skipping at 2026-07-12T23:39:39.0172434+05:30
+  Batch 51-60 start at 2026-07-12T23:39:39.0202438+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-12T23:40:34.8656628+05:30
+  Batch 61-69 start at 2026-07-12T23:40:34.8686679+05:30
+    Attempt 1
+  Batch 61-69 done at 2026-07-12T23:41:31.6923287+05:30
+Done dataset: S2022Sap.xlsx at 2026-07-12T23:41:31.9133245+05:30
+Running dataset: S2022Al.xlsx at 2026-07-12T23:41:31.9173282+05:30
+Total temperatures for S2022Al.xlsx: 77
+  Batch 1-10 start at 2026-07-12T23:42:08.2888009+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-12T23:42:53.0618262+05:30
+  Batch 11-20 start at 2026-07-12T23:42:53.0678255+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-12T23:43:39.6896273+05:30
+  Batch 21-30 start at 2026-07-12T23:43:39.6926261+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-12T23:44:22.3352006+05:30
+  Batch 31-40 start at 2026-07-12T23:44:22.3381997+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-12T23:45:17.3920009+05:30
+  Batch 41-50 start at 2026-07-12T23:45:17.3969992+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-12T23:46:09.3440147+05:30
+  Batch 51-60 start at 2026-07-12T23:46:09.3470141+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-12T23:46:59.2145587+05:30
+  Batch 61-70 start at 2026-07-12T23:46:59.2175590+05:30
+    Attempt 1
+  Batch 61-70 done at 2026-07-12T23:47:59.8301944+05:30
+  Batch 71-77 start at 2026-07-12T23:47:59.8351978+05:30
+    Attempt 1
+  Batch 71-77 done at 2026-07-12T23:48:55.1937522+05:30
+Done dataset: S2022Al.xlsx at 2026-07-12T23:48:55.2431045+05:30
+Running dataset: S2222Sap.xlsx at 2026-07-12T23:48:55.2461072+05:30
+Total temperatures for S2222Sap.xlsx: 61
+  Batch 1-10 start at 2026-07-12T23:49:31.7669043+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-12T23:50:22.0048733+05:30
+  Batch 11-20 start at 2026-07-12T23:50:22.0088753+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-12T23:51:17.9545540+05:30
+  Batch 21-30 start at 2026-07-12T23:51:17.9575546+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-12T23:52:03.4535935+05:30
+  Batch 31-40 start at 2026-07-12T23:52:03.4565947+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-12T23:52:49.1564620+05:30
+  Batch 41-50 start at 2026-07-12T23:52:49.1594612+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-12T23:53:32.5888912+05:30
+  Batch 51-60 start at 2026-07-12T23:53:32.5918933+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-12T23:54:17.8857049+05:30
+  Batch 61-61 start at 2026-07-12T23:54:17.8917061+05:30
+    Attempt 1
+  Batch 61-61 done at 2026-07-12T23:54:51.2056591+05:30
+Done dataset: S2222Sap.xlsx at 2026-07-12T23:54:51.2456522+05:30
+Running dataset: S2222Al.xlsx at 2026-07-12T23:54:51.2476579+05:30
+Total temperatures for S2222Al.xlsx: 112
+  Batch 1-10 start at 2026-07-12T23:55:21.6674344+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-12T23:56:06.8037538+05:30
+  Batch 11-20 start at 2026-07-12T23:56:06.8067514+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-12T23:57:02.9000665+05:30
+  Batch 21-30 start at 2026-07-12T23:57:02.9040656+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-12T23:58:04.1720848+05:30
+  Batch 31-40 start at 2026-07-12T23:58:04.1760853+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-12T23:59:02.9657312+05:30
+  Batch 41-50 start at 2026-07-12T23:59:02.9697412+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-12T23:59:59.7057135+05:30
+  Batch 51-60 start at 2026-07-12T23:59:59.7107116+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-13T00:01:16.7247137+05:30
+  Batch 61-70 start at 2026-07-13T00:01:16.7277166+05:30
+    Attempt 1
+  Batch 61-70 done at 2026-07-13T00:02:15.1878662+05:30
+  Batch 71-80 start at 2026-07-13T00:02:15.1908642+05:30
+    Attempt 1
+  Batch 71-80 done at 2026-07-13T00:03:25.8179778+05:30
+  Batch 81-90 start at 2026-07-13T00:03:25.8209783+05:30
+    Attempt 1
+  Batch 81-90 done at 2026-07-13T00:04:38.9463225+05:30
+  Batch 91-100 start at 2026-07-13T00:04:38.9493181+05:30
+    Attempt 1
+  Batch 91-100 done at 2026-07-13T00:05:54.5238456+05:30
+  Batch 101-110 start at 2026-07-13T00:05:54.5278480+05:30
+    Attempt 1
+  Batch 101-110 done at 2026-07-13T00:07:03.8870908+05:30
+  Batch 111-112 start at 2026-07-13T00:07:03.8910885+05:30
+    Attempt 1
+  Batch 111-112 done at 2026-07-13T00:07:45.4017217+05:30
+Done dataset: S2222Al.xlsx at 2026-07-13T00:07:45.4711664+05:30
+Running dataset: S2302Sap.xlsx at 2026-07-13T00:07:45.4731657+05:30
+Total temperatures for S2302Sap.xlsx: 86
+  Batch 1-10 start at 2026-07-13T00:08:23.1945107+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-13T00:09:06.2081397+05:30
+  Batch 11-20 start at 2026-07-13T00:09:06.2111419+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-13T00:09:49.6499198+05:30
+  Batch 21-30 start at 2026-07-13T00:09:49.6529233+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-13T00:10:39.5736576+05:30
+  Batch 31-40 start at 2026-07-13T00:10:39.5766577+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-13T00:11:39.7353233+05:30
+  Batch 41-50 start at 2026-07-13T00:11:39.7375002+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-13T00:12:26.1635737+05:30
+  Batch 51-60 start at 2026-07-13T00:12:26.1665692+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-13T00:13:09.3242701+05:30
+  Batch 61-70 start at 2026-07-13T00:13:09.3272542+05:30
+    Attempt 1
+  Batch 61-70 done at 2026-07-13T00:13:52.2042220+05:30
+  Batch 71-80 start at 2026-07-13T00:13:52.2082687+05:30
+    Attempt 1
+  Batch 71-80 done at 2026-07-13T00:14:37.0622418+05:30
+  Batch 81-86 start at 2026-07-13T00:14:37.0650770+05:30
+    Attempt 1
+  Batch 81-86 done at 2026-07-13T00:15:20.9043605+05:30
+Done dataset: S2302Sap.xlsx at 2026-07-13T00:15:20.9613709+05:30
+Running dataset: S2302Al.xlsx at 2026-07-13T00:15:20.9643593+05:30
+Total temperatures for S2302Al.xlsx: 104
+  Batch 1-10 start at 2026-07-13T00:15:51.7584114+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-13T00:16:39.2376861+05:30
+  Batch 11-20 start at 2026-07-13T00:16:39.2406691+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-13T00:17:26.0004683+05:30
+  Batch 21-30 start at 2026-07-13T00:17:26.0034659+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-13T00:18:19.2449380+05:30
+  Batch 31-40 start at 2026-07-13T00:18:19.2479358+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-13T00:19:09.7426301+05:30
+  Batch 41-50 start at 2026-07-13T00:19:09.7456337+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-13T00:20:03.4390885+05:30
+  Batch 51-60 start at 2026-07-13T00:20:03.4430905+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-13T00:20:59.4182272+05:30
+  Batch 61-70 start at 2026-07-13T00:20:59.4202228+05:30
+    Attempt 1
+  Batch 61-70 done at 2026-07-13T00:21:53.8287923+05:30
+  Batch 71-80 start at 2026-07-13T00:21:53.8318036+05:30
+    Attempt 1
+  Batch 71-80 done at 2026-07-13T00:22:48.3560157+05:30
+  Batch 81-90 start at 2026-07-13T00:22:48.3600175+05:30
+    Attempt 1
+  Batch 81-90 done at 2026-07-13T00:23:46.4026653+05:30
+  Batch 91-100 start at 2026-07-13T00:23:46.4056448+05:30
+    Attempt 1
+  Batch 91-100 done at 2026-07-13T00:24:44.7055438+05:30
+  Batch 101-104 start at 2026-07-13T00:24:44.7085368+05:30
+    Attempt 1
+  Batch 101-104 done at 2026-07-13T00:25:27.4160275+05:30
+Done dataset: S2302Al.xlsx at 2026-07-13T00:25:27.4828210+05:30
+Running dataset: S2322Sap.xlsx at 2026-07-13T00:25:27.4848162+05:30
+Total temperatures for S2322Sap.xlsx: 69
+  Batch 1-10 start at 2026-07-13T00:25:57.8988539+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-13T00:26:38.5559263+05:30
+  Batch 11-20 start at 2026-07-13T00:26:38.5579268+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-13T00:27:19.1624966+05:30
+  Batch 21-30 start at 2026-07-13T00:27:19.1654973+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-13T00:27:57.9023206+05:30
+  Batch 31-40 start at 2026-07-13T00:27:57.9073188+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-13T00:28:36.9009365+05:30
+  Batch 41-50 start at 2026-07-13T00:28:36.9039367+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-13T00:29:16.5489308+05:30
+  Batch 51-60 start at 2026-07-13T00:29:16.5519335+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-13T00:29:55.8686347+05:30
+  Batch 61-69 start at 2026-07-13T00:29:55.8728754+05:30
+    Attempt 1
+  Batch 61-69 done at 2026-07-13T00:30:35.0632126+05:30
+Done dataset: S2322Sap.xlsx at 2026-07-13T00:30:35.0972932+05:30
+Running dataset: S2322Al.xlsx at 2026-07-13T00:30:35.0992795+05:30
+Total temperatures for S2322Al.xlsx: 63
+  Batch 1-10 start at 2026-07-13T00:31:07.9729372+05:30
+    Attempt 1
+    Attempt 1 failed exit=-998 at 2026-07-13T00:31:22.6555690+05:30
+      Logs: C:\Users\mitra\Downloads\matlab analysis\batch_logs\s2322al_b1_10_attempt1_out.log ; C:\Users\mitra\Downloads\matlab analysis\batch_logs\s2322al_b1_10_attempt1_err.log
+    Attempt 2
+  Batch 1-10 done at 2026-07-13T00:32:10.4022162+05:30
+  Batch 11-20 start at 2026-07-13T00:32:10.4052144+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-13T00:32:55.5793259+05:30
+  Batch 21-30 start at 2026-07-13T00:32:55.5823183+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-13T00:33:40.6477517+05:30
+  Batch 31-40 start at 2026-07-13T00:33:40.6507525+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-13T00:34:25.6903395+05:30
+  Batch 41-50 start at 2026-07-13T00:34:25.6933410+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-13T00:35:10.0604541+05:30
+  Batch 51-60 start at 2026-07-13T00:35:10.0634383+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-13T00:36:05.3979497+05:30
+  Batch 61-63 start at 2026-07-13T00:36:05.4009499+05:30
+    Attempt 1
+  Batch 61-63 done at 2026-07-13T00:36:45.7509077+05:30
+Done dataset: S2322Al.xlsx at 2026-07-13T00:36:45.7872496+05:30
+Running dataset: S2332Sap.xlsx at 2026-07-13T00:36:45.7892561+05:30
+Total temperatures for S2332Sap.xlsx: 220
+  Batch 1-10 start at 2026-07-13T00:37:17.2167260+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-13T00:37:59.6604302+05:30
+  Batch 11-20 start at 2026-07-13T00:37:59.6634310+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-13T00:38:43.3854682+05:30
+  Batch 21-30 start at 2026-07-13T00:38:43.3884652+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-13T00:39:27.3591112+05:30
+  Batch 31-40 start at 2026-07-13T00:39:27.3621064+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-13T00:40:09.6981573+05:30
+  Batch 41-50 start at 2026-07-13T00:40:09.7011372+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-13T00:40:51.6809927+05:30
+  Batch 51-60 start at 2026-07-13T00:40:51.6839897+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-13T00:41:33.8938235+05:30
+  Batch 61-70 start at 2026-07-13T00:41:33.8968072+05:30
+    Attempt 1
+  Batch 61-70 done at 2026-07-13T00:42:16.4450183+05:30
+  Batch 71-80 start at 2026-07-13T00:42:16.4470166+05:30
+    Attempt 1
+  Batch 71-80 done at 2026-07-13T00:42:59.8478085+05:30
+  Batch 81-90 start at 2026-07-13T00:42:59.8507947+05:30
+    Attempt 1
+  Batch 81-90 done at 2026-07-13T00:43:40.7232930+05:30
+  Batch 91-100 start at 2026-07-13T00:43:40.7262869+05:30
+    Attempt 1
+  Batch 91-100 done at 2026-07-13T00:44:18.1330712+05:30
+  Batch 101-110 start at 2026-07-13T00:44:18.1360767+05:30
+    Attempt 1
+  Batch 101-110 done at 2026-07-13T00:44:59.4750459+05:30
+  Batch 111-120 start at 2026-07-13T00:44:59.4803072+05:30
+    Attempt 1
+  Batch 111-120 done at 2026-07-13T00:45:39.7515768+05:30
+  Batch 121-130 start at 2026-07-13T00:45:39.7545939+05:30
+    Attempt 1
+  Batch 121-130 done at 2026-07-13T00:46:20.4412395+05:30
+  Batch 131-140 start at 2026-07-13T00:46:20.4432323+05:30
+    Attempt 1
+  Batch 131-140 done at 2026-07-13T00:47:14.0160738+05:30
+  Batch 141-150 start at 2026-07-13T00:47:14.0200760+05:30
+    Attempt 1
+  Batch 141-150 done at 2026-07-13T00:47:52.0563762+05:30
+  Batch 151-160 start at 2026-07-13T00:47:52.0593561+05:30
+    Attempt 1
+  Batch 151-160 done at 2026-07-13T00:48:31.8743203+05:30
+  Batch 161-170 start at 2026-07-13T00:48:31.8773183+05:30
+    Attempt 1
+  Batch 161-170 done at 2026-07-13T00:49:15.0243234+05:30
+  Batch 171-180 start at 2026-07-13T00:49:15.0273248+05:30
+    Attempt 1
+  Batch 171-180 done at 2026-07-13T00:49:57.4194256+05:30
+  Batch 181-190 start at 2026-07-13T00:49:57.4244247+05:30
+    Attempt 1
+  Batch 181-190 done at 2026-07-13T00:50:44.2283231+05:30
+  Batch 191-200 start at 2026-07-13T00:50:44.2313216+05:30
+    Attempt 1
+  Batch 191-200 done at 2026-07-13T00:51:35.8031557+05:30
+  Batch 201-210 start at 2026-07-13T00:51:35.8058671+05:30
+    Attempt 1
+  Batch 201-210 done at 2026-07-13T00:52:18.6507984+05:30
+  Batch 211-220 start at 2026-07-13T00:52:18.6537804+05:30
+    Attempt 1
+  Batch 211-220 done at 2026-07-13T00:53:28.3137554+05:30
+Done dataset: S2332Sap.xlsx at 2026-07-13T00:53:28.4637321+05:30
+Running dataset: S2422Sap.xlsx at 2026-07-13T00:53:28.4667351+05:30
+Total temperatures for S2422Sap.xlsx: 114
+  Batch 1-10 start at 2026-07-13T00:54:00.1910299+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-13T00:54:46.0586013+05:30
+  Batch 11-20 start at 2026-07-13T00:54:46.0636005+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-13T00:55:31.7786497+05:30
+  Batch 21-30 start at 2026-07-13T00:55:31.7826413+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-13T00:56:17.9059397+05:30
+  Batch 31-40 start at 2026-07-13T00:56:17.9089398+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-13T00:57:03.6705024+05:30
+  Batch 41-50 start at 2026-07-13T00:57:03.6735022+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-13T00:57:48.9560147+05:30
+  Batch 51-60 start at 2026-07-13T00:57:48.9580091+05:30
+    Attempt 1
+  Batch 51-60 done at 2026-07-13T00:58:34.5671682+05:30
+  Batch 61-70 start at 2026-07-13T00:58:34.5701631+05:30
+    Attempt 1
+  Batch 61-70 done at 2026-07-13T00:59:20.3043225+05:30
+  Batch 71-80 start at 2026-07-13T00:59:20.3073379+05:30
+    Attempt 1
+  Batch 71-80 done at 2026-07-13T01:00:05.4672534+05:30
+  Batch 81-90 start at 2026-07-13T01:00:05.4722447+05:30
+    Attempt 1
+  Batch 81-90 done at 2026-07-13T01:01:04.5676790+05:30
+  Batch 91-100 start at 2026-07-13T01:01:04.5716692+05:30
+    Attempt 1
+  Batch 91-100 done at 2026-07-13T01:01:50.0702961+05:30
+  Batch 101-110 start at 2026-07-13T01:01:50.0732769+05:30
+    Attempt 1
+  Batch 101-110 done at 2026-07-13T01:02:34.2815869+05:30
+  Batch 111-114 start at 2026-07-13T01:02:34.2845808+05:30
+    Attempt 1
+  Batch 111-114 done at 2026-07-13T01:03:12.8443488+05:30
+Done dataset: S2422Sap.xlsx at 2026-07-13T01:03:12.9190142+05:30
+Running dataset: S2422Al.xlsx at 2026-07-13T01:03:12.9220422+05:30
+Total temperatures for S2422Al.xlsx: 100
+  Batch 1-10 start at 2026-07-13T01:03:43.7194111+05:30
+    Attempt 1
+  Batch 1-10 done at 2026-07-13T01:04:34.5368929+05:30
+  Batch 11-20 start at 2026-07-13T01:04:34.5398963+05:30
+    Attempt 1
+  Batch 11-20 done at 2026-07-13T01:05:23.2001334+05:30
+  Batch 21-30 start at 2026-07-13T01:05:23.2031383+05:30
+    Attempt 1
+  Batch 21-30 done at 2026-07-13T01:06:16.5462644+05:30
+  Batch 31-40 start at 2026-07-13T01:06:16.5492629+05:30
+    Attempt 1
+  Batch 31-40 done at 2026-07-13T01:07:08.8522244+05:30
+  Batch 41-50 start at 2026-07-13T01:07:08.8561934+05:30
+    Attempt 1
+  Batch 41-50 done at 2026-07-13T01:08:04.1496171+05:30
+  Batch 51-60 start at 2026-07-13T01:08:04.1526035+05:30
+    Attempt 1
+    Attempt 1 failed exit=-998 at 2026-07-13T01:08:47.5836450+05:30
+      Logs: C:\Users\mitra\Downloads\matlab analysis\batch_logs\s2422al_b51_60_attempt1_out.log ; C:\Users\mitra\Downloads\matlab analysis\batch_logs\s2422al_b51_60_attempt1_err.log
+    Attempt 2
+  Batch 51-60 done at 2026-07-13T01:09:56.6459587+05:30
+  Batch 61-70 start at 2026-07-13T01:09:56.6489425+05:30
+    Attempt 1
+  Batch 61-70 done at 2026-07-13T01:10:50.9245224+05:30
+  Batch 71-80 start at 2026-07-13T01:10:50.9275034+05:30
+    Attempt 1
+  Batch 71-80 done at 2026-07-13T01:11:48.5939352+05:30
+  Batch 81-90 start at 2026-07-13T01:11:48.5969484+05:30
+    Attempt 1
+    Attempt 1 failed exit=-998 at 2026-07-13T01:12:43.6112466+05:30
+      Logs: C:\Users\mitra\Downloads\matlab analysis\batch_logs\s2422al_b81_90_attempt1_out.log ; C:\Users\mitra\Downloads\matlab analysis\batch_logs\s2422al_b81_90_attempt1_err.log
+    Attempt 2
+  Batch 81-90 done at 2026-07-13T01:13:40.7035796+05:30
+  Batch 91-100 start at 2026-07-13T01:13:40.7085720+05:30
+    Attempt 1
+  Batch 91-100 done at 2026-07-13T01:14:40.8036905+05:30
+Done dataset: S2422Al.xlsx at 2026-07-13T01:14:40.8646931+05:30
+Completed: 2026-07-13T01:14:41.4721877+05:30

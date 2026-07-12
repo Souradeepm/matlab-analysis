@@ -1,0 +1,21 @@
+Wrote comparison report: C:\Users\mitra\Downloads\matlab analysis\s2332sap_paper_vs_residual_peak_cv_comparison_b161_170.txt
+
+ans = 
+
+  struct with fields:
+
+                           dataset: 'S2332Sap.xlsx'
+                       output_file: 'C:\Users\mitra\Downloads\matlab analysis\s2332sap_paper_vs_residual_peak_cv_comparison_b161_170.txt'
+                total_temperatures: 10
+                 batch_start_index: 161
+                   batch_end_index: 170
+      total_available_temperatures: 220
+               mean_residual_peaks: 1.4000
+                  mean_paper_peaks: 1.1000
+                   mean_peak_delta: 0.3000
+         mean_residual_sensitivity: 2.2640
+            mean_paper_sensitivity: 1.9339
+            mean_sensitivity_delta: 1.3309
+     paper_lower_sensitivity_count: 5
+    paper_higher_sensitivity_count: 4
+

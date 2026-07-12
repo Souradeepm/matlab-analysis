@@ -1,0 +1,21 @@
+Wrote comparison report: C:\Users\mitra\Downloads\matlab analysis\s2302al_paper_vs_residual_peak_cv_comparison_b31_40.txt
+
+ans = 
+
+  struct with fields:
+
+                           dataset: 'S2302Al.xlsx'
+                       output_file: 'C:\Users\mitra\Downloads\matlab analysis\s2302al_paper_vs_residual_peak_cv_comparison_b31_40.txt'
+                total_temperatures: 10
+                 batch_start_index: 31
+                   batch_end_index: 40
+      total_available_temperatures: 104
+               mean_residual_peaks: 3.2000
+                  mean_paper_peaks: 1.9000
+                   mean_peak_delta: 1.3000
+         mean_residual_sensitivity: 7.6293
+            mean_paper_sensitivity: 1.2726
+            mean_sensitivity_delta: 6.4555
+     paper_lower_sensitivity_count: 9
+    paper_higher_sensitivity_count: 1
+

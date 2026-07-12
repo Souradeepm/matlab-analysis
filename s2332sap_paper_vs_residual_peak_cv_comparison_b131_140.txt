@@ -1,0 +1,42 @@
+Paper vs minimum-residual DRT comparison
+Dataset: S2332Sap.xlsx
+Generated: 13-Jul-2026 00:46:51
+Batch start index: 131
+Batch end index  : 140
+Total available temperatures: 220
+Total temperatures: 10
+
+Bootstrap repeats for variance metric: 1
+
+Drop ratio for sensitivity metric: 0.15
+Sensitivity repeats per lambda: 1
+
+Aggregate comparison
+Mean peaks (residual method): 1.0000
+Mean peaks (paper method)   : 1.0000
+Mean peak delta abs |paper-res| : 0.0000
+Median peak delta abs |paper-res|: 0.0000
+Temps paper has more peaks      : 0
+Temps equal peaks               : 10
+Temps paper has fewer peaks     : 0
+
+Mean residual-change sensitivity % (residual-selected lambda): 4.72325075e+00
+Mean residual-change sensitivity % (paper-selected lambda)   : 2.59494989e+00
+Mean sensitivity delta abs % |paper-res|                    : 2.37384550e+00
+Median sensitivity delta abs % |paper-res|                  : 1.10146872e+00
+Temps paper lower sensitivity                             : 6
+Temps equal sensitivity                                   : 1
+Temps paper higher sensitivity                            : 3
+
+Per-temperature detail
+TemperatureK,ResidualLambda,PaperLambda,ResidualPeaks,PaperPeaks,PeakDeltaAbs_PaperMinusRes,ResidualSensitivity,PaperSensitivity,SensitivityDeltaAbs_PaperMinusRes
+107.800000,1.00000000e-04,1.00000000e-03,1,1,0,4.19475922e+00,3.58899469e+00,6.05764533e-01
+107.800000,1.00000000e-04,1.00000000e-02,1,1,0,1.26428255e+01,2.97928166e+00,9.66354380e+00
+108.480000,1.00000000e-04,1.00000000e-02,1,1,0,5.13898126e+00,6.68409512e-01,4.47057174e+00
+108.480000,1.00000000e-04,1.00000000e-03,1,1,0,6.54411678e+00,4.41513475e+00,2.12898203e+00
+109.760000,1.00000000e-04,1.00000000e-04,1,1,0,4.40149987e-01,4.40149987e-01,0.00000000e+00
+109.760000,1.00000000e-04,1.00000000e-03,1,1,0,7.09633691e+00,5.49916401e+00,1.59717290e+00
+110.460000,1.00000000e-04,1.00000000e-03,1,1,0,7.98099662e+00,3.93629987e+00,4.04469675e+00
+110.460000,1.00000000e-04,1.00000000e-03,1,1,0,2.42359819e+00,2.57557909e+00,1.51980890e-01
+119.730000,1.00000000e-04,1.00000000e+00,1,1,0,1.52067803e-01,7.57042941e-01,6.04975139e-01
+119.730000,1.00000000e-04,1.00000000e-01,1,1,0,6.18675219e-01,1.08944242e+00,4.70767197e-01

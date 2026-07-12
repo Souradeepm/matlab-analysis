@@ -1,0 +1,15 @@
+All-dataset paper vs residual comparison (15% drop residual-change sensitivity)
+Generated: 2026-07-13 01:14:40
+
+Dataset,Status,Temps,MeanResidualPeaks,MeanPaperPeaks,MeanPeakDelta,MeanResidualSensitivity,MeanPaperSensitivity,MeanSensitivityDelta,PaperLowerSensitivityCount,PaperHigherSensitivityCount,ReportFile
+s2022sap,ok,69,3.2609,1.7101,1.550800,4.63862605E+000,1.38929880E+000,3.24932725E+000,59,10,C:\Users\mitra\Downloads\matlab analysis\s2022sap_paper_vs_residual_peak_cv_comparison.txt
+s2022al,ok,77,2.4026,1.7273,0.675300,5.28648770E+000,1.99227054E+000,3.29421716E+000,54,16,C:\Users\mitra\Downloads\matlab analysis\s2022al_paper_vs_residual_peak_cv_comparison.txt
+s2222sap,ok,61,2.5410,1.4262,1.114800,7.50524388E+000,2.52067735E+000,4.98456653E+000,58,3,C:\Users\mitra\Downloads\matlab analysis\s2222sap_paper_vs_residual_peak_cv_comparison.txt
+s2222al,ok,112,2.6964,1.5714,1.125000,1.14873915E+001,2.81754161E+000,8.66984989E+000,102,10,C:\Users\mitra\Downloads\matlab analysis\s2222al_paper_vs_residual_peak_cv_comparison.txt
+s2302sap,ok,86,2.6860,1.4884,1.197600,6.87340411E+000,2.35013607E+000,4.52326804E+000,73,13,C:\Users\mitra\Downloads\matlab analysis\s2302sap_paper_vs_residual_peak_cv_comparison.txt
+s2302al,ok,104,3.6058,1.9135,1.692300,7.25538552E+000,1.77678599E+000,5.47859953E+000,87,14,C:\Users\mitra\Downloads\matlab analysis\s2302al_paper_vs_residual_peak_cv_comparison.txt
+s2322sap,ok,69,2.2029,1.0725,1.130400,7.73919246E+000,2.17968712E+000,5.55950534E+000,63,5,C:\Users\mitra\Downloads\matlab analysis\s2322sap_paper_vs_residual_peak_cv_comparison.txt
+s2322al,ok,63,2.2222,1.3175,0.904700,5.16725899E+000,1.74638614E+000,3.42087285E+000,47,15,C:\Users\mitra\Downloads\matlab analysis\s2322al_paper_vs_residual_peak_cv_comparison.txt
+s2332sap,ok,220,1.6091,1.1318,0.477300,4.45125106E+000,2.02547336E+000,2.42577770E+000,165,37,C:\Users\mitra\Downloads\matlab analysis\s2332sap_paper_vs_residual_peak_cv_comparison.txt
+s2422sap,ok,114,2.2193,1.2719,0.947400,6.91934483E+000,1.85658185E+000,5.06276298E+000,87,15,C:\Users\mitra\Downloads\matlab analysis\s2422sap_paper_vs_residual_peak_cv_comparison.txt
+s2422al,ok,100,3.6600,1.8200,1.840000,7.44700229E+000,1.75140892E+000,5.69559337E+000,86,10,C:\Users\mitra\Downloads\matlab analysis\s2422al_paper_vs_residual_peak_cv_comparison.txt
