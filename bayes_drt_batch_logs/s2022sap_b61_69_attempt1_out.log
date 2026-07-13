@@ -1,0 +1,38 @@
+Dataset S2022Sap.xlsx temp 1/9: lambda=3.162e-03, total CV=5.031164e+04, mean resid=7.063380e+01, peaks=2
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 2/9: lambda=3.162e-03, total CV=4.981067e+04, mean resid=6.963077e+01, peaks=3
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 3/9: lambda=3.162e-03, total CV=4.990503e+04, mean resid=6.973799e+01, peaks=3
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 4/9: lambda=3.162e-03, total CV=5.000986e+04, mean resid=6.945059e+01, peaks=3
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 5/9: lambda=3.162e-03, total CV=5.018859e+04, mean resid=6.953211e+01, peaks=2
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 6/9: lambda=3.162e-03, total CV=5.010879e+04, mean resid=6.929255e+01, peaks=3
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 7/9: lambda=3.162e-03, total CV=5.017160e+04, mean resid=6.909187e+01, peaks=3
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 8/9: lambda=3.162e-03, total CV=5.004601e+04, mean resid=6.881922e+01, peaks=3
+  lambda index 12 of 21
+Dataset S2022Sap.xlsx temp 9/9: lambda=3.162e-03, total CV=4.986243e+04, mean resid=6.881023e+01, peaks=3
+  lambda index 12 of 21
+Wrote Bayes-DRT workflow report: C:\Users\mitra\Downloads\matlab analysis\s2022sap_bayes_drt_matlab2011_b61_69.txt
+
+ans = 
+
+  struct with fields:
+
+                         dataset: 'S2022Sap.xlsx'
+                     output_file: 'C:\Users\mitra\Downloads\matlab analysis\s2022sap_bayes_drt_matlab2011_b61_69.txt'
+    total_available_temperatures: 69
+               batch_start_index: 61
+                 batch_end_index: 69
+              total_temperatures: 9
+                     lambda_grid: [21x1 double]
+                 selected_lambda: [9x1 double]
+                         real_cv: [9x1 double]
+                         imag_cv: [9x1 double]
+                        total_cv: [9x1 double]
+                   mean_residual: [9x1 double]
+                      peak_count: [9x1 double]
+

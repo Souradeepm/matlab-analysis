@@ -1,0 +1,24 @@
+Dataset S2222Al.xlsx temp 1/2: lambda=1.000e-05, total CV=2.605079e+05, mean resid=2.029032e+02, peaks=4
+  lambda index 7 of 21
+Dataset S2222Al.xlsx temp 2/2: lambda=1.000e-05, total CV=2.605079e+05, mean resid=2.029032e+02, peaks=4
+  lambda index 7 of 21
+Wrote Bayes-DRT workflow report: C:\Users\mitra\Downloads\matlab analysis\s2222al_bayes_drt_matlab2011_b111_112.txt
+
+ans = 
+
+  struct with fields:
+
+                         dataset: 'S2222Al.xlsx'
+                     output_file: 'C:\Users\mitra\Downloads\matlab analysis\s2222al_bayes_drt_matlab2011_b111_112.txt'
+    total_available_temperatures: 112
+               batch_start_index: 111
+                 batch_end_index: 112
+              total_temperatures: 2
+                     lambda_grid: [21x1 double]
+                 selected_lambda: [2x1 double]
+                         real_cv: [2x1 double]
+                         imag_cv: [2x1 double]
+                        total_cv: [2x1 double]
+                   mean_residual: [2x1 double]
+                      peak_count: [2x1 double]
+

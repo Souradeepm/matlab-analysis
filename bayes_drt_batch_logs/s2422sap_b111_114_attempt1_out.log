@@ -1,0 +1,28 @@
+Dataset S2422Sap.xlsx temp 1/4: lambda=1.000e-04, total CV=5.685678e+04, mean resid=7.201862e+01, peaks=3
+  lambda index 9 of 21
+Dataset S2422Sap.xlsx temp 2/4: lambda=1.000e-07, total CV=5.741074e+04, mean resid=6.955976e+01, peaks=3
+  lambda index 3 of 21
+Dataset S2422Sap.xlsx temp 3/4: lambda=3.162e-05, total CV=5.759323e+04, mean resid=6.932062e+01, peaks=3
+  lambda index 8 of 21
+Dataset S2422Sap.xlsx temp 4/4: lambda=1.000e-04, total CV=6.035807e+04, mean resid=7.579491e+01, peaks=3
+  lambda index 9 of 21
+Wrote Bayes-DRT workflow report: C:\Users\mitra\Downloads\matlab analysis\s2422sap_bayes_drt_matlab2011_b111_114.txt
+
+ans = 
+
+  struct with fields:
+
+                         dataset: 'S2422Sap.xlsx'
+                     output_file: 'C:\Users\mitra\Downloads\matlab analysis\s2422sap_bayes_drt_matlab2011_b111_114.txt'
+    total_available_temperatures: 114
+               batch_start_index: 111
+                 batch_end_index: 114
+              total_temperatures: 4
+                     lambda_grid: [21x1 double]
+                 selected_lambda: [4x1 double]
+                         real_cv: [4x1 double]
+                         imag_cv: [4x1 double]
+                        total_cv: [4x1 double]
+                   mean_residual: [4x1 double]
+                      peak_count: [4x1 double]
+

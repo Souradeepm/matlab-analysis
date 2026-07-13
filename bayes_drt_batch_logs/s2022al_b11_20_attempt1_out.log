@@ -1,0 +1,40 @@
+Dataset S2022Al.xlsx temp 1/10: lambda=3.162e-04, total CV=1.015290e+05, mean resid=1.427667e+02, peaks=2
+  lambda index 10 of 21
+Dataset S2022Al.xlsx temp 2/10: lambda=1.000e-08, total CV=1.459165e+06, mean resid=4.091837e+02, peaks=5
+  lambda index 1 of 21
+Dataset S2022Al.xlsx temp 3/10: lambda=1.000e-04, total CV=9.838972e+05, mean resid=4.018463e+02, peaks=3
+  lambda index 9 of 21
+Dataset S2022Al.xlsx temp 4/10: lambda=1.000e-03, total CV=4.876678e+05, mean resid=3.013460e+02, peaks=2
+  lambda index 11 of 21
+Dataset S2022Al.xlsx temp 5/10: lambda=1.000e-03, total CV=4.462472e+05, mean resid=2.777657e+02, peaks=2
+  lambda index 11 of 21
+Dataset S2022Al.xlsx temp 6/10: lambda=3.162e-03, total CV=3.559942e+05, mean resid=2.779204e+02, peaks=2
+  lambda index 12 of 21
+Dataset S2022Al.xlsx temp 7/10: lambda=3.162e-06, total CV=4.095074e+05, mean resid=2.400030e+02, peaks=4
+  lambda index 6 of 21
+Dataset S2022Al.xlsx temp 8/10: lambda=1.000e-01, total CV=2.876688e+08, mean resid=8.096086e+03, peaks=3
+  lambda index 15 of 21
+Dataset S2022Al.xlsx temp 9/10: lambda=1.000e-05, total CV=1.690185e+05, mean resid=1.672090e+02, peaks=3
+  lambda index 7 of 21
+Dataset S2022Al.xlsx temp 10/10: lambda=1.000e-03, total CV=8.122434e+04, mean resid=1.447337e+02, peaks=2
+  lambda index 11 of 21
+Wrote Bayes-DRT workflow report: C:\Users\mitra\Downloads\matlab analysis\s2022al_bayes_drt_matlab2011_b11_20.txt
+
+ans = 
+
+  struct with fields:
+
+                         dataset: 'S2022Al.xlsx'
+                     output_file: 'C:\Users\mitra\Downloads\matlab analysis\s2022al_bayes_drt_matlab2011_b11_20.txt'
+    total_available_temperatures: 77
+               batch_start_index: 11
+                 batch_end_index: 20
+              total_temperatures: 10
+                     lambda_grid: [21x1 double]
+                 selected_lambda: [10x1 double]
+                         real_cv: [10x1 double]
+                         imag_cv: [10x1 double]
+                        total_cv: [10x1 double]
+                   mean_residual: [10x1 double]
+                      peak_count: [10x1 double]
+
