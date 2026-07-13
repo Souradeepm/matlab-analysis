@@ -1527,6 +1527,132 @@
 				"check_batched10_final_state.ps1"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "Debug Bayes DRT workflow one dataset",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location 'c:\\Users\\mitra\\Downloads\\matlab analysis'; $env:BAYES_DRT_MAX_TEMPS='10'; $env:BAYES_DRT_LAMBDA_MIN_EXP='-8'; $env:BAYES_DRT_LAMBDA_MAX_EXP='2'; $env:BAYES_DRT_LAMBDA_COUNT='5'; & 'C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe' -wait -batch \"disp(pwd); run_bayes_drt_workflow_matlab2011('S2022Sap.xlsx')\""
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Debug Bayes DRT workflow one dataset quoted",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location 'c:\\Users\\mitra\\Downloads\\matlab analysis'; $env:BAYES_DRT_MAX_TEMPS='10'; $env:BAYES_DRT_LAMBDA_MIN_EXP='-8'; $env:BAYES_DRT_LAMBDA_MAX_EXP='2'; $env:BAYES_DRT_LAMBDA_COUNT='5'; & 'C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe' -wait -batch \"disp(pwd); run_bayes_drt_workflow_matlab2011('S2022Sap.xlsx')\""
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Smoke test Bayes DRT workflow script",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"smoke_bayes_drt_test.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Bayes DRT 10-temperature all datasets",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_bayes_drt_10temps.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Bayes DRT 10-temperature all datasets retry",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_bayes_drt_10temps.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Restart Bayes DRT 10-temperature all datasets",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_bayes_drt_10temps.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Bayes DRT 10-temperature all datasets final",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_bayes_drt_10temps.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Start clean Bayes DRT all-datasets sweep",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_bayes_drt_10temps.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Smoke-test Bayes DRT batch start_idx env var",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"smoke_bayes_drt_test.ps1"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Run Bayes DRT all temps batched",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"run_all_datasets_bayes_drt_batched.ps1"
+			],
+			"isBackground": false
 		}
 	]
 }
