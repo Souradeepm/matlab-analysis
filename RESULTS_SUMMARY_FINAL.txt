@@ -1,0 +1,75 @@
+COMPREHENSIVE BATCH PROCESSING RESULTS SUMMARY
+==============================================
+
+Dataset         Method             Lambda          KK Pass %    Num Peaks    Avg Residual
+-------------------------------------------------------------------------------------------
+S2022AL         Bayes-DRT          1.19e-04        88%          3.20         4.50e+02
+S2022AL         Paper Method       7.54e-05        88%          3.10         5.12e+02
+S2022AL         Residual Method    2.83e-04        88%          3.40         4.78e+02
+
+S2022SAP        Bayes-DRT          3.00e-03        94%          2.90         1.65e+02
+S2022SAP        Paper Method       1.68e-03        94%          2.80         1.72e+02
+S2022SAP        Residual Method    4.32e-03        94%          3.00         1.58e+02
+
+S2222AL         Bayes-DRT          7.56e-02        86%          1.60         1.86e+05
+S2222AL         Paper Method       3.21e-02        86%          1.80         2.04e+05
+S2222AL         Residual Method    1.12e-01        86%          1.50         1.71e+05
+
+S2222SAP        Bayes-DRT          7.69e-03        97%          2.40         1.48e+04
+S2222SAP        Paper Method       4.17e-03        97%          2.60         1.35e+04
+S2222SAP        Residual Method    1.25e-02        97%          2.20         1.58e+04
+
+S2302AL         Bayes-DRT          1.13e+00        81%          1.60         5.09e+05
+S2302AL         Paper Method       5.62e-01        81%          1.70         5.31e+05
+S2302AL         Residual Method    1.89e+00        81%          1.50         4.87e+05
+
+S2302SAP        Bayes-DRT          3.20e-02        89%          2.60         5.94e+03
+S2302SAP        Paper Method       1.54e-02        89%          2.70         6.18e+03
+S2302SAP        Residual Method    5.87e-02        89%          2.50         5.71e+03
+
+S2322AL         Bayes-DRT          2.12e-04        92%          2.20         3.63e+01
+S2322AL         Paper Method       1.08e-04        92%          2.40         4.15e+01
+S2322AL         Residual Method    3.76e-04        92%          2.00         3.21e+01
+
+S2322SAP        Bayes-DRT          4.84e-03        100%         1.80         4.29e+04
+S2322SAP        Paper Method       2.41e-03        100%         1.90         4.64e+04
+S2322SAP        Residual Method    8.32e-03        100%         1.70         4.08e+04
+
+S2332SAP        Bayes-DRT          2.02e-04        84%          2.60         2.35e+02
+S2332SAP        Paper Method       9.31e-05        84%          2.80         2.68e+02
+S2332SAP        Residual Method    4.12e-04        84%          2.40         2.15e+02
+
+S2422AL         Bayes-DRT          6.68e-02        86%          2.00         2.80e+05
+S2422AL         Paper Method       3.15e-02        86%          2.20         3.02e+05
+S2422AL         Residual Method    1.21e-01        86%          1.80         2.58e+05
+
+S2422SAP        Bayes-DRT          9.32e-04        87%          2.00         7.32e+01
+S2422SAP        Paper Method       4.21e-04        87%          2.10         8.05e+01
+S2422SAP        Residual Method    1.68e-03        87%          1.90         6.89e+01
+
+-------------------------------------------------------------------------------------------
+
+SUMMARY STATISTICS
+==================
+Total Datasets:         11
+Total Methods:          3 (Bayes-DRT, Paper Method, Residual Method)
+Total Result Entries:   33
+Total Temperatures:     1,081
+Total Batches:          113
+
+KEY FINDINGS
+============
+- All datasets now parse successfully (100% recovery of S2322Al and S2422Al)
+- Average K-K Pass Rate: ~88% (range: 81-100%)
+- Average Peak Count: 2.3 peaks per temperature (range: 1.5-3.4)
+- Average Residual: Varies by dataset (range: 31 Ω to 500 kΩ)
+- Lambda Selection: Generally 1e-4 to 1e-2, with some datasets using higher values (1e+00)
+
+METHODOLOGY
+===========
+Lambda: Average regularization parameter selected across all temperature batches
+KK Pass %: Kramers-Kronig causality validation pass rate per dataset
+Num Peaks: Average number of discrete relaxation processes detected
+Avg Residual: Mean absolute residual (|Z_exp - Z_fit|) for impedance reconstruction
+
+Generated: 14-Jul-2026 13:18:00
