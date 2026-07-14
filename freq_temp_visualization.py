@@ -27,10 +27,11 @@ datasets = [
     ('S2422Al', 's2422al'),
 ]
 
-methods = ['Bayes-DRT', 'Paper Method']
+methods = ['Bayes-DRT', 'Paper Method', 'Residual Method']
 method_tags = {
     'Bayes-DRT': 'bayes_drt_matlab2011',
     'Paper Method': 'paper_method',
+    'Residual Method': 'residual_method',
 }
 
 # RGB channels for frequency groups (each mapped to one or more channels)
@@ -112,9 +113,17 @@ for ds_name, ds_tag in datasets:
                         if ',' in line and not line.startswith('Temperature'):
                             parts = line.split(',')
                             try:
-                                if len(parts) >= 7:
+                                if len(parts) >= 4:
                                     temp = float(parts[0].strip())
-                                    peak_count = int(float(parts[6].strip()))
+                                    
+                                    # Residual method has only 4 columns, peak count at index 3
+                                    if method == 'Residual Method' and len(parts) >= 4:
+                                        peak_count = int(float(parts[3].strip()))
+                                    # Bayes-DRT and Paper Method have 8+ columns, peak count at index 6
+                                    elif len(parts) >= 7:
+                                        peak_count = int(float(parts[6].strip()))
+                                    else:
+                                        continue
                                     
                                     if temp > 0 and peak_count > 0:
                                         temps_list.append(temp)
