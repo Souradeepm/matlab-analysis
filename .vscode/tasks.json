@@ -1653,6 +1653,29 @@
 				"run_all_datasets_bayes_drt_batched.ps1"
 			],
 			"isBackground": false
+		},
+		{
+			"label": "Test three methods batch",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch test_three_methods",
+			"isBackground": false
+		},
+		{
+			"label": "Run all three methods all datasets",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch run_all_datasets_comprehensive",
+			"isBackground": false
+		},
+		{
+			"label": "Debug S2322Al structure",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch debug_s2322al"
+		},
+		{
+			"label": "Rerun S2322Al and S2422Al fixed",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch rerun_s2322al_s2422al_fixed",
+			"isBackground": false
 		}
 	]
 }

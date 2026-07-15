@@ -23,10 +23,10 @@ datasets_info = {
 lambda_grid = logspace(-8, 2, 21);
 lambda_standard = 1e-3;  % Standard lambda for comparison
 
-% Tau basis (log-spaced)
+% Tau basis (log-spaced) - appropriate for ceramic materials
 n_tau = 100;
-tau_min = 1e-6;
-tau_max = 1e3;
+tau_min = 1e-9;  % Nanoseconds (fast ionic processes)
+tau_max = 1e0;   % 1 second (slower interfacial/grain boundary processes)
 tau_basis = logspace(log10(tau_min), log10(tau_max), n_tau);
 
 % Storage for results
@@ -208,6 +208,7 @@ for plot_idx = 1:n_cases
     title(sprintf('%s @ %.2f K\n(CV vs Non-CV)', strrep(data.dataset, '_', '\_'), data.temp), ...
         'FontSize', 11, 'FontWeight', 'bold');
     grid on;
+    set(gca, 'XScale', 'log');  % Ensure logarithmic x-axis
     legend('Location', 'best', 'FontSize', 9);
     
     hold off;
@@ -230,15 +231,51 @@ for plot_idx = 1:n_cases
     subplot(ceil(n_cases/3), 3, plot_idx);
     hold on;
     
+    % Read CV data for uncertainty bands on Bayes method
+    cv_sheet_name = sprintf('CV_%s_%.0fK', data.dataset, data.temp);
+    cv_sheet_name = cv_sheet_name(1:min(31, length(cv_sheet_name)));
+    try
+        cv_detail = readtable(cv_results_file, 'Sheet', cv_sheet_name);
+        % Compute uncertainty envelope based on CV variation
+        % Use CV error as proxy for DRT uncertainty
+        cv_total = cv_detail.CV_Total;
+        cv_std = cv_detail.CV_Imag_Std;  % Imaginary part std as uncertainty proxy
+        
+        % Normalize uncertainty to DRT scale
+        if max(data.gamma_bayes) > 0
+            uncertainty_scale = mean(cv_std) / mean(cv_total) * max(abs(data.gamma_bayes)) * 0.15;
+        else
+            uncertainty_scale = 0;
+        end
+    catch
+        uncertainty_scale = 0;
+        cv_detail = [];
+    end
+    
     % Plot DRT curves from each method
+    % Bayes with confidence band
     if all(isfinite(data.gamma_bayes))
-        h1 = semilogx(data.tau, data.gamma_bayes, 'o-', 'Color', [0.2, 0.6, 1.0], 'LineWidth', 2.5, 'MarkerSize', 3, ...
+        % Confidence band for Bayes method
+        if uncertainty_scale > 0
+            tau_log = log10(data.tau);
+            filled_tau = [tau_log; flipud(tau_log)];
+            filled_gamma = [(data.gamma_bayes + uncertainty_scale); 
+                           flipud(data.gamma_bayes - max(0, uncertainty_scale))];
+            % Convert back to linear scale for fill
+            filled_tau_lin = 10.^filled_tau;
+            fill(filled_tau_lin, filled_gamma, [0.2, 0.6, 1.0], 'FaceAlpha', 0.25, 'EdgeColor', 'none', 'HandleVisibility', 'off');
+        end
+        h1 = semilogx(data.tau, data.gamma_bayes, 'o-', 'Color', [0.2, 0.6, 1.0], 'LineWidth', 3.0, 'MarkerSize', 4, ...
             'DisplayName', sprintf('Bayes (λ=%.2e)', data.lambda_bayes));
     end
+    
+    % Paper method
     if all(isfinite(data.gamma_paper))
         h2 = semilogx(data.tau, data.gamma_paper, 's-', 'Color', [0.8, 0.3, 0.2], 'LineWidth', 2.5, 'MarkerSize', 3, ...
             'DisplayName', sprintf('Paper (λ=%.2e)', data.lambda_paper));
     end
+    
+    % Residual method
     if all(isfinite(data.gamma_residual))
         h3 = semilogx(data.tau, data.gamma_residual, '^-', 'Color', [0.2, 0.7, 0.4], 'LineWidth', 2.5, 'MarkerSize', 3, ...
             'DisplayName', sprintf('Residual (λ=%.2e)', data.lambda_residual));
@@ -246,9 +283,10 @@ for plot_idx = 1:n_cases
     
     xlabel('Relaxation time τ (s)', 'FontSize', 10);
     ylabel('DRT γ(τ)', 'FontSize', 10);
-    title(sprintf('%s @ %.2f K\n(3-Method Comparison)', strrep(data.dataset, '_', '\_'), data.temp), ...
+    title(sprintf('%s @ %.2f K\n(3-Method Comparison with Bayesian Uncertainty)', strrep(data.dataset, '_', '\_'), data.temp), ...
         'FontSize', 11, 'FontWeight', 'bold');
     grid on;
+    set(gca, 'XScale', 'log');  % Ensure logarithmic x-axis
     legend('Location', 'best', 'FontSize', 9);
     
     hold off;

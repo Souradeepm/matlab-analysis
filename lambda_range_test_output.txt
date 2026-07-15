@@ -1,0 +1,16 @@
+=== LAMBDA RANGE TEST ===
+
+Bayes-DRT Method (31 points):
+  Min: 1.00e-04, Max: 1.00e-01, Count: 31
+  First 3: [1.00e-04, 1.26e-04, 1.58e-04]
+  Last 3: [6.31e-02, 7.94e-02, 1.00e-01]
+
+Residual Method (11 points):
+  Min: 1.00e-04, Max: 1.00e-01, Count: 11
+  Values: 1.00e-04 2.00e-04 3.98e-04 7.94e-04 1.58e-03 3.16e-03 6.31e-03 1.26e-02 2.51e-02 5.01e-02 1.00e-01 
+
+Paper vs Residual Method (4 points):
+  Min: 1.00e-04, Max: 1.00e-01, Count: 4
+  Values: [1.00e-04, 1.00e-03, 1.00e-02, 1.00e-01]
+
+✓ All lambda ranges successfully constrained to [1e-4, 1e-1]

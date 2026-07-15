@@ -1,0 +1,40 @@
+Raw Data K-K Validation
+Generated: 14-Jul-2026 12:52:14
+======================
+
+s2022sap:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2022al:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2222sap:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2222al:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2302sap:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2302al:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2322sap:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2322al:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2332sap:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2422sap:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+s2422al:
+  ERROR: Undefined function 'extract_temp_val_local' for input arguments of type 'char'.
+
+
+OVERALL SUMMARY
+===============

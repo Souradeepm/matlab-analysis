@@ -1,0 +1,19 @@
+Testing all three methods on S2022Sap (first 10 temps)...
+Working directory: C:\Users\mitra\Downloads\matlab analysis
+Dataset path: S2022Sap.xlsx
+Dataset exists: 1
+
+--- Direct data test (t=1) ---
+xlsread OK: data 200x207, raw 202x207
+Valid rows: 198
+freq range: 24.38 to 10000000.00 Hz
+|Z| range: 4.7805e+01 to 6.7694e+04 Ohm
+Data extraction: OK
+
+Calling run_all_three_methods_batch (t=1 only)...
+✓ Batch function returned OK
+
+Bayes output file (153 bytes):
+Temperature,SelectedLambda,RealCV,ImagCV,TotalCV,MeanAbsResidual,PeakCount
+1.480000,1.00000000e-04,3.966826e+04,8.059183e+04,1.202601e+05,1.880712e+02,4
+

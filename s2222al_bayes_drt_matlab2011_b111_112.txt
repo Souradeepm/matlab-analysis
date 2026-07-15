@@ -1,0 +1,23 @@
+Bayes-DRT MATLAB 2011 workflow (Re/Im CV lambda selection)
+Dataset: S2222Al.xlsx
+Generated: 13-Jul-2026 07:59:37
+Lambda grid: 1.00000000e-08 to 1.00000000e+02 (21 values)
+Batch start index: 111
+Batch end index  : 112
+Total available temperatures: 112
+Total processed temperatures: 2
+
+Aggregate summary
+Mean selected lambda: 1.00000000e-05
+Median selected lambda: 1.00000000e-05
+Mean real-part CV: 1.11511099e+05
+Mean imag-part CV: 1.48996795e+05
+Mean total CV: 2.60507894e+05
+Mean absolute residual: 2.02903233e+02
+Mean peak count: 4.0000
+Max peak count: 4
+
+Per-temperature detail
+TemperatureK,SelectedLambda,RealCV,ImagCV,TotalCV,MeanAbsResidual,PeakCount,ResidualPerPeak
+270.000000,1.00000000e-05,1.11511099e+05,1.48996795e+05,2.60507894e+05,2.02903233e+02,4,5.07258083e+01
+270.000000,1.00000000e-05,1.11511099e+05,1.48996795e+05,2.60507894e+05,2.02903233e+02,4,5.07258083e+01

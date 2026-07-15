@@ -15,7 +15,7 @@ out_txt = fullfile(repo_root, 's2022_random10_paper_peak_refine_summary.txt');
 
 rng_seed = 20260710;
 n_select = 10;
-lambda_values = logspace(-7, -2, 11).';
+lambda_values = logspace(-4, -1, 11).';  % Range [1e-4, 1e-1] constrained
 paper_lambda_override = 0;
 
 % Shoulder classifier tuning (sensitive setting).
@@ -483,25 +483,20 @@ temperature = temperature(1:min(numel(temperature), n_sets));
 end
 
 function idx_best = select_lambda_idx_local(rid_vec, cv_vec, var_vec)
-[~, idx_cv_min] = min(cv_vec);
-[~, idx_var_min] = min(var_vec);
-idx_low = min(idx_cv_min, idx_var_min);
-idx_high = max(idx_cv_min, idx_var_min);
+% Paper Method v2: Score-based selection (FIXED Issue #3)
+% Combines three metrics equally (normalized):
+% - RID: Re/Im divergence (fit consistency)
+% - CV: Cross-validation error (stability)
+% - Var: Bootstrap resampling variance (robustness)
+%
+% Lambda selected: argmin(norm(RID) + norm(CV) + norm(Var))
 
-if idx_low == idx_high
-    idx_candidates = (1:numel(rid_vec)).';
-else
-    idx_candidates = (idx_low:idx_high).';
-end
+norm_rid = normalize_metric_local(rid_vec);
+norm_cv = normalize_metric_local(cv_vec);
+norm_var = normalize_metric_local(var_vec);
 
-[~, rid_rel_idx] = min(rid_vec(idx_candidates));
-idx_best = idx_candidates(rid_rel_idx);
-
-score = normalize_metric_local(rid_vec) + normalize_metric_local(cv_vec) + normalize_metric_local(var_vec);
-[~, idx_score_best] = min(score);
-if idx_score_best ~= idx_best
-    idx_best = idx_score_best;
-end
+score = norm_rid + norm_cv + norm_var;
+[~, idx_best] = min(score);
 end
 
 function [gamma, R_inf] = TR_DRT_local(freq_vec, Z_exp, el)

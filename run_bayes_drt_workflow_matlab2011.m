@@ -38,9 +38,9 @@ end
 
 out_tag = strtrim(getenv('BAYES_DRT_OUT_TAG'));
 
-lambda_min_exp = -10;
-lambda_max_exp = 5;
-lambda_count = 31;
+lambda_min_exp = -4;   % 1e-4 minimum (prevent underfitting)
+lambda_max_exp = -1;   % 1e-1 maximum (prevent overfitting)
+lambda_count = 31;     % Same number of points for resolution
 tmp = str2double(getenv('BAYES_DRT_LAMBDA_MIN_EXP'));
 if ~isnan(tmp)
     lambda_min_exp = tmp;

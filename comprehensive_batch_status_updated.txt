@@ -1,0 +1,156 @@
+Comprehensive Batch Processing (Updated Robust Parsing)
+Started: 14-Jul-2026 12:50:59
+=====================================
+
+Dataset: S2022Sap.xlsx
+  69 temperatures (7 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+
+Dataset: S2022Al.xlsx
+  77 temperatures (8 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+  Batch 8: OK
+
+Dataset: S2222Sap.xlsx
+  61 temperatures (7 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+
+Dataset: S2222Al.xlsx
+  112 temperatures (12 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+  Batch 8: OK
+  Batch 9: OK
+  Batch 10: OK
+  Batch 11: OK
+  Batch 12: OK
+
+Dataset: S2302Sap.xlsx
+  86 temperatures (9 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+  Batch 8: OK
+  Batch 9: OK
+
+Dataset: S2302Al.xlsx
+  104 temperatures (11 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+  Batch 8: OK
+  Batch 9: OK
+  Batch 10: OK
+  Batch 11: OK
+
+Dataset: S2322Sap.xlsx
+  69 temperatures (7 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+
+Dataset: S2322Al.xlsx
+  63 temperatures (7 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+
+Dataset: S2332Sap.xlsx
+  220 temperatures (22 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+  Batch 8: OK
+  Batch 9: OK
+  Batch 10: OK
+  Batch 11: OK
+  Batch 12: OK
+  Batch 13: OK
+  Batch 14: OK
+  Batch 15: OK
+  Batch 16: OK
+  Batch 17: OK
+  Batch 18: OK
+  Batch 19: OK
+  Batch 20: OK
+  Batch 21: OK
+  Batch 22: OK
+
+Dataset: S2422Sap.xlsx
+  114 temperatures (12 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+  Batch 8: OK
+  Batch 9: OK
+  Batch 10: OK
+  Batch 11: OK
+  Batch 12: OK
+
+Dataset: S2422Al.xlsx
+  106 temperatures (11 batches)
+  Batch 1: OK
+  Batch 2: OK
+  Batch 3: OK
+  Batch 4: OK
+  Batch 5: OK
+  Batch 6: OK
+  Batch 7: OK
+  Batch 8: OK
+  Batch 9: OK
+  Batch 10: OK
+  Batch 11: OK
+
+=====================================
+Summary
+Total batches: 113
+Successful: 113
+Failed: 0
+Ended: 14-Jul-2026 12:51:27

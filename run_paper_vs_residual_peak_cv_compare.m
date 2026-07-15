@@ -20,7 +20,7 @@ end
 
 [~, base_name, ~] = fileparts(dataset_file);
 
-lambda_values = [1e-4; 1e-3; 1e-2; 1e-1; 1e0];
+lambda_values = [1e-4; 1e-3; 1e-2; 1e-1];  % Range [1e-4, 1e-1] constrained
 n_boot = 3;
 max_temps = 10;
 start_idx = 1;
@@ -206,22 +206,20 @@ result.paper_higher_sensitivity_count = sum(delta_sens_signed > 0);
 end
 
 function idx_best = select_lambda_idx_local(rid_vec, sens_vec, var_vec)
-[~, idx_sens_min] = min(sens_vec);
-[~, idx_var_min] = min(var_vec);
-idx_low = min(idx_sens_min, idx_var_min);
-idx_high = max(idx_sens_min, idx_var_min);
-if idx_low == idx_high
-    idx_candidates = (1:numel(rid_vec)).';
-else
-    idx_candidates = (idx_low:idx_high).';
-end
-[~, rid_rel_idx] = min(rid_vec(idx_candidates));
-idx_best = idx_candidates(rid_rel_idx);
-score = normalize_metric_local(rid_vec) + normalize_metric_local(sens_vec) + normalize_metric_local(var_vec);
-[~, idx_score_best] = min(score);
-if idx_score_best ~= idx_best
-    idx_best = idx_score_best;
-end
+% Paper Method v2: Score-based selection (FIXED Issue #3)
+% Combines three metrics equally (normalized):
+% - RID: Re/Im divergence
+% - Sensitivity: Perturbation robustness
+% - Var: Bootstrap resampling variance
+%
+% Lambda selected: argmin(norm(RID) + norm(Sensitivity) + norm(Var))
+
+norm_rid = normalize_metric_local(rid_vec);
+norm_sens = normalize_metric_local(sens_vec);
+norm_var = normalize_metric_local(var_vec);
+
+score = norm_rid + norm_sens + norm_var;
+[~, idx_best] = min(score);
 end
 
 function nvec = normalize_metric_local(vec)

@@ -18,7 +18,7 @@ out_drt_png = fullfile(repo_root, 's2022_random10_lambda_drt_compare.png');
 
 rng_seed = 20260710;
 n_select = 10;
-lambda_values = logspace(-7, -2, 11).';
+lambda_values = logspace(-4, -1, 11).';  % Range [1e-4, 1e-1] constrained
 
 if exist(input_path, 'file') ~= 2
     error('Input file not found: %s', input_path);
@@ -195,25 +195,25 @@ temperature = temperature(1:min(numel(temperature), n_sets));
 end
 
 function idx_best = select_lambda_idx_local(rid_vec, cv_vec, var_vec)
-[~, idx_cv_min] = min(cv_vec);
-[~, idx_var_min] = min(var_vec);
-idx_low = min(idx_cv_min, idx_var_min);
-idx_high = max(idx_cv_min, idx_var_min);
+% Paper Method v2: Score-based selection
+% Combines three metrics equally (normalized):
+% - RID: Re/Im divergence (fit consistency)
+% - CV: Cross-validation error (stability)
+% - Var: Bootstrap resampling variance (robustness)
+%
+% Lambda is selected that minimizes: score = norm(RID) + norm(CV) + norm(Var)
+% This is the published algorithm from ChemElectroChem 2019.
+%
+% Previous version had a RID-constrained path that could be overwritten by
+% score-based selection, causing ambiguity. This version uses score-based
+% consistently as the primary selection criterion.
 
-if idx_low == idx_high
-    idx_candidates = (1:numel(rid_vec)).';
-else
-    idx_candidates = (idx_low:idx_high).';
-end
+norm_rid = normalize_metric_local(rid_vec);
+norm_cv = normalize_metric_local(cv_vec);
+norm_var = normalize_metric_local(var_vec);
 
-[~, rid_rel_idx] = min(rid_vec(idx_candidates));
-idx_best = idx_candidates(rid_rel_idx);
-
-score = normalize_metric_local(rid_vec) + normalize_metric_local(cv_vec) + normalize_metric_local(var_vec);
-[~, idx_score_best] = min(score);
-if idx_score_best ~= idx_best
-    idx_best = idx_score_best;
-end
+score = norm_rid + norm_cv + norm_var;
+[~, idx_best] = min(score);
 end
 
 function write_summary_local(out_path, rng_seed, selected_temperature, lambda_values, ...
