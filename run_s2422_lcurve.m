@@ -93,9 +93,32 @@ fprintf('Corner ||gamma||2    : %.6f\n', sol_norm(corner_idx));
 figure('Color', 'w', 'Name', 'L-curve (S2422)');
 loglog(res_norm, sol_norm, 'bo-'); hold on;
 plot(res_norm(corner_idx), sol_norm(corner_idx), 'rs', 'MarkerSize', 9, 'LineWidth', 1.5);
+
+% Label each point with its lambda value
+% Use adaptive positioning to avoid label crowding
+for i = 1:numel(lambda_values)
+    lambda_str = sprintf('%.0e', lambda_values(i));
+    
+    % Determine label position (alternate above/below for better spacing)
+    if mod(i, 2) == 0
+        offset_x = 1.15;  % Further right
+        offset_y = 0.95;  % Slightly below
+        h_align = 'left';
+        v_align = 'top';
+    else
+        offset_x = 1.08;  % Slightly right
+        offset_y = 1.15;  % Further above
+        h_align = 'left';
+        v_align = 'bottom';
+    end
+    
+    text(res_norm(i) * offset_x, sol_norm(i) * offset_y, lambda_str, ...
+        'FontSize', 6, 'HorizontalAlignment', h_align, 'VerticalAlignment', v_align);
+end
+
 xlabel('||Z_{exp} - Z_{fit}||_2');
 ylabel('||gamma||_2');
-title('L-curve for S2422 DRT inversion');
+title('L-curve for S2422 DRT inversion (lambda values labeled)');
 grid on;
 legend('L-curve points', 'Corner (max curvature)', 'Location', 'best');
 saveas(gcf, output_lcurve_png);
