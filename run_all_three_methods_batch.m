@@ -579,18 +579,20 @@ end
 
 %% ---- HELPER: Find peaks ----
 function n_peaks = find_peaks_simple_local(gamma)
-n = numel(gamma);
-if n < 3
+if numel(gamma) < 3
     n_peaks = 0;
     return;
 end
-
-n_peaks = 0;
-for i = 2:(n-1)
-    if gamma(i) > gamma(i-1) && gamma(i) > gamma(i+1)
-        n_peaks = n_peaks + 1;
-    end
+gmax = max(gamma);
+if gmax <= 0
+    n_peaks = 0;
+    return;
 end
+% Prominence-based: count only peaks with prominence >= 5% of max gamma
+% This is unbiased - reports 1, 2, 3+ peaks depending on actual DRT structure
+min_prom = 0.05 * gmax;
+[~, ~, ~, prom] = findpeaks(gamma);
+n_peaks = sum(prom >= min_prom);
 end
 
 %% ---- HELPER: Variance estimation ----

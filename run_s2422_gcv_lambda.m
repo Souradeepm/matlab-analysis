@@ -44,39 +44,41 @@ mean_resid = zeros(n_l, 1);
 R_inf_all = zeros(n_l, 1);
 
 fprintf('Running GCV lambda scan with %d lambda values...\n', n_l);
-fprintf('GCV Strategy: Invert using REAL part, validate using IMAGINARY part\n\n');
+fprintf('GCV Strategy: Invert using IMAGINARY part, validate using REAL+IMAGINARY\n\n');
 for i = 1:n_l
     lam = lambda_values(i);
     
-    % Invert using REAL part only
-    [gamma_i, R_inf_i] = tr_drt_gcv_realpart_local(freq_vec, Z_exp, lam);
+    % Invert using IMAGINARY part only
+    [gamma_i, R_inf_i] = tr_drt_gcv_impart_local(freq_vec, Z_exp, lam);
     
-    % Calculate IMAGINARY part residuals for GCV score
+    % Calculate BOTH real and imaginary residuals for GCV score
+    A_re = calc_A_re_gcv_local(freq_vec);
     A_im = calc_A_im_gcv_local(freq_vec);
+    Z_re_fit = R_inf_i + A_re * gamma_i;
     Z_im_fit = A_im * gamma_i;
-    Z_im_exp = imag(Z_exp);
     
-    dz_im = Z_im_exp - Z_im_fit;
-    residual_norm_sq_im = norm(dz_im, 2)^2;
+    dz_re = real(Z_exp) - Z_re_fit;
+    dz_im = imag(Z_exp) - Z_im_fit;
+    residual_norm_sq = norm([dz_re; dz_im], 2)^2;
     
-    res_norm(i) = sqrt(residual_norm_sq_im);
+    res_norm(i) = sqrt(residual_norm_sq);
     sol_norm(i) = norm(gamma_i, 2);
-    mean_resid(i) = mean(abs(dz_im));
+    mean_resid(i) = mean(abs([dz_re; dz_im]));
     R_inf_all(i) = R_inf_i;
     
-    % Estimate degrees of freedom for GCV (from imaginary fit)
+    % Estimate degrees of freedom for GCV
     dof_reduction = 1 + log10(lam + 1) * n_data;
     dof_reduction = max(1, min(dof_reduction, n_data - 1));
     
-    % GCV score (using imaginary residuals)
+    % GCV score (using combined Re+Im residuals)
     denom = 1 - dof_reduction / n_data;
     if abs(denom) > 1e-6
-        gcv_score(i) = residual_norm_sq_im / (denom^2);
+        gcv_score(i) = residual_norm_sq / (denom^2);
     else
         gcv_score(i) = inf;
     end
     
-    fprintf('lambda=%10.3e | res_im=%.4e | sol=%.4e | GCV_im=%.4e | R_inf=%.6f\n', ...
+    fprintf('lambda=%10.3e | res_cplx=%.4e | sol=%.4e | GCV=%.4e | R_inf=%.6f\n', ...
         lam, res_norm(i), sol_norm(i), gcv_score(i), R_inf_i);
 end
 
@@ -84,17 +86,17 @@ end
 [~, gcv_idx] = min(gcv_score);
 lambda_gcv = lambda_values(gcv_idx);
 
-fprintf('\n=== GCV Optimal Lambda (Real-part Inversion, Imaginary-part Validation) ===\n');
+fprintf('\n=== GCV Optimal Lambda (Imaginary Inversion, Re+Im Validation) ===\n');
 fprintf('GCV optimal index : %d\n', gcv_idx);
 fprintf('GCV optimal lambda: %.6e\n', lambda_gcv);
 fprintf('GCV score         : %.6e\n', gcv_score(gcv_idx));
-fprintf('Imaginary residual: %.6f\n', res_norm(gcv_idx));
+fprintf('Complex residual  : %.6f\n', res_norm(gcv_idx));
 fprintf('Solution norm     : %.6f\n', sol_norm(gcv_idx));
-fprintf('Mean residual (im): %.6f\n', mean_resid(gcv_idx));
+fprintf('Mean residual     : %.6f\n', mean_resid(gcv_idx));
 fprintf('R_inf             : %.6f\n', R_inf_all(gcv_idx));
 
-% Compute final DRT with optimal lambda (using real part inversion)
-[gamma_opt, R_inf_opt] = tr_drt_gcv_realpart_local(freq_vec, Z_exp, lambda_gcv);
+% Compute final DRT with optimal lambda (using imaginary part inversion)
+[gamma_opt, R_inf_opt] = tr_drt_gcv_impart_local(freq_vec, Z_exp, lambda_gcv);
 
 % For impedance fit visualization, use full impedance
 Z_fit_opt = calculate_eis_gcv_local(freq_vec, gamma_opt, R_inf_opt);
@@ -124,18 +126,37 @@ end
 
 xlabel('lambda');
 ylabel('GCV score');
-title(sprintf('GCV Lambda Selection (S2422) - Optimal: %.3e', lambda_gcv));
+title(sprintf('GCV Lambda Selection (S2422) - Im inversion, Re+Im validation - Optimal: %.3e', lambda_gcv));
 grid on;
 legend('GCV(lambda)', 'Minimum (optimal lambda)', 'Location', 'best');
 saveas(gcf, output_gcv_score_png);
 
-% ===== Plot 2: DRT at Optimal Lambda =====
+% ===== Plot 2: DRT at Optimal Lambda with peak markers =====
 figure('Color', 'w', 'Name', 'DRT with GCV Lambda');
 semilogx(tau, gamma_opt, 'b-', 'LineWidth', 1.5); hold on;
+
+% Detect peaks objectively using prominence threshold (5% of max)
+gmax = max(gamma_opt);
+if gmax > 0
+    min_prom = 0.05 * gmax;
+    [pk_vals, pk_locs, ~, prom] = findpeaks(gamma_opt);
+    sig_idx = prom >= min_prom;
+    pk_tau = tau(pk_locs(sig_idx));
+    pk_g   = pk_vals(sig_idx);
+    plot(pk_tau, pk_g, 'rv', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
+    for k = 1:numel(pk_tau)
+        text(pk_tau(k), pk_g(k) * 1.05, sprintf('\\tau=%.2e', pk_tau(k)), ...
+            'FontSize', 7, 'HorizontalAlignment', 'center');
+    end
+    n_sig_peaks = sum(sig_idx);
+else
+    n_sig_peaks = 0;
+end
+
 set(gca, 'XDir', 'reverse');
 xlabel('Relaxation time tau (s)');
 ylabel('gamma(tau)');
-title(sprintf('DRT (S2422) - GCV lambda = %.3e', lambda_gcv));
+title(sprintf('DRT (S2422) - GCV \\lambda=%.3e - %d peak(s) detected', lambda_gcv, n_sig_peaks));
 grid on;
 saveas(gcf, output_gcv_png);
 
@@ -191,21 +212,21 @@ end
 
 % ===== Helper Functions =====
 
-function [gamma, R_inf] = tr_drt_gcv_realpart_local(freq_vec, Z_exp, lam)
-% Invert DRT using REAL part only
-A_re = calc_A_re_gcv_local(freq_vec);
+function [gamma, R_inf] = tr_drt_gcv_impart_local(freq_vec, Z_exp, lam)
+% Invert DRT using IMAGINARY part only
+A_im = calc_A_im_gcv_local(freq_vec);
 
-Z_re = real(Z_exp(:));
+Z_im = imag(Z_exp(:));
 n = numel(freq_vec);
 
-% Use only real part: A_re * gamma + R_inf = Z_re
-M = [A_re, ones(n,1); sqrt(lam/2) * eye(n), zeros(n,1)];
-b = [Z_re; zeros(n,1)];
+% Use only imaginary part: A_im * gamma = Z_im  (R_inf does not appear in im part)
+M = [A_im, zeros(n,1); sqrt(lam/2) * eye(n), zeros(n,1)];
+b = [Z_im; zeros(n,1)];
 
 x = lsqnonneg(M, b);
 
 gamma = x(1:end-1);
-R_inf = x(end);
+R_inf = x(end);  % Will be ~0 since im part has no R_inf term
 end
 
 function [gamma, R_inf] = tr_drt_gcv_local(freq_vec, Z_exp, lam)
