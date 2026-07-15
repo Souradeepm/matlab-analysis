@@ -32,7 +32,7 @@ Z_exp = Z_exp(valid);
 [freq_vec, idx] = sort(freq_vec);
 Z_exp = Z_exp(idx);
 
-lambda_values = logspace(-6, 1, 40).';
+lambda_values = logspace(-6, 1, 10).';
 n_l = numel(lambda_values);
 
 res_norm = zeros(n_l, 1);
@@ -95,19 +95,19 @@ loglog(res_norm, sol_norm, 'bo-'); hold on;
 plot(res_norm(corner_idx), sol_norm(corner_idx), 'rs', 'MarkerSize', 9, 'LineWidth', 1.5);
 
 % Label each point with its lambda value
-% Use adaptive positioning to avoid label crowding
+% Use adaptive positioning to keep labels close to data points
 for i = 1:numel(lambda_values)
     lambda_str = sprintf('%.0e', lambda_values(i));
     
-    % Determine label position (alternate above/below for better spacing)
+    % Determine label position (alternate above/below for minimal spacing)
     if mod(i, 2) == 0
-        offset_x = 1.15;  % Further right
-        offset_y = 0.95;  % Slightly below
+        offset_x = 1.02;  % Slightly right
+        offset_y = 0.98;  % Slightly below
         h_align = 'left';
         v_align = 'top';
     else
-        offset_x = 1.08;  % Slightly right
-        offset_y = 1.15;  % Further above
+        offset_x = 1.02;  % Slightly right
+        offset_y = 1.02;  % Slightly above
         h_align = 'left';
         v_align = 'bottom';
     end
