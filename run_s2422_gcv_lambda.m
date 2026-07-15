@@ -44,37 +44,39 @@ mean_resid = zeros(n_l, 1);
 R_inf_all = zeros(n_l, 1);
 
 fprintf('Running GCV lambda scan with %d lambda values...\n', n_l);
+fprintf('GCV Strategy: Invert using REAL part, validate using IMAGINARY part\n\n');
 for i = 1:n_l
     lam = lambda_values(i);
-    [gamma_i, R_inf_i] = tr_drt_gcv_local(freq_vec, Z_exp, lam);
-    Z_fit_i = calculate_eis_gcv_local(freq_vec, gamma_i, R_inf_i);
     
-    dz = Z_exp - Z_fit_i;
-    residual_norm_sq = norm([real(dz); imag(dz)], 2)^2;
+    % Invert using REAL part only
+    [gamma_i, R_inf_i] = tr_drt_gcv_realpart_local(freq_vec, Z_exp, lam);
     
-    res_norm(i) = sqrt(residual_norm_sq);
+    % Calculate IMAGINARY part residuals for GCV score
+    A_im = calc_A_im_gcv_local(freq_vec);
+    Z_im_fit = A_im * gamma_i;
+    Z_im_exp = imag(Z_exp);
+    
+    dz_im = Z_im_exp - Z_im_fit;
+    residual_norm_sq_im = norm(dz_im, 2)^2;
+    
+    res_norm(i) = sqrt(residual_norm_sq_im);
     sol_norm(i) = norm(gamma_i, 2);
-    mean_resid(i) = mean(abs(dz));
+    mean_resid(i) = mean(abs(dz_im));
     R_inf_all(i) = R_inf_i;
     
-    % Estimate degrees of freedom for GCV
-    % Simpler approach: use effective DOF based on regularization strength
-    % DOF_eff = trace(A) ≈ n_data / (1 + lambda * regularization_factor)
-    % For practical GCV: GCV = residual_norm^2 / (1 - DOF_eff/n_data)^2
+    % Estimate degrees of freedom for GCV (from imaginary fit)
+    dof_reduction = 1 + log10(lam + 1) * n_data;
+    dof_reduction = max(1, min(dof_reduction, n_data - 1));
     
-    % Estimate DOF reduction (higher lambda = lower DOF)
-    dof_reduction = 1 + log10(lam + 1) * n_data;  % Scale DOF reduction with lambda
-    dof_reduction = max(1, min(dof_reduction, n_data - 1));  % Clamp to valid range
-    
-    % GCV score
+    % GCV score (using imaginary residuals)
     denom = 1 - dof_reduction / n_data;
     if abs(denom) > 1e-6
-        gcv_score(i) = residual_norm_sq / (denom^2);
+        gcv_score(i) = residual_norm_sq_im / (denom^2);
     else
         gcv_score(i) = inf;
     end
     
-    fprintf('lambda=%10.3e | res=%.4e | sol=%.4e | GCV=%.4e | R_inf=%.6f\n', ...
+    fprintf('lambda=%10.3e | res_im=%.4e | sol=%.4e | GCV_im=%.4e | R_inf=%.6f\n', ...
         lam, res_norm(i), sol_norm(i), gcv_score(i), R_inf_i);
 end
 
@@ -82,17 +84,19 @@ end
 [~, gcv_idx] = min(gcv_score);
 lambda_gcv = lambda_values(gcv_idx);
 
-fprintf('\n=== GCV Optimal Lambda ===\n');
+fprintf('\n=== GCV Optimal Lambda (Real-part Inversion, Imaginary-part Validation) ===\n');
 fprintf('GCV optimal index : %d\n', gcv_idx);
 fprintf('GCV optimal lambda: %.6e\n', lambda_gcv);
 fprintf('GCV score         : %.6e\n', gcv_score(gcv_idx));
-fprintf('Residual norm     : %.6f\n', res_norm(gcv_idx));
+fprintf('Imaginary residual: %.6f\n', res_norm(gcv_idx));
 fprintf('Solution norm     : %.6f\n', sol_norm(gcv_idx));
-fprintf('Mean residual     : %.6f\n', mean_resid(gcv_idx));
+fprintf('Mean residual (im): %.6f\n', mean_resid(gcv_idx));
 fprintf('R_inf             : %.6f\n', R_inf_all(gcv_idx));
 
-% Compute final DRT with optimal lambda
-[gamma_opt, R_inf_opt] = tr_drt_gcv_local(freq_vec, Z_exp, lambda_gcv);
+% Compute final DRT with optimal lambda (using real part inversion)
+[gamma_opt, R_inf_opt] = tr_drt_gcv_realpart_local(freq_vec, Z_exp, lambda_gcv);
+
+% For impedance fit visualization, use full impedance
 Z_fit_opt = calculate_eis_gcv_local(freq_vec, gamma_opt, R_inf_opt);
 
 % ===== Plot 1: GCV Score vs Lambda =====
@@ -186,6 +190,23 @@ fprintf('  - gcv_s2422_impedance_fit.png (Impedance comparison)\n');
 end
 
 % ===== Helper Functions =====
+
+function [gamma, R_inf] = tr_drt_gcv_realpart_local(freq_vec, Z_exp, lam)
+% Invert DRT using REAL part only
+A_re = calc_A_re_gcv_local(freq_vec);
+
+Z_re = real(Z_exp(:));
+n = numel(freq_vec);
+
+% Use only real part: A_re * gamma + R_inf = Z_re
+M = [A_re, ones(n,1); sqrt(lam/2) * eye(n), zeros(n,1)];
+b = [Z_re; zeros(n,1)];
+
+x = lsqnonneg(M, b);
+
+gamma = x(1:end-1);
+R_inf = x(end);
+end
 
 function [gamma, R_inf] = tr_drt_gcv_local(freq_vec, Z_exp, lam)
 A_re = calc_A_re_gcv_local(freq_vec);
