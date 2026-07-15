@@ -32,7 +32,7 @@ Z_exp = Z_exp(valid);
 [freq_vec, idx] = sort(freq_vec);
 Z_exp = Z_exp(idx);
 
-lambda_values = logspace(-6, 1, 10).';
+lambda_values = logspace(-4, 0, 10).';
 n_l = numel(lambda_values);
 
 res_norm = zeros(n_l, 1);

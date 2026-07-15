@@ -6,11 +6,11 @@ function drt_input_analysis_matlab2011(repo_root,input_path,temperature,indata)
 % WORKFLOW OVERVIEW:
 %   1. LOAD DATA: Read impedance data (frequency, magnitude, phase) from Excel file
 %   2. VALIDATE: Remove zero/negative frequencies, sort data
-%   3. INVERT: Test multiple lambda values and select lambda using
-%      ChemElectroChem-style criteria (RID + Re/Im CV + resampling variance)
+%   3. INVERT: Sweep lambda values, select lambda using GCV
+%      (Imaginary-part inversion + Re+Im cross-validation scoring)
 %   4. CALCULATE: Compute fitted impedance and residual metrics from recovered DRT
 %   5. VALIDATE: Run Kramers-Kronig (KK) consistency tests on measured and DRT-fitted impedance
-%   6. ANALYZE PEAKS: Detect peaks in DRT, characterize them with RBF interpolation
+%   6. ANALYZE PEAKS: Detect peaks in DRT using prominence-based method
 %   7. EXTRACT PARAMETERS: Calculate equivalent circuit R and C for each peak
 %   8. VISUALIZE: Generate plots (console only, no PNG files for easy script copying)
 %
@@ -64,7 +64,7 @@ for ab=1:sz/3
 data=[indata(:,3*ab-2) indata(:,3*ab-1) indata(:,3*ab)];     
 phase_units = 'deg';
 data_format = 'mag_phase';
-lambda_values = [1e-4, 1e-3, 1e-2, 1e-1, 1e0];
+lambda_values = logspace(-4, 0, 10).';
 close all;
 % --------------------------- Setup paths/log -------------------------
 plots_dir = fullfile(repo_root, 'plots_2011');
@@ -114,97 +114,51 @@ xlabel('Frequency (Hz)');
 ylabel('Im(Z)');
 grid on;
 
-% --------------------------- DRT inversion ---------------------------
-fprintf('\nTesting different lambda values...\n');
+% --------------------------- DRT inversion with GCV ---------------------------
+fprintf('\nRunning GCV lambda selection (imaginary inversion, Re+Im cross-validation)...\n');
+fprintf('Lambda grid: logspace(-4, 0, 10) = %.1e to %.1e\n', lambda_values(1), lambda_values(end));
+
 num_l = numel(lambda_values);
-results(num_l) = struct('lambda', 0, 'gamma', [], 'R_inf', 0, 'mean_resid', 0, 'Z_cal', [], ...
-    'rid', 0, 'cv_real', 0, 'cv_imag', 0, 'resample_var', 0, ...
-    'gamma_real_only', [], 'gamma_imag_only', []);
+n_data = numel(freq_vec);
+A_re_mat = calc_A_re_matlab2011(freq_vec);
+A_im_mat = calc_A_im_matlab2011(freq_vec);
+
+gcv_scores = inf(num_l, 1);
+gamma_all  = zeros(n_data, num_l);
+R_inf_all  = zeros(num_l, 1);
 
 for i = 1:num_l
-    el = lambda_values(i);
-    [gamma_test, R_inf_test] = TR_DRT_matlab2011(freq_vec, Z_exp, el);
-    Z_cal_test = calculate_EIS_matlab2011(freq_vec, gamma_test, R_inf_test);
+    el_i = lambda_values(i);
 
-    residual_test = abs(Z_exp - Z_cal_test);
-    mean_resid = mean(residual_test);
+    % Invert using IMAGINARY part only
+    [gamma_i, R_inf_i] = TR_DRT_component_matlab2011(freq_vec, Z_exp, el_i, 'imag');
 
-    % ChemElectroChem (Schlueter et al., 2019) style lambda metrics:
-    % RID compares DRT from Re-only and Im-only inversions.
-    [gamma_re_only, R_re_only] = TR_DRT_component_matlab2011(freq_vec, Z_exp, el, 'real');
-    [gamma_im_only, ~] = TR_DRT_component_matlab2011(freq_vec, Z_exp, el, 'imag');
-    rid_val = mean((gamma_re_only - gamma_im_only).^2);
+    % Validate using Re+Im residuals
+    dz_re = real(Z_exp) - (R_inf_i + A_re_mat * gamma_i);
+    dz_im = imag(Z_exp) - (A_im_mat * gamma_i);
+    res_sq = norm([dz_re; dz_im], 2)^2;
 
-    % Cross-validation terms: predict Im from Re-only DRT and Re from Im-only DRT.
-    Z_from_re_only = calculate_EIS_matlab2011(freq_vec, gamma_re_only, R_re_only);
+    % GCV denominator (DOF penalty)
+    dof_red = 1 + log10(el_i + 1) * n_data;
+    dof_red = max(1, min(dof_red, n_data - 1));
+    denom   = 1 - dof_red / n_data;
+    if abs(denom) > 1e-6
+        gcv_scores(i) = res_sq / (denom^2);
+    end
 
-    R_from_im = estimate_Rinf_for_gamma_matlab2011(freq_vec, Z_exp, gamma_im_only);
-    Z_from_im_only = calculate_EIS_matlab2011(freq_vec, gamma_im_only, R_from_im);
+    gamma_all(:, i) = gamma_i;
+    R_inf_all(i)    = R_inf_i;
 
-    cv_imag_val = mean((imag(Z_exp) - imag(Z_from_re_only)).^2);
-    cv_real_val = mean((real(Z_exp) - real(Z_from_im_only)).^2);
-
-    % Resampling variance proxy for stability (paper's repetitive/resampling idea).
-    resample_var_val = estimate_resample_variance_matlab2011(freq_vec, Z_exp, el, 8);
-
-    fprintf('lambda = %6.1e: R_inf = %8.3f, Mean residual = %8.3f, RID = %.3e, CVre = %.3e, CVim = %.3e\n', ...
-        el, R_inf_test, mean_resid, rid_val, cv_real_val, cv_imag_val);
-
-    results(i).lambda = el;
-    results(i).gamma = gamma_test;
-    results(i).R_inf = R_inf_test;
-    results(i).mean_resid = mean_resid;
-    results(i).Z_cal = Z_cal_test;
-    results(i).rid = rid_val;
-    results(i).cv_real = cv_real_val;
-    results(i).cv_imag = cv_imag_val;
-    results(i).resample_var = resample_var_val;
-    results(i).gamma_real_only = gamma_re_only;
-    results(i).gamma_imag_only = gamma_im_only;
+    fprintf('  lambda = %8.2e | GCV = %.4e\n', el_i, gcv_scores(i));
 end
 
-all_resid = zeros(num_l,1);
-all_rid = zeros(num_l,1);
-all_cv = zeros(num_l,1);
-all_var = zeros(num_l,1);
-for i = 1:num_l
-    all_resid(i) = results(i).mean_resid;
-    all_rid(i) = results(i).rid;
-    all_cv(i) = results(i).cv_real + results(i).cv_imag;
-    all_var(i) = results(i).resample_var;
-end
+[gcv_best_score, best_idx] = min(gcv_scores);
+el = lambda_values(best_idx);
+gamma  = gamma_all(:, best_idx);
+R_inf  = R_inf_all(best_idx);
+Z_cal  = R_inf + A_re_mat * gamma + 1i * (A_im_mat * gamma);
 
-% ChemElectroChem-inspired selection: lower/upper lambda boundary from CV and variance,
-% then select minimum RID inside the admissible interval.
-[~, idx_cv_min] = min(all_cv);
-[~, idx_var_min] = min(all_var);
-idx_low = min(idx_cv_min, idx_var_min);
-idx_high = max(idx_cv_min, idx_var_min);
-if idx_low == idx_high
-    idx_candidates = (1:num_l).';
-else
-    idx_candidates = (idx_low:idx_high).';
-end
-
-rid_cand = all_rid(idx_candidates);
-[~, rid_rel_idx] = min(rid_cand);
-best_idx = idx_candidates(rid_rel_idx);
-
-score = normalize_metric_2011(all_rid) + normalize_metric_2011(all_cv) + normalize_metric_2011(all_var);
-[~, score_best_idx] = min(score);
-if score_best_idx ~= best_idx
-    best_idx = score_best_idx;
-end
-
-el = results(best_idx).lambda;
-gamma = results(best_idx).gamma;
-R_inf = results(best_idx).R_inf;
-Z_cal = results(best_idx).Z_cal;
-
-fprintf('\nSelected lambda (ChemElectroChem optimization) = %.1e\n', el);
-fprintf('  Boundary index from CV/variance: [%d, %d]\n', idx_low, idx_high);
-fprintf('  Selected RID = %.3e | CV(total) = %.3e | Var = %.3e\n', ...
-    all_rid(best_idx), all_cv(best_idx), all_var(best_idx));
+fprintf('\nSelected lambda (GCV) = %.3e  |  GCV score = %.4e\n', el, gcv_best_score);
 fprintf('Recovered R_inf = %.6f\n', R_inf);
 fprintf('DRT vector length = %d\n', numel(gamma));
 
@@ -283,17 +237,16 @@ legend('Delta residual', 'Reference', 'Location', 'best');
 % --------------------------- Peak analysis ---------------------------
 tau_data = tau;
 gamma_max = max(gamma);
-thresholds = [0.01, 0.05, 0.10, 0.15];
 
-for t = 1:numel(thresholds)
-    thr = thresholds(t);
-    min_height = thr * gamma_max;
-    [locs_t, pks_t] = find_peaks_simple(gamma, min_height, 10);
-    fprintf('Threshold %.2f: Found %d peaks\n', thr, numel(locs_t));
-    for k = 1:numel(locs_t)
-        fprintf('  Peak %d: gamma = %.1f\n', k, pks_t(k));
-    end
+% Prominence-based peak detection (unbiased, no fixed count assumed)
+if gamma_max > 0
+    min_prom = 0.05 * gamma_max;
+    [~, ~, ~, prom_all] = findpeaks(gamma);
+    n_sig_peaks = sum(prom_all >= min_prom);
+else
+    n_sig_peaks = 0;
 end
+fprintf('Prominent peaks detected (prominence >= 5%% of max): %d\n', n_sig_peaks);
 
 [data_peaks_fitted, rbf_model, peak_refine] = refine_rbf_peak_fitting_2011(tau_data, gamma);
 
