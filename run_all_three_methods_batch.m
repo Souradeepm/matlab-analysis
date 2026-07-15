@@ -11,9 +11,9 @@ function run_all_three_methods_batch(dataset_file, start_temp_idx, end_temp_idx)
 %
 % Outputs:
 %   Creates batch-specific output files:
-%   - *_bayes_drt_matlab2011_b{batch}_{timestamp}.txt
-%   - *_paper_method_b{batch}_{timestamp}.txt
-%   - *_residual_method_b{batch}_{timestamp}.txt
+%   - *_bayes_drt_matlab2011_b{batch}.txt
+%   - *_gcv_method_b{batch}.txt
+%   - *_residual_method_b{batch}.txt
 %
 % Environment Variables:
 %   MATLAB_ANALYSIS_REPO_ROOT  = Repo base directory
@@ -47,15 +47,15 @@ catch ME
     result_bayes.success = false;
 end
 
-% ---- PAPER METHOD ----
-fprintf('[Paper Method] Running batch...\n');
+% ---- GCV METHOD ----
+fprintf('[GCV Method] Running batch...\n');
 try
-    result_paper = run_paper_method_batch_local(dataset_file, start_temp_idx, end_temp_idx);
-    fprintf('[Paper Method] ✓ Batch complete. %d temps processed.\n', result_paper.n_temps);
+    result_gcv = run_gcv_method_batch_local(dataset_file, start_temp_idx, end_temp_idx);
+    fprintf('[GCV Method] ✓ Batch complete. %d temps processed.\n', result_gcv.n_temps);
 catch ME
-    fprintf('[Paper Method] ✗ Error: %s\n', ME.message);
-    result_paper.n_temps = 0;
-    result_paper.success = false;
+    fprintf('[GCV Method] ✗ Error: %s\n', ME.message);
+    result_gcv.n_temps = 0;
+    result_gcv.success = false;
 end
 
 % ---- RESIDUAL METHOD ----
@@ -159,14 +159,15 @@ result.success = true;
 result.output_file = output_file;
 end
 
-%% ---- PAPER METHOD BATCH HANDLER ----
-function result = run_paper_method_batch_local(dataset_file, start_idx, end_idx)
+%% ---- GCV METHOD BATCH HANDLER ----
+function result = run_gcv_method_batch_local(dataset_file, start_idx, end_idx)
 [~, base_name, ~] = fileparts(dataset_file);
 base_name = lower(base_name);
 repo_root = getenv('MATLAB_ANALYSIS_REPO_ROOT');
 if isempty(repo_root), repo_root = pwd; end
 
-lambda_values = [1e-4; 1e-3; 1e-2; 1e-1];
+% GCV lambda grid: imaginary inversion, Re+Im cross-validation
+lambda_values = logspace(-4, 0, 10).';
 
 % Read dataset using xlsread
 try
@@ -176,7 +177,7 @@ try
         result.n_temps = 0; result.success = false; return;
     end
 catch ME
-    fprintf('Paper read error: %s\n', ME.message);
+    fprintf('GCV read error: %s\n', ME.message);
     result.n_temps = 0; result.success = false; return;
 end
 
@@ -187,7 +188,7 @@ if start_idx > end_idx
     return;
 end
 
-output_file = fullfile(repo_root, sprintf('%s_paper_method_b%d.txt', base_name, ceil(start_idx/10)));
+output_file = fullfile(repo_root, sprintf('%s_gcv_method_b%d.txt', base_name, ceil(start_idx/10)));
 fid = fopen(output_file, 'w');
 if fid < 0
     result.n_temps = 0;
@@ -195,7 +196,7 @@ if fid < 0
     return;
 end
 
-fprintf(fid, 'Temperature,SelectedLambda,RID,CV,Variance,Score,PeakCount\n');
+fprintf(fid, 'Temperature,SelectedLambda,GCVScore,MeanResidual,PeakCount\n');
 
 count = 0;
 for t = start_idx:end_idx
@@ -208,23 +209,13 @@ for t = start_idx:end_idx
         Z_mag    = block(:, 2);
         Z_phase  = block(:, 3);
         Z_exp = Z_mag .* exp(1i * Z_phase * pi / 180);
-        
-        [rid_vec, cv_vec, var_vec] = compute_paper_metrics_local(freq_vec, Z_exp, lambda_values);
-        idx_best = select_lambda_idx_local(rid_vec, cv_vec, var_vec);
-        lam_best = lambda_values(idx_best);
-        
-        % Fit with best lambda
-        [gamma, ~] = tr_drt_local(freq_vec, Z_exp, lam_best);
-        n_peaks = find_peaks_simple_local(gamma);
-        
-        norm_rid = normalize_metric_local(rid_vec);
-        norm_cv = normalize_metric_local(cv_vec);
-        norm_var = normalize_metric_local(var_vec);
-        score = norm_rid + norm_cv + norm_var;
-        
-        fprintf(fid, '%.6f,%.8e,%.6e,%.6e,%.6e,%.6e,%d\n', ...
-            temperature(t), lam_best, rid_vec(idx_best), cv_vec(idx_best), var_vec(idx_best), score(idx_best), n_peaks);
-        
+
+        [lam_best, gcv_best, mean_resid, n_peaks] = ...
+            select_lambda_gcv_local(freq_vec, Z_exp, lambda_values);
+
+        fprintf(fid, '%.6f,%.8e,%.6e,%.6e,%d\n', ...
+            temperature(t), lam_best, gcv_best, mean_resid, n_peaks);
+
         count = count + 1;
     catch
         continue;
@@ -409,6 +400,59 @@ end
 temperature = temperature(~isnan(temperature));
 end
 
+%% ---- HELPER: GCV lambda selection (Im inversion, Re+Im cross-validation) ----
+function [lambda_best, gcv_best, mean_resid, n_peaks] = ...
+    select_lambda_gcv_local(freq_vec, Z_exp, lambda_values)
+
+n = numel(freq_vec);
+n_lambda = numel(lambda_values);
+n_data = n;
+
+A_re = calc_A_re_local(freq_vec);
+A_im = calc_A_im_local(freq_vec);
+
+gcv_scores = inf(n_lambda, 1);
+
+for i = 1:n_lambda
+    lam = lambda_values(i);
+
+    % Invert using imaginary part only
+    M = [A_im, zeros(n,1); sqrt(lam/2) * eye(n), zeros(n,1)];
+    b = [imag(Z_exp); zeros(n,1)];
+    opts = optimset('Display', 'off', 'MaxIter', 10000, 'TolX', 1e-10);
+    x = lsqnonneg(M, b, [], opts);
+    gamma_i = x(1:n);
+    R_inf_i = x(n+1);
+
+    % Validate using Re+Im residuals
+    dz_re = real(Z_exp) - (R_inf_i + A_re * gamma_i);
+    dz_im = imag(Z_exp) - (A_im * gamma_i);
+    res_sq = norm([dz_re; dz_im], 2)^2;
+
+    dof_red = 1 + log10(lam + 1) * n_data;
+    dof_red = max(1, min(dof_red, n_data - 1));
+    denom = 1 - dof_red / n_data;
+    if abs(denom) > 1e-6
+        gcv_scores(i) = res_sq / (denom^2);
+    end
+end
+
+[gcv_best, idx_best] = min(gcv_scores);
+lambda_best = lambda_values(idx_best);
+
+% Final DRT at optimal lambda (imaginary inversion)
+M = [A_im, zeros(n,1); sqrt(lambda_best/2) * eye(n), zeros(n,1)];
+b = [imag(Z_exp); zeros(n,1)];
+opts = optimset('Display', 'off', 'MaxIter', 10000, 'TolX', 1e-10);
+x = lsqnonneg(M, b, [], opts);
+gamma_opt = x(1:n);
+R_inf_opt = x(n+1);
+
+Z_fit = R_inf_opt + A_re * gamma_opt + 1i * (A_im * gamma_opt);
+mean_resid = mean(abs(Z_exp - Z_fit));
+n_peaks = find_peaks_simple_local(gamma_opt);
+end
+
 %% ---- HELPER: Bayes-DRT lambda selection (Re/Im CV) ----
 function [lambda_best, cv_real, cv_imag, cv_total, mean_residual, n_peaks] = ...
     select_lambda_reimcv_local(freq_vec, Z_exp, lambda_values)
@@ -445,40 +489,6 @@ A_im = calc_A_im_local(freq_vec);
 Z_fit = A_re * gamma + 1i * (A_im * gamma);
 mean_residual = mean(abs(Z_exp - Z_fit));
 n_peaks = find_peaks_simple_local(gamma);
-end
-
-%% ---- HELPER: Paper method metrics ----
-function [rid_vec, cv_vec, var_vec] = compute_paper_metrics_local(freq_vec, Z_exp, lambda_values)
-rid_vec = [];
-cv_vec = [];
-var_vec = [];
-
-for i = 1:numel(lambda_values)
-    lam = lambda_values(i);
-    
-    % RID metric
-    [gamma_re, ~] = tr_drt_component_local(freq_vec, Z_exp, lam, 'real');
-    [gamma_im, ~] = tr_drt_component_local(freq_vec, Z_exp, lam, 'imag');
-    rid_vec(i) = mean((gamma_re - gamma_im).^2);
-    
-    % CV metric
-    [gamma_re, ~] = tr_drt_component_local(freq_vec, Z_exp, lam, 'real');
-    [gamma_im, ~] = tr_drt_component_local(freq_vec, Z_exp, lam, 'imag');
-    A_re = calc_A_re_local(freq_vec);
-    A_im = calc_A_im_local(freq_vec);
-    Z_from_re = A_re * gamma_re + 1i * (A_im * gamma_re);
-    Z_from_im = A_re * gamma_im + 1i * (A_im * gamma_im);
-    cv_real = mean(abs(imag(Z_exp) - imag(Z_from_re)).^2);
-    cv_imag = mean(abs(real(Z_exp) - real(Z_from_im)).^2);
-    cv_vec(i) = cv_real + cv_imag;
-    
-    % Variance metric (simplified: 3 resamples)
-    var_vec(i) = estimate_resample_variance_local(freq_vec, Z_exp, lam, 3);
-end
-
-rid_vec = rid_vec(:);
-cv_vec = cv_vec(:);
-var_vec = var_vec(:);
 end
 
 %% ---- HELPER: Ridge regression DRT solver ----
@@ -600,26 +610,4 @@ for k = 1:n_boot
 end
 
 mean_var = mean(var(gamma_samples, 0, 2));
-end
-
-%% ---- HELPER: Normalize metric ----
-function nvec = normalize_metric_local(vec)
-vec = vec(:);
-vmin = min(vec);
-vmax = max(vec);
-if vmax > vmin
-    nvec = (vec - vmin) ./ (vmax - vmin);
-else
-    nvec = zeros(size(vec));
-end
-end
-
-%% ---- HELPER: Select lambda (Paper method v2) ----
-function idx_best = select_lambda_idx_local(rid_vec, cv_vec, var_vec)
-norm_rid = normalize_metric_local(rid_vec);
-norm_cv = normalize_metric_local(cv_vec);
-norm_var = normalize_metric_local(var_vec);
-
-score = norm_rid + norm_cv + norm_var;
-[~, idx_best] = min(score);
 end
