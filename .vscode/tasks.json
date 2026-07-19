@@ -1676,6 +1676,402 @@
 			"type": "shell",
 			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe -batch rerun_s2322al_s2422al_fixed",
 			"isBackground": false
+		},
+		{
+			"label": "Run S2422 Lucy GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 RBF GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K lambda sweep CV now",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K GCV copied workflow",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K GCV copied workflow fixed",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Check S2022 280K lambda optimum",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K GCV joint ReIm inversion",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K GCV full-hat trace",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K fixed lambda 2e-3",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K imag-only reverted",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K remote formulation",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K normalized remote GCV",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K slope-flattening lambda",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K flattening threshold 0p2pct",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K hat-matrix dGdlnlambda",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K hat-matrix dGdlnlambda clean",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K with GCV slope plot",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K with robust plot save",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K imag+real GCV overlay",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K with inductive filtering",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 workflow parity update",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2422 workflow parity update rerun",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2422_gcv_lambda"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run S2022 280K workflow with RCN Nyquist",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"run_s2022_280k_lambda_sweep_cv"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run standalone single-file workflow",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"Impedance_analysis_singlefile"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run standalone single-file impedance workflow",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"Impedance_analysis_singlefile"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Run standalone singlefile workflow",
+			"type": "shell",
+			"command": "C:\\Progra~1\\MATLAB\\R2023a\\bin\\matlab.exe",
+			"args": [
+				"-batch",
+				"Impedance_analysis_singlefile"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
 		}
 	]
 }

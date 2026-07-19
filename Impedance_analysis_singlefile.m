@@ -1,49 +1,52 @@
-function drt_input_analysis_matlab2011(repo_root,input_path,temperature,indata)
-% drt_input_analysis_matlab2011 - Complete DRT (Distribution of Relaxation Times) Analysis Workflow
+function Impedance_analysis_singlefile()
+% Impedance_analysis_singlefile - Self-contained DRT impedance analysis workflow.
 %
-% MAIN FUNCTION - Performs end-to-end DRT analysis on electrochemical impedance spectroscopy (EIS) data
+% Run with:  matlab -batch Impedance_analysis_singlefile
 %
-% WORKFLOW OVERVIEW:
-%   1. LOAD DATA: Read impedance data (frequency, magnitude, phase) from Excel file
-%   2. VALIDATE: Remove zero/negative frequencies, sort data
-%   3. INVERT: Sweep lambda values, select lambda using GCV
-%      (Imaginary-part inversion + Re+Im cross-validation scoring)
-%   4. CALCULATE: Compute fitted impedance and residual metrics from recovered DRT
-%   5. VALIDATE: Run Kramers-Kronig (KK) consistency tests on measured and DRT-fitted impedance
-%   6. ANALYZE PEAKS: Detect peaks in DRT using prominence-based method
-%   7. EXTRACT PARAMETERS: Calculate equivalent circuit R and C for each peak
-%   8. VISUALIZE: Generate plots (console only, no PNG files for easy script copying)
-%
-% KEY VARIABLES:
-%   freq_vec - Measurement frequencies (Hz), log-spaced preferred
-%   Z_exp    - Experimental complex impedance (Ohm)
-%   gamma    - Distribution of Relaxation Times [N x 1], main output
-%   R_inf    - High-frequency limit resistance (Ohm)
-%   Z_cal    - Fitted impedance spectrum from DRT
-%   tau      - Relaxation times corresponding to DRT (seconds)
-%   lambda_values - Regularization parameters to test (typical: 1e-4 to 1.0)
-%
-% OUTPUT FILES:
-%   - drt_matlab2011_run.log : Text log of all console output
-%   - plots_2011/ directory : Figures displayed on screen (no PNG files)
-%
-% CUSTOMIZATION:
-%   Edit 'User settings' section below to change:
-%   - input_path: Path to Excel file with EIS data
-%   - lambda_values: Regularization parameters to test
-%   - phase_units: 'deg' (degrees) or 'rad' (radians)
-%   - data_format: 'mag_phase' or 'real_imag'
-%
-% EXPECTED DATA FORMAT:
-%   Column 1 = frequency (Hz)
-%   Column 2 = |Z| (Ohm) or Re(Z)
-%   Column 3 = theta (degrees/radians) or Im(Z)
+% ---- CONFIGURE INPUT HERE ----
+% Change input_path to point to your EIS workbook.
+% The file must be a multi-temperature Excel/XLS workbook where every three
+% columns = [frequency (Hz), |Z| (Ohm), phase (deg)] for one temperature,
+% and the first header row contains temperature labels like "280K", "300K".
+% -----------------------------------
 
 clc;
+close all;
 
+repo_root = fileparts(mfilename('fullpath'));
+input_path = fullfile(repo_root, 'S2022Sap.xlsx');   % <-- change as needed
 
-% --------------------------- User settings ---------------------------
-sz=size(indata,2);
+if exist(input_path, 'file') ~= 2
+    error('Input file not found: %s\nEdit input_path at the top of Impedance_analysis_singlefile.m', input_path);
+end
+
+% Load data and parse temperature labels from header row.
+[indata, text_hdr] = xlsread(input_path);
+
+temperature = zeros(0, 1);
+if ~isempty(text_hdr)
+    header_cells = text_hdr(1, :);
+    for hk = 1:numel(header_cells)
+        tok = header_cells{hk};
+        if ischar(tok)
+            tok = strtrim(tok);
+            tok(tok == 'K' | tok == 'k') = [];
+            val = str2double(tok);
+            if ~isnan(val)
+                temperature(end + 1, 1) = val; %#ok<AGROW>
+            end
+        end
+    end
+end
+
+if isempty(temperature)
+    error('No temperature labels found in header row of %s', input_path);
+end
+
+fprintf('Loaded %d temperature(s) from: %s\n', numel(temperature), input_path);
+
+% --------------------------- Main loop starts here ---------------------------
+sz = size(indata, 2);
 
 if rem(sz, 3) ~= 0
     error('Input data must contain frequency, magnitude, and phase columns for each temperature');
