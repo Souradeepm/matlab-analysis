@@ -909,4 +909,107 @@ For each input workbook, the MATLAB script writes multiple Excel workbooks keyed
 
 The refined peak profile workbook is especially important when individual Gaussian peak components need to be analyzed temperature-by-temperature outside MATLAB.
 
+\section{Detailed RBF Interpolation and Gaussian Basis Fitting Theory}
+
+\subsection{Radial Basis Function Model}
+
+The first refinement step constructs a smooth continuous model of the DRT using Gaussian radial basis functions (RBF). Given discrete DRT points $\{x_j, y_j\}$ where $x_j = \ln(\tau_j)$ and $y_j = \gamma(\tau_j)$, the RBF model is
+\begin{equation}
+\gamma_{\mathrm{RBF}}(x) = \sum_{j=1}^{N} w_j \exp\!\left[-(\varepsilon \cdot d_j)^2\right],
+\end{equation}
+where $d_j = |x - x_j|$ is the Euclidean distance and $\varepsilon$ is a shape parameter that determines the width of each Gaussian basis.
+
+The shape parameter is computed from the data spacing as
+\begin{equation}
+\varepsilon = \frac{1}{\Delta x_{\mathrm{med}}},
+\end{equation}
+where $\Delta x_{\mathrm{med}}$ is the median spacing between sorted training points $x_j$.
+
+The weights $w_j$ are obtained by solving the regularized least-squares system,
+\begin{equation}
+\left(\mathbf{\Phi} + \lambda_{\mathrm{RBF}} \mathbf{I}\right) \mathbf{w} = \mathbf{y},
+\end{equation}
+where $\mathbf{\Phi}$ is the Gaussian kernel matrix with entries $\Phi_{ij} = \exp[-({\varepsilon d_{ij}})^2]$, $\lambda_{\mathrm{RBF}} = 10^{-8}$ is a small Tikhonov regularization parameter for numerical stability, and $\mathbf{y}$ is the vector of DRT values.
+
+\subsection{Base Peak Detection}
+
+Base peaks are identified by simple local-maxima detection on the RBF-interpolated curve. A point $i$ is marked as a local maximum if
+\begin{equation}
+\gamma_{\mathrm{RBF}}(x_i) \geq \gamma_{\mathrm{RBF}}(x_{i-1}) \quad \text{and} \quad \gamma_{\mathrm{RBF}}(x_i) > \gamma_{\mathrm{RBF}}(x_{i+1}),
+\end{equation}
+with a minimum height threshold
+\begin{equation}
+\gamma_{\mathrm{RBF}}(x_i) \geq h_{\min} = 0.05 \cdot \max_j \gamma_{\mathrm{RBF}}(x_j).
+\end{equation}
+
+Peaks are then sorted by height in descending order and culled to enforce minimum separation: if two peaks are within $\Delta x_{\mathrm{sep}} = 20$ sample indices, only the taller peak is retained.
+
+\subsection{Hidden Peak Detection via Second Derivative}
+
+Hidden or shoulder peaks are identified by analyzing the smoothed negative second derivative (curvature) of the RBF curve. The curvature signal is defined as
+\begin{equation}
+\kappa(x_i) = \max\left(0, -\frac{d^2\gamma_{\mathrm{RBF}}}{dx^2}\right),
+\end{equation}
+capturing regions of concavity. This signal is smoothed using a Savitzky-Golay filter (frame length 7, polynomial order 2).
+
+Peaks in the curvature signal are detected with a threshold
+\begin{equation}
+\kappa_{\min} = \max\left(0.3 \cdot \max_j \kappa(x_j), 3.2 \cdot \sigma_{\kappa}\right),
+\end{equation}
+where $\sigma_{\kappa}$ is the standard deviation of $\kappa(x)$.
+
+Each curvature peak passes multi-stage filters: proximity to base peaks, minimum amplitude, local floor, prominence, and interior checks. The final set is capped at $\lfloor m_b / 2 \rfloor$ to prevent over-segmentation.
+
+\subsection{Gaussian Sum Fitting}
+
+The code fits a parametric Gaussian sum plus baseline:
+\begin{equation}
+\gamma_{\mathrm{fit}}(x) = \sum_{k=1}^{m} A_k \exp\left[-\frac{(x - \mu_k)^2}{2\sigma_k^2}\right] + b,
+\end{equation}
+where centers $\mu_k$ are fixed at detected peak locations and amplitudes, widths, and baseline are optimized.
+
+The penalized least-squares objective is
+\begin{equation}
+\mathcal{J}(\mathbf{A}, \boldsymbol{\sigma}, b) = \sum_{j} \left[\gamma_{\mathrm{fit}}(x_j) - \gamma_{\mathrm{RBF}}(x_j)\right]^2 
++ 10^3 \cdot P_\sigma(\boldsymbol{\sigma}) + 10^{-2} \cdot P_A(\mathbf{A}),
+\end{equation}
+with width penalty enforcing $\sigma_k \in [0.04, 0.90]$ and amplitude penalty enforcing positivity. Optimization uses the simplex method, and given optimal widths, amplitudes are obtained by non-negative least squares.
+
+\subsection{Per-Peak Circuit Parameter Extraction}
+
+\subsubsection{Resistance from Peak Area}
+
+The resistance is the integral of the DRT:
+\begin{equation}
+R_k = A_k \sigma_k \sqrt{2\pi}.
+\end{equation}
+
+\subsubsection{Characteristic Time and Capacitance}
+
+The characteristic relaxation time is the peak center:
+\begin{equation}
+\tau_k = \exp(\mu_k), \quad C_k = \frac{\tau_k}{R_k}.
+\end{equation}
+
+\subsubsection{CPE Exponent Estimation}
+
+The \textbf{empirically optimal} formula (tested on S2022 data, 2.99\% lower Nyquist residuals) is the heuristic:
+\begin{equation}
+n_k = \frac{1.144}{1 + \sigma_k}.
+\end{equation}
+
+Alternative formulas for comparison:
+
+\textbf{FWHM-based implicit formula:} Solving numerically from
+\begin{equation}
+\sqrt{2\ln 2} \cdot \sigma_k \cdot n_k = \operatorname{acosh}(2 + \cos(\pi n_k)).
+\end{equation}
+
+\textbf{Phase-angle method:}
+\begin{equation}
+n_k = -\frac{4\phi_{\text{apex}}}{\pi},
+\end{equation}
+where $\phi_{\text{apex}} = -\pi n / 4$ is the phase angle at peak impedance.
+
+
 \end{document}
