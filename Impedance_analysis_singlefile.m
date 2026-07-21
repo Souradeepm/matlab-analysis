@@ -1,51 +1,40 @@
-function Impedance_analysis_singlefile()
+function Impedance_analysis_singlefile(input_path)
 % Impedance_analysis_singlefile - Self-contained DRT impedance analysis workflow.
 %
-% Run with:  matlab -batch Impedance_analysis_singlefile
+% Run from MATLAB:  Impedance_analysis_singlefile
+% Command line (MATLAB 2011):  matlab -r "Impedance_analysis_singlefile; exit"
 %
 % ---- CONFIGURE INPUT HERE ----
 % Change input_path to point to your EIS workbook.
-% The file must be a multi-temperature Excel/XLS workbook where every three
-% columns = [frequency (Hz), |Z| (Ohm), phase (deg)] for one temperature,
-% and the first header row contains temperature labels like "280K", "300K".
+% Supports a multi-temperature Excel/XLS workbook where every three columns =
+% [frequency (Hz), |Z| (Ohm), phase (deg)] and the first header row
+% contains temperature labels like "280K", "300K".
 % -----------------------------------
 
 clc;
 close all;
 
+% Resolve the repository root and default to the S2022 workbook when no
+% explicit input path is supplied by the caller.
 repo_root = fileparts(mfilename('fullpath'));
-input_path = fullfile(repo_root, 'S2022Sap.xlsx');   % <-- change as needed
+if nargin < 1 || isempty(input_path)
+    input_path = fullfile(repo_root, 'S2022Sap.xlsx');   % <-- change as needed
+elseif ~ischar(input_path)
+    error('input_path must be a character array');
+elseif exist(input_path, 'file') ~= 2
+    input_path = fullfile(repo_root, input_path);
+end
 
 if exist(input_path, 'file') ~= 2
     error('Input file not found: %s\nEdit input_path at the top of Impedance_analysis_singlefile.m', input_path);
 end
 
-% Load data and parse temperature labels from header row.
-[indata, text_hdr] = xlsread(input_path);
-
-temperature = zeros(0, 1);
-if ~isempty(text_hdr)
-    header_cells = text_hdr(1, :);
-    for hk = 1:numel(header_cells)
-        tok = header_cells{hk};
-        if ischar(tok)
-            tok = strtrim(tok);
-            tok(tok == 'K' | tok == 'k') = [];
-            val = str2double(tok);
-            if ~isnan(val)
-                temperature(end + 1, 1) = val; %#ok<AGROW>
-            end
-        end
-    end
-end
-
-if isempty(temperature)
-    error('No temperature labels found in header row of %s', input_path);
-end
+[indata, temperature] = load_input_dataset_2011(input_path);
 
 fprintf('Loaded %d temperature(s) from: %s\n', numel(temperature), input_path);
 
 % --------------------------- Main loop starts here ---------------------------
+% Each temperature is stored as one three-column block: frequency, |Z|, phase.
 sz = size(indata, 2);
 
 if rem(sz, 3) ~= 0
@@ -67,8 +56,10 @@ sensitivity_output_file = fullfile(repo_root, sprintf('%s_sensitivity_result.xls
 lambda_perturb_output_file = fullfile(repo_root, sprintf('%s_lambda_perturbation_result.xlsx', sample_tag));
 peak_output_file = fullfile(repo_root, sprintf('%s_peak_detail_result.xlsx', sample_tag));
 plot_data_output_file = fullfile(repo_root, sprintf('%s_temperature_plot_data.xlsx', sample_tag));
+peak_profile_output_file = fullfile(repo_root, sprintf('%s_refined_peak_profiles.xlsx', sample_tag));
 
 for ab=1:sz/3
+% Slice the workbook into one impedance spectrum and one temperature label.
 data=[indata(:,3*ab-2) indata(:,3*ab-1) indata(:,3*ab)];     
 phase_units = 'deg';
 data_format = 'mag_phase';
@@ -91,6 +82,7 @@ if exist(input_path, 'file') ~= 2
 end
 
 % --------------------------- Load data -------------------------------
+% Convert the three-column block into frequency and complex impedance.
 [freq_vec, Z_exp] = load_f_Z_theta_2011(data, phase_units, data_format);
 
 valid = freq_vec > 0;
@@ -116,6 +108,7 @@ phase_deg = angle(Z_exp) * 180 / pi;
 fprintf('Phase range: %.2f - %.2f deg\n', min(phase_deg), max(phase_deg));
 
 % --------------------------- Plot input impedance --------------------
+% Plot the measured spectrum in component form before inversion.
 figure('Color', 'w', 'Name', 'Measured impedance');
 subplot(2,1,1);
 semilogx(freq_vec, real(Z_exp), 'o-');
@@ -129,6 +122,7 @@ ylabel('Im(Z)');
 grid on;
 
 % --------------------------- DRT inversion with GCV ---------------------------
+% Score a lambda grid with component-wise inversions and a Re+Im residual metric.
 fprintf('\nRunning GCV lambda selection (imaginary inversion, Re+Im cross-validation)...\n');
 fprintf('Lambda grid: logspace(-4, 0, 10) = %.1e to %.1e\n', lambda_values(1), lambda_values(end));
 
@@ -226,13 +220,14 @@ legend('Imag-only nGCV', 'Real-only nGCV', 'Selected lambda', 'Location', 'best'
 
 figure('Color', 'w', 'Name', sprintf('GCV slope %.1f K', temperature(ab)));
 semilogx(lambda_values(2:end), slope_seg, 'k-o', 'LineWidth', 1.2); hold on;
-yline(0, '--', 'Color', [0.4 0.4 0.4]);
+plot_horizontal_line_2011(0, '--', [0.4 0.4 0.4]);
 xlabel('lambda');
 ylabel('dlnG / dlnlambda');
 title('GCV slope for flattening-based lambda selection');
 grid on;
 
 % --------------------------- Plot DRT vs tau -------------------------
+% Plot the recovered DRT directly against relaxation time.
 tau = 1 ./ (2 * pi * freq_vec);
 figure('Color', 'w', 'Name', 'DRT vs relaxation time');
 semilogx(tau, gamma, 'o-');
@@ -243,6 +238,7 @@ title('DRT vs Relaxation Time');
 grid on;
 
 % --------------------------- Compare fit -----------------------------
+% Compare the measured impedance against the DRT reconstruction.
 residual = abs(Z_exp - Z_cal);
 fprintf('\nMean absolute residual: %.6f\n', mean(residual));
 fprintf('Max absolute residual : %.6f\n', max(residual));
@@ -258,6 +254,7 @@ grid on;
 legend('Measured', 'DRT fit', 'Location', 'best');
 
 % ------------------ Lambda perturbation sensitivity -------------------
+% Probe whether local lambda perturbations materially change the fit residual.
 lambda_perturb_result = perform_lambda_perturbation_sensitivity_matlab2011( ...
     freq_vec, Z_exp, el, mean(residual));
 
@@ -299,14 +296,15 @@ grid on;
 legend('Delta residual', 'Reference', 'Location', 'best');
 
 % --------------------------- Peak analysis ---------------------------
+% Detect, refine, and parametrize the dominant DRT peaks.
 tau_data = tau;
 gamma_max = max(gamma);
 
 % Prominence-based peak detection (unbiased, no fixed count assumed)
 if gamma_max > 0
-    min_prom = 0.05 * gamma_max;
-    [~, ~, ~, prom_all] = findpeaks(gamma);
-    n_sig_peaks = sum(prom_all >= min_prom);
+    min_height = 0.05 * gamma_max;
+    peak_idx = find_peaks_simple(gamma, min_height, 3);
+    n_sig_peaks = numel(peak_idx);
 else
     n_sig_peaks = 0;
 end
@@ -375,6 +373,7 @@ if ~isempty(data_peaks_fitted)
 end
 
 % --------------------------- Plot-data export ------------------------
+% Export the dense curves and tabulated plot data needed for downstream analysis.
 nyq_sheet = make_sheet_name_2011('NYQ', temperature(ab));
 nyq_data = [freq_vec(:), real(Z_exp(:)), imag(Z_exp(:)), real(Z_cal(:)), imag(Z_cal(:)), abs(Z_exp(:) - Z_cal(:))];
 write_matrix_with_header_2011(plot_data_output_file, nyq_sheet, ...
@@ -391,15 +390,18 @@ write_matrix_with_header_2011(plot_data_output_file, drt_sheet, ...
     {'tau_s','gamma_ohm'}, drt_plot_data);
 
 % --------------------------- KK test ---------------------------------
+% Measure how well the spectrum and DRT reconstruction satisfy KK consistency.
 kk_result = perform_kk_test_matlab2011(freq_vec, Z_exp);
 kk_drt_result = perform_kk_test_matlab2011(freq_vec, Z_cal);
 fprintf('\nKramers-Kronig consistency test:\n');
+fprintf('  KK basis / reg    : %d / %.1e\n', kk_result.n_basis, kk_result.reg_weight);
 fprintf('  Real residual  : %.2f %%\n', kk_result.real_residual_pct);
 fprintf('  Imag residual  : %.2f %%\n', kk_result.imag_residual_pct);
 fprintf('  Total residual : %.2f %%\n', kk_result.total_residual_pct);
 fprintf('  Status         : %s\n', kk_result.status);
 
 fprintf('\nKramers-Kronig test on DRT-generated impedance:\n');
+fprintf('  KK basis / reg    : %d / %.1e\n', kk_drt_result.n_basis, kk_drt_result.reg_weight);
 fprintf('  Real residual  : %.2f %%\n', kk_drt_result.real_residual_pct);
 fprintf('  Imag residual  : %.2f %%\n', kk_drt_result.imag_residual_pct);
 fprintf('  Total residual : %.2f %%\n', kk_drt_result.total_residual_pct);
@@ -432,6 +434,14 @@ ylabel('Re(Z)');
 grid on;
 legend('Measured', 'KK fit', 'Location', 'best');
 
+subplot(2,1,2);
+semilogx(freq_vec, imag(Z_exp), 'ko-'); hold on;
+semilogx(freq_vec, imag(kk_result.Z_fit), 'b.-');
+xlabel('Frequency (Hz)');
+ylabel('Im(Z)');
+grid on;
+legend('Measured', 'KK fit', 'Location', 'best');
+
 figure('Color', 'w', 'Name', sprintf('KK test on DRT impedance %.1f K', temperature(ab)));
 subplot(2,1,1);
 semilogx(freq_vec, real(Z_cal), 'ko-'); hold on;
@@ -448,15 +458,8 @@ ylabel('Im(Z)');
 grid on;
 legend('DRT impedance', 'KK fit', 'Location', 'best');
 
-subplot(2,1,2);
-semilogx(freq_vec, imag(Z_exp), 'ko-'); hold on;
-semilogx(freq_vec, imag(kk_result.Z_fit), 'b.-');
-xlabel('Frequency (Hz)');
-ylabel('Im(Z)');
-grid on;
-legend('Measured', 'KK fit', 'Location', 'best');
-
 % --------------------------- Sensitivity -----------------------------
+% Bootstrap the recovered DRT to estimate uncertainty bands and CV statistics.
 sensitivity_result = perform_sensitivity_analysis_matlab2011(freq_vec, Z_exp, el, gamma, Z_cal, ab);
 fprintf('\nSensitivity analysis (%d bootstrap runs):\n', sensitivity_result.n_boot);
 fprintf('  Mean std. band : %.4e\n', sensitivity_result.mean_std);
@@ -528,19 +531,23 @@ analysis_results(end-size(gamma)+1:end,2*ab)=gamma;
 peak_store=[temperature(ab);tau_peak';0;R_file';0;C_file';0;n_file'];
 peak_file(1:size(peak_store),ab)=peak_store;
 peak_sheet = make_sheet_name_2011('PEAK', temperature(ab));
-peak_numeric = zeros(numel(data_peaks_fitted), 8);
+peak_numeric = zeros(numel(data_peaks_fitted), 9);
 for i = 1:numel(data_peaks_fitted)
     peak_numeric(i,:) = [data_peaks_fitted(i).peak_id, data_peaks_fitted(i).tau, ...
-        data_peaks_fitted(i).amplitude, data_peaks_fitted(i).sigma, data_peaks_fitted(i).R, ...
-        data_peaks_fitted(i).C, data_peaks_fitted(i).n, data_peaks_fitted(i).is_hidden];
+        data_peaks_fitted(i).amplitude, data_peaks_fitted(i).sigma, data_peaks_fitted(i).fwhm_logtau, ...
+        data_peaks_fitted(i).R, data_peaks_fitted(i).C, data_peaks_fitted(i).n, data_peaks_fitted(i).is_hidden];
 end
 write_matrix_with_header_2011(peak_output_file, peak_sheet, ...
-    {'peak_id','tau_s','amplitude','sigma_logtau','R_ohm','C_F','n_est','is_hidden'}, peak_numeric);
+    {'peak_id','tau_s','amplitude','sigma_logtau','fwhm_logtau','R_ohm','C_F','n_est','is_hidden'}, peak_numeric);
 
 % Store R-C-n values and individual peaks in sample-tagged plot-data workbook.
 rcn_sheet = make_sheet_name_2011('RCN', temperature(ab));
 write_matrix_with_header_2011(plot_data_output_file, rcn_sheet, ...
-    {'peak_id','tau_s','amplitude','sigma_logtau','R_ohm','C_F','n_est','is_hidden'}, peak_numeric);
+    {'peak_id','tau_s','amplitude','sigma_logtau','fwhm_logtau','R_ohm','C_F','n_est','is_hidden'}, peak_numeric);
+
+peak_profile_sheet = make_sheet_name_2011('PFIT', temperature(ab));
+[peak_profile_header, peak_profile_data] = build_refined_peak_profile_export_2011(peak_refine, data_peaks_fitted);
+write_matrix_with_header_2011(peak_profile_output_file, peak_profile_sheet, peak_profile_header, peak_profile_data);
 
 kkm_sheet = make_sheet_name_2011('KKM', temperature(ab));
 kkm_data = [1, kk_result.real_residual_pct, kk_result.imag_residual_pct, kk_result.total_residual_pct, kk_result.max_residual_pct, kk_result.status_code; ...
@@ -558,6 +565,7 @@ end
 
 xlswrite(analysis_output_file,analysis_results);
 xlswrite(peak_matrix_output_file,peak_file);
+% Write the per-workbook summaries after all temperatures have been processed.
 write_matrix_with_header_2011(kk_output_file, 'summary', ...
     {'Temperature_K','Lambda','R_inf','KK_real_pct','KK_imag_pct','KK_total_pct','KK_max_pct','KK_status_code', ...
     'KK_DRT_real_pct','KK_DRT_imag_pct','KK_DRT_total_pct','KK_DRT_max_pct','KK_DRT_status_code'}, ...
@@ -577,6 +585,7 @@ fprintf('  %s\n', sensitivity_output_file);
 fprintf('  %s\n', lambda_perturb_output_file);
 fprintf('  %s\n', peak_output_file);
 fprintf('  %s\n', plot_data_output_file);
+fprintf('  %s\n', peak_profile_output_file);
 end
 
 function [freq, Z] = load_f_Z_theta_2011(data, phase_units, data_format)
@@ -626,6 +635,55 @@ else
     error('data_format must be ''mag_phase'' or ''real_imag''');
 end
 
+end
+
+function [indata, temperature] = load_input_dataset_2011(input_path)
+% load_input_dataset_2011 - Load the numeric workbook block and header temperatures.
+%
+% The single-file workflow expects a workbook where each temperature occupies
+% three numeric columns and the first header row stores labels such as 280K.
+% This helper returns the numeric matrix and the parsed temperature vector.
+
+try
+    [indata, text_hdr] = xlsread(input_path);
+catch ME
+    error('Failed to read Excel workbook %s: %s', input_path, ME.message);
+end
+
+temperature = parse_temperature_headers_2011(text_hdr);
+
+if isempty(indata)
+    error('No numeric impedance data found in workbook: %s', input_path);
+end
+
+if isempty(temperature)
+    error('Could not determine temperature labels for %s', input_path);
+end
+end
+
+function temperature = parse_temperature_headers_2011(text_hdr)
+% parse_temperature_headers_2011 - Extract numeric temperature labels from the first header row.
+%
+% Header cells are sanitized by stripping the trailing K/k before numeric
+% conversion so labels such as '280K' and '300k' are both accepted.
+
+temperature = zeros(0, 1);
+if isempty(text_hdr)
+    return;
+end
+
+header_cells = text_hdr(1, :);
+for hk = 1:numel(header_cells)
+    tok = header_cells{hk};
+    if ischar(tok)
+        tok = strtrim(tok);
+        tok(tok == 'K' | tok == 'k') = [];
+        val = str2double(tok);
+        if ~isnan(val)
+            temperature(end + 1, 1) = val; %#ok<AGROW>
+        end
+    end
+end
 end
 
 function [gamma, R_inf] = TR_DRT_matlab2011(freq_vec, Z_exp, el)
@@ -703,9 +761,10 @@ Z_cal = R_inf + A_re * gamma + 1i * (A_im * gamma);
 end
 
 function Z_rcn = calculate_eis_from_rcn_peaks_matlab2011(freq_vec, R_inf, fitted_peaks)
-% Build impedance from extracted R, C, n peak parameters.
-% Each peak is modeled as a depressed parallel arc:
-%   Z_k = R_k / (1 + (j*w*R_k*C_k)^n_k)
+% calculate_eis_from_rcn_peaks_matlab2011 - Rebuild impedance from fitted R-C-n peaks.
+%
+% Each refined DRT peak is converted into a depressed parallel arc and all
+% arcs are summed with the series resistance term R_inf.
 
 omega = 2 * pi * freq_vec(:);
 Z_rcn = R_inf + zeros(size(omega));
@@ -725,7 +784,10 @@ end
 end
 
 function [gamma, R_inf] = tr_drt_gcv_impart_matlab2011(Z_exp, A_re, A_im, lam)
-% Imag-only inversion with nonnegative ridge regularization.
+% tr_drt_gcv_impart_matlab2011 - Solve the imag-only ridge problem used in GCV.
+%
+% The imaginary channel is inverted with non-negativity, then R_inf is backed
+% out from the real component residual so the resulting gamma can be scored.
 
 Z_im = imag(Z_exp(:));
 n = numel(Z_im);
@@ -737,7 +799,10 @@ R_inf = mean(real(Z_exp(:)) - A_re * gamma);
 end
 
 function [gamma, R_inf] = tr_drt_gcv_repart_matlab2011(Z_exp, A_re, lam)
-% Real-only inversion with nonnegative ridge regularization.
+% tr_drt_gcv_repart_matlab2011 - Solve the real-only ridge problem used in GCV.
+%
+% This companion solve mirrors the imag-only branch so the workflow can compare
+% cross-channel predictive performance across the lambda grid.
 
 Z_re = real(Z_exp(:));
 n = numel(Z_re);
@@ -749,7 +814,7 @@ R_inf = mean(real(Z_exp(:)) - A_re * gamma);
 end
 
 function tr_h = hat_trace_impart_matlab2011(A_im, lam)
-% trace(H_lambda) for imag-channel ridge inversion.
+% hat_trace_impart_matlab2011 - Compute the effective degrees of freedom for imag GCV.
 
 alpha = lam / 2;
 S = (A_im' * A_im) + alpha * eye(size(A_im, 2));
@@ -758,7 +823,7 @@ tr_h = max(0, min(tr_h, size(A_im, 1) - 1e-9));
 end
 
 function tr_h = hat_trace_repart_matlab2011(A_re, lam)
-% trace(H_lambda) for real-channel ridge inversion.
+% hat_trace_repart_matlab2011 - Compute the effective degrees of freedom for real GCV.
 
 alpha = lam / 2;
 S = (A_re' * A_re) + alpha * eye(size(A_re, 2));
@@ -767,7 +832,11 @@ tr_h = max(0, min(tr_h, size(A_re, 1) - 1e-9));
 end
 
 function [freq_out, Z_out, n_removed] = remove_inductive_effects_matlab2011(freq_in, Z_in)
-% Remove contiguous high-frequency tail where Imag(Z) > 0.
+% remove_inductive_effects_matlab2011 - Drop the contiguous inductive high-frequency tail.
+%
+% Positive imaginary impedance at the highest frequencies usually signals an
+% inductive artefact that destabilizes the DRT inversion, so only the leading
+% contiguous tail is removed.
 
 freq_out = freq_in(:);
 Z_out = Z_in(:);
@@ -935,6 +1004,8 @@ peak_values = y(selected);
 end
 
 function ysm = smooth_mavg(y, w)
+% smooth_mavg - Minimal moving-average smoother used as a toolbox-free fallback.
+
 y = y(:);
 n = numel(y);
 if w <= 1
@@ -952,6 +1023,9 @@ end
 
 function ysm = smooth_sgolay_2011(y, frame_len, poly_order)
 % smooth_sgolay_2011 - Lightweight Savitzky-Golay smoothing without toolbox dependency
+%
+% The code performs a local polynomial least-squares fit at each point and is
+% used to stabilize curvature-based hidden-peak detection on older MATLAB.
 
 y = y(:);
 n = numel(y);
@@ -1074,6 +1148,10 @@ end
 
 function [fitted_peaks, rbf_model, peak_refine] = refine_rbf_peak_fitting_2011(tau_vals, gamma_vals)
 % refine_rbf_peak_fitting_2011 - RBF-refine peaks and detect hidden shoulders with the 2nd derivative
+%
+% The workflow first interpolates the DRT on a dense log-time grid, then finds
+% base peaks, searches for hidden shoulders via curvature, and finally fits a
+% Gaussian sum whose parameters are exported for post-processing.
 
 tau_vals = tau_vals(:);
 gamma_vals = gamma_vals(:);
@@ -1109,6 +1187,9 @@ end
 
 function hidden_peak_idx = detect_hidden_peaks_second_derivative_2011(tau_log, gamma_rbf, base_peak_idx)
 % detect_hidden_peaks_second_derivative_2011 - Find shoulder-like peaks from curvature in the RBF curve
+%
+% A shoulder is accepted only if it clears amplitude, prominence, and spacing
+% checks so weak numerical ripples are rejected.
 
 tau_log = tau_log(:);
 gamma_rbf = gamma_rbf(:);
@@ -1203,6 +1284,9 @@ end
 
 function [fitted_peaks, fit_curve, fit_rmse] = fit_rbf_gaussian_peaks_2011(tau_dense, gamma_rbf, peak_idx, hidden_flag)
 % fit_rbf_gaussian_peaks_2011 - Fit a global sum of Gaussian radial basis functions to the refined DRT
+%
+% Peak centers are fixed from the refined detection stage, while amplitudes,
+% widths, and baseline are optimized globally for a compact analytical summary.
 
 if isempty(peak_idx)
     fitted_peaks = [];
@@ -1266,12 +1350,13 @@ end
 fit_rmse = sqrt(mean((fit_curve - gamma_rbf).^2));
 
 fitted_peaks = repmat(struct('peak_id', 0, 'tau', 0, 'amplitude', 0, 'sigma', 0, ...
-    'R', 0, 'C', 0, 'n', 0, 'is_hidden', 0, 'baseline', 0), m, 1);
+    'fwhm_logtau', 0, 'R', 0, 'C', 0, 'n', 0, 'is_hidden', 0, 'baseline', 0), m, 1);
 
 for peak_idx_local = 1:m
     tau_peak = exp(centers(peak_idx_local));
     amp = amplitudes(peak_idx_local);
     sig = sigma_vec(peak_idx_local);
+    fwhm_logtau = gaussian_fwhm_from_sigma_2011(sig);
     R_est = amp * sig * sqrt(2 * pi);
     C_est = tau_peak / max(R_est, eps);
     n_est = 1.144 / (1 + sig);
@@ -1280,6 +1365,7 @@ for peak_idx_local = 1:m
     fitted_peaks(peak_idx_local).tau = tau_peak;
     fitted_peaks(peak_idx_local).amplitude = amp;
     fitted_peaks(peak_idx_local).sigma = sig;
+    fitted_peaks(peak_idx_local).fwhm_logtau = fwhm_logtau;
     fitted_peaks(peak_idx_local).R = R_est;
     fitted_peaks(peak_idx_local).C = C_est;
     fitted_peaks(peak_idx_local).n = n_est;
@@ -1288,6 +1374,8 @@ for peak_idx_local = 1:m
 end
 
 function [fit_curve, amplitudes, sigma_vec, baseline] = solve_gaussian_rbf_sum_fit_2011(xall, gamma_rbf, centers)
+% solve_gaussian_rbf_sum_fit_2011 - Optimize Gaussian widths and baseline for fixed peak centers.
+
 m = numel(centers);
 sigma0 = zeros(m, 1);
 for sigma_idx = 1:m
@@ -1320,6 +1408,8 @@ end
 end
 
 function sse = gaussian_rbf_sum_objective_2011(p, xall, yall, centers)
+% gaussian_rbf_sum_objective_2011 - Penalized least-squares objective for Gaussian peak fitting.
+
 [fit_curve, amplitudes, sigma_vec] = evaluate_gaussian_rbf_sum_2011(p, xall, yall, centers);
 resid = fit_curve - yall;
 sse = sum(resid .^ 2);
@@ -1344,6 +1434,8 @@ sse = sse + 1e3 * sigma_penalty + 1e-2 * amp_penalty;
 end
 
 function [fit_curve, amplitudes, sigma_vec, baseline] = evaluate_gaussian_rbf_sum_2011(p, xall, yall, centers)
+% evaluate_gaussian_rbf_sum_2011 - Evaluate one Gaussian-sum parameter vector.
+
 sigma_vec = exp(p(1:numel(centers)));
 
 Phi = zeros(numel(xall), numel(centers));
@@ -1358,19 +1450,97 @@ baseline = coef(end);
 fit_curve = Phi_aug * coef;
 end
 
+function fwhm_logtau = gaussian_fwhm_from_sigma_2011(sig)
+% gaussian_fwhm_from_sigma_2011 - Convert Gaussian sigma in log(tau) to FWHM.
+
+fwhm_logtau = 2 * sqrt(2 * log(2)) * sig;
+end
+
+function [header_row, numeric_data] = build_refined_peak_profile_export_2011(peak_refine, fitted_peaks)
+% build_refined_peak_profile_export_2011 - Assemble dense per-temperature peak curves for Excel.
+%
+% The exported matrix stores the dense log-time axis, the RBF interpolation, the
+% summed Gaussian fit, the fitted baseline, and each individual peak component.
+
+tau_dense = peak_refine.tau_dense(:);
+log_tau_dense = log(tau_dense);
+gamma_rbf = peak_refine.gamma_rbf(:);
+fit_curve = peak_refine.fit_curve(:);
+num_points = numel(tau_dense);
+num_peaks = numel(fitted_peaks);
+
+baseline_value = 0;
+if num_peaks > 0
+    baseline_value = fitted_peaks(1).baseline;
+end
+baseline_col = baseline_value * ones(num_points, 1);
+
+component_curves = zeros(num_points, num_peaks);
+header_row = {'tau_s','log_tau','gamma_rbf','gamma_fit','fit_baseline'};
+for peak_idx_local = 1:num_peaks
+    component_curves(:, peak_idx_local) = fitted_peaks(peak_idx_local).amplitude * ...
+        exp(-0.5 * ((log_tau_dense - log(fitted_peaks(peak_idx_local).tau)) / fitted_peaks(peak_idx_local).sigma).^2);
+    header_row{end + 1} = sprintf('peak_%02d_gamma', fitted_peaks(peak_idx_local).peak_id); %#ok<AGROW>
+end
+
+numeric_data = [tau_dense, log_tau_dense, gamma_rbf, fit_curve, baseline_col, component_curves];
+end
+
 function kk_result = perform_kk_test_matlab2011(freq_vec, Z_exp)
 % perform_kk_test_matlab2011 - Estimate KK-consistent impedance and residual metrics
+%
+% Several basis sizes and regularization strengths are tried; the best candidate
+% is kept and then labeled pass, warning, or fail by total residual percentage.
 
 freq_vec = freq_vec(:);
 Z_exp = Z_exp(:);
-omega = 2 * pi * freq_vec;
 n_freq = numel(freq_vec);
 
-n_basis = min(max(12, ceil(n_freq / 2)), 30);
+candidate_basis = unique([ ...
+    min(max(8, ceil(n_freq / 3)), 20), ...
+    min(max(10, ceil(n_freq / 2.5)), 24), ...
+    min(max(12, ceil(n_freq / 2)), 30)]);
+candidate_reg = [1e-4; 3e-4; 1e-3];
+
+best_result = [];
+for basis_idx = 1:numel(candidate_basis)
+    for reg_idx = 1:numel(candidate_reg)
+        kk_candidate = solve_kk_candidate_matlab2011(freq_vec, Z_exp, candidate_basis(basis_idx), candidate_reg(reg_idx));
+        if isempty(best_result) || kk_candidate.total_residual_pct < best_result.total_residual_pct
+            best_result = kk_candidate;
+        end
+    end
+end
+
+kk_result = best_result;
+
+if kk_result.total_residual_pct <= 5
+    status = 'pass';
+    status_code = 1;
+elseif kk_result.total_residual_pct <= 10
+    status = 'warning';
+    status_code = 0;
+else
+    status = 'fail';
+    status_code = -1;
+end
+
+kk_result.status = status;
+kk_result.status_code = status_code;
+end
+
+function kk_result = solve_kk_candidate_matlab2011(freq_vec, Z_exp, n_basis, reg_weight)
+% solve_kk_candidate_matlab2011 - Solve one KK fit candidate and report residual metrics.
+%
+% The spectrum is represented by a finite set of Debye-like branches plus series
+% resistance and inductance, then solved under non-negativity constraints.
+
+omega = 2 * pi * freq_vec;
 tau_min = 1 / (2 * pi * max(freq_vec));
 tau_max = 1 / (2 * pi * min(freq_vec));
 tau_basis = logspace(log10(tau_min / 5), log10(tau_max * 5), n_basis).';
 
+n_freq = numel(freq_vec);
 B_re = zeros(n_freq, n_basis);
 B_im = zeros(n_freq, n_basis);
 for p = 1:n_freq
@@ -1382,13 +1552,12 @@ for p = 1:n_freq
     end
 end
 
-reg_weight = 1e-4;
 M = [B_re, ones(n_freq,1), zeros(n_freq,1); ...
     B_im, zeros(n_freq,1), omega; ...
     sqrt(reg_weight) * eye(n_basis), zeros(n_basis, 2)];
 b = [real(Z_exp); imag(Z_exp); zeros(n_basis,1)];
 
-x = lsqnonneg(M, b);
+x = lsqnonneg_robust_2011(M, b);
 R_branch = x(1:n_basis);
 R_inf = x(n_basis + 1);
 L_series = x(n_basis + 2);
@@ -1407,27 +1576,29 @@ total_pct = 100 * norm([real(residual); imag(residual)]) / total_norm;
 rel_point_pct = 100 * abs(residual) ./ point_scale;
 max_pct = max(rel_point_pct);
 
-if total_pct <= 5
-    status = 'pass';
-    status_code = 1;
-elseif total_pct <= 10
-    status = 'warning';
-    status_code = 0;
-else
-    status = 'fail';
-    status_code = -1;
-end
-
 kk_result = struct('tau_basis', tau_basis, 'R_branch', R_branch, 'R_inf', R_inf, ...
     'L_series', L_series, 'Z_fit', Z_fit, 'residual', residual, ...
     'real_residual_pct', real_pct, 'imag_residual_pct', imag_pct, ...
     'total_residual_pct', total_pct, 'max_residual_pct', max_pct, ...
-    'relative_residual_pct', rel_point_pct, 'status', status, ...
-    'status_code', status_code);
+    'relative_residual_pct', rel_point_pct, 'n_basis', n_basis, ...
+    'reg_weight', reg_weight);
+end
+
+function x = lsqnonneg_robust_2011(M, b)
+% lsqnonneg_robust_2011 - Use explicit solver options to reduce premature iteration exits on older MATLAB releases.
+%
+% Older MATLAB versions can stop early with default solver tolerances, so this
+% helper centralizes a stricter option set for all constrained linear solves.
+
+options = optimset('Display', 'off', 'MaxIter', max(400, 10 * size(M, 2)), 'TolX', 1e-10);
+x = lsqnonneg(M, b, options);
 end
 
 function sensitivity_result = perform_sensitivity_analysis_matlab2011(freq_vec, Z_exp, el, gamma_ref, Z_cal, seed_offset)
 % perform_sensitivity_analysis_matlab2011 - Bootstrap DRT stability at the selected lambda
+%
+% Synthetic complex noise is drawn from the fit residual statistics and added to
+% the measured spectrum so the variability of the recovered DRT can be exported.
 
 freq_vec = freq_vec(:);
 Z_exp = Z_exp(:);
@@ -1486,6 +1657,9 @@ end
 
 function result = perform_lambda_perturbation_sensitivity_matlab2011(freq_vec, Z_exp, lambda_ref, reference_mean_resid)
 % perform_lambda_perturbation_sensitivity_matlab2011 - Residual sensitivity around selected lambda
+%
+% This is a local robustness check around the selected lambda rather than a full
+% grid search; it reports percent changes in mean and maximum fit residual.
 
 freq_vec = freq_vec(:);
 Z_exp = Z_exp(:);
@@ -1544,13 +1718,16 @@ end
 
 function write_matrix_with_header_2011(file_name, sheet_name, header_row, numeric_data)
 % write_matrix_with_header_2011 - Write a header row and numeric matrix to Excel
+%
+% All workbook exports go through this wrapper so every sheet uses the same
+% two-row layout: header labels in A1 and numeric data starting in A2.
 
 xlswrite(file_name, header_row, sheet_name, 'A1');
 xlswrite(file_name, numeric_data, sheet_name, 'A2');
 end
 
 function sample_tag = make_sample_tag_from_input_2011(input_path)
-% Build filesystem-safe sample tag from input filename (e.g., s2022sap, s2422al).
+% make_sample_tag_from_input_2011 - Build a filesystem-safe stem for all outputs.
 [~, base_name, ~] = fileparts(input_path);
 sample_tag = lower(regexprep(base_name, '[^a-zA-Z0-9]', ''));
 if isempty(sample_tag)
@@ -1567,6 +1744,24 @@ sheet_name = strrep(sheet_name, '-', 'm');
 if numel(sheet_name) > 31
     sheet_name = sheet_name(1:31);
 end
+end
+
+function plot_horizontal_line_2011(y_value, line_style, line_color)
+% plot_horizontal_line_2011 - MATLAB 2011 compatible replacement for yline.
+%
+% MATLAB 2011 does not provide yline, so the workflow draws a standard line
+% object using the current axis limits whenever a horizontal reference is needed.
+
+if nargin < 2 || isempty(line_style)
+    line_style = '--';
+end
+if nargin < 3 || isempty(line_color)
+    line_color = [0 0 0];
+end
+
+ax = gca;
+x_limits = get(ax, 'XLim');
+line(x_limits, [y_value y_value], 'LineStyle', line_style, 'Color', line_color, 'Parent', ax);
 end
 
 
