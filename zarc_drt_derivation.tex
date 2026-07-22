@@ -22,7 +22,7 @@ This note collects the mathematical discussion used in the MATLAB single-file DR
 \item the full-width-at-half-maximum (FWHM) relation that can be used to estimate the ZARC exponent $n$ from peak width.
 \end{enumerate}
 
-The implementation context is the single-file workflow \texttt{Impedance\_analysis\_singlefile.m}.
+The implementation context is the single-file workflow \texttt{Impedance\_analysis\_singlefile.m}, which follows the same broad DRT workflow described in the recent parameter-selection literature and Bayesian DRT studies \cite{maradesa2023,carbone2025,ciucci2015,danzer2019}.
 
 \section{Code-Level Workflow Summary}
 
@@ -34,20 +34,32 @@ At a high level, the MATLAB workflow executes the following steps for the defaul
 \item remove invalid frequencies and the high-frequency inductive tail,
 \item build the DRT projection matrices and select the regularization parameter by generalized cross-validation,
 \item recover the DRT vector and reconstruct the fitted impedance,
+\item run a local lambda-perturbation robustness check around the selected $\lambda$,
 \item refine the DRT peak structure using an RBF interpolation plus Gaussian basis fit,
 \item convert refined peaks into exported $R$, $C$, and heuristic $n$ values,
-\item run Kramers-Kronig diagnostics,
-\item write temperature-wise Excel outputs for the DRT, peak table, KK metrics, and refined peak profiles.
+\item reconstruct an explicit series $R$-$C$-$n$ impedance model from fitted peaks and compare it with the measured and DRT-fit Nyquist curves,
+\item run Kramers-Kronig diagnostics on both measured impedance and DRT-reconstructed impedance,
+\item run bootstrap sensitivity analysis for DRT uncertainty bands,
+\item write temperature-wise Excel outputs (Nyquist/DRT/RCN/KK/peaks/sensitivity/lambda sheets),
+\item after all temperatures are processed, generate the RGB multi-temperature peak map and write per-workbook summary sheets.
 \end{enumerate}
 
-The code therefore has two complementary layers: a mathematical inversion layer, and a reporting layer that exports all derived quantities for post-processing.
+The code therefore has two complementary layers: a mathematical inversion layer, and a reporting layer that exports all derived quantities for post-processing. That pairing is now standard in modern DRT software, where the inversion method and the exported diagnostics are treated as part of the reproducible method description rather than as an implementation afterthought \cite{schluter2019,maradesa2023,carbone2025}.
+
+\section{Software and Reproducibility Note}
+
+The implementation is a single MATLAB script, \texttt{Impedance\_analysis\_singlefile.m}, written to run in a MATLAB 2011-compatible environment without requiring external toolboxes beyond the standard plotting and optimization capabilities used by the script. The input data are organized as temperature-wise three-column blocks $[f, |Z|, \theta]$ in a workbook such as \texttt{S2022Sap.xlsx}. The script converts each block into complex impedance, removes invalid and inductive-tail points, solves the regularized DRT inverse problem, refines peaks, and writes all intermediate and final products to Excel files with sample-tagged names.
+
+This explicit workflow description matters because DRT software is sensitive not only to the mathematics of regularization, but also to implementation details such as frequency sorting, inductive-tail filtering, non-negativity enforcement, and output formatting. Recent DRT papers increasingly emphasize that parameter selection and implementation choices strongly influence the recovered relaxation spectrum, so the code path and exported diagnostics should be documented together with the equations \cite{maradesa2023,carbone2025,ciucci2015,danzer2019}.
+
+In practical terms, this note documents the mapping from the top-level script to the helper functions that implement preprocessing, DRT inversion, forward reconstruction, KK checking, and peak refinement. That makes the mathematics reproducible for another MATLAB user and also makes the output files traceable back to the source steps that created them.
 
 \section{Execution Flowchart}
 
 \begin{center}
-\begin{tikzpicture}[
-	node distance=8mm and 10mm,
-	block/.style={rectangle, rounded corners, draw, align=center, minimum width=4.1cm, minimum height=9mm},
+\begin{tikzpicture}[scale=0.92, transform shape,
+	node distance=6mm and 8mm,
+	block/.style={rectangle, rounded corners, draw, align=center, minimum width=3.9cm, minimum height=7.5mm},
 	decision/.style={diamond, draw, align=center, aspect=2, inner sep=1pt},
 	line/.style={-Latex}
 ]
@@ -56,19 +68,29 @@ The code therefore has two complementary layers: a mathematical inversion layer,
 \node[block, below=of load] (split) {Loop over each temperature block \\ $[f, |Z|, \theta]$};
 \node[block, below=of split] (pre) {Build complex impedance, sort frequencies, \\ remove invalid and inductive-tail points};
 \node[block, below=of pre] (gcv) {Construct $A_{\mathrm{re}}$, $A_{\mathrm{im}}$ \\ and select $\lambda$ by GCV};
-\node[block, below=of gcv] (drt) {Compute DRT $\gamma(\tau)$, fitted impedance, \\ residuals, and diagnostic plots};
-\node[block, below=of drt] (peaks) {RBF refinement, hidden-peak detection, \\ Gaussian peak fitting};
-\node[block, below=of peaks] (exports) {Export DRT, KK, sensitivity, \\ lambda, peak tables, and refined peak profiles};
-\node[block, below=of exports] (end) {Finalize summary workbooks and stop};
+\node[block, below=of gcv] (drt) {Compute DRT $\gamma(\tau)$ and fitted impedance \\ then evaluate residuals};
+\node[block, below=of drt] (lampert) {Lambda-perturbation check around \\ selected $\lambda$};
+\node[block, below=of lampert] (peaks) {RBF refinement, hidden-peak detection, \\ Gaussian peak fitting};
+\node[block, below=of peaks] (rcn) {Build series R-C-n reconstruction \\ and Nyquist comparison};
+\node[block, below=of rcn] (kk) {Run KK checks on measured and \\ DRT-reconstructed spectra};
+\node[block, below=of kk] (sens) {Bootstrap DRT sensitivity \\ and uncertainty bands};
+\node[block, below=of sens] (exports) {Export per-temperature sheets: \\ NYQ, DRT, RCN, KK, PEAK, SENS, LAMBDA, PFIT};
+\node[block, below=of exports] (post) {After loop: generate RGB peak map \\ and workbook summary sheets};
+\node[block, below=of post] (end) {Finalize and stop};
 
 \draw[line] (start) -- (load);
 \draw[line] (load) -- (split);
 \draw[line] (split) -- (pre);
 \draw[line] (pre) -- (gcv);
 \draw[line] (gcv) -- (drt);
-\draw[line] (drt) -- (peaks);
-\draw[line] (peaks) -- (exports);
-\draw[line] (exports) -- (end);
+\draw[line] (drt) -- (lampert);
+\draw[line] (lampert) -- (peaks);
+\draw[line] (peaks) -- (rcn);
+\draw[line] (rcn) -- (kk);
+\draw[line] (kk) -- (sens);
+\draw[line] (sens) -- (exports);
+\draw[line] (exports) -- (post);
+\draw[line] (post) -- (end);
 \end{tikzpicture}
 \end{center}
 
@@ -91,6 +113,7 @@ The single-file implementation is structured as a top-level orchestration functi
 \item \texttt{TR\_DRT\_matlab2011}: solves the full non-negative Tikhonov-regularized inverse problem.
 \item \texttt{tr\_drt\_gcv\_impart\_matlab2011} and \texttt{tr\_drt\_gcv\_repart\_matlab2011}: solve the component-wise ridge problems used during GCV scoring.
 \item \texttt{calculate\_EIS\_matlab2011}: performs the forward projection from the recovered DRT back to complex impedance.
+\item \texttt{calculate\_eis\_from\_rcn\_peaks\_matlab2011}: reconstructs impedance from fitted series R-C-n peak branches.
 \end{itemize}
 
 \subsection*{Peak Refinement Helpers}
@@ -106,6 +129,9 @@ The single-file implementation is structured as a top-level orchestration functi
 
 \begin{itemize}
 \item \texttt{perform\_kk\_test\_matlab2011} and \texttt{solve\_kk\_candidate\_matlab2011}: estimate KK-consistent surrogates and summarize residual quality.
+\item \texttt{perform\_lambda\_perturbation\_sensitivity\_matlab2011}: checks local residual sensitivity around the selected regularization level.
+\item \texttt{perform\_sensitivity\_analysis\_matlab2011}: runs bootstrap uncertainty estimation for the DRT profile.
+\item \texttt{generate\_temperature\_rgb\_peak\_map}: creates a multi-temperature RGB visualization from the top fitted peaks.
 \item \texttt{write\_matrix\_with\_header\_2011}: writes each per-temperature result sheet to Excel.
 \end{itemize}
 
@@ -115,6 +141,8 @@ We use the DRT representation
 \begin{equation}
 Z(\omega) = R_{\infty} + \int_0^{\infty} \frac{\Gamma(\tau)}{1 + i\omega\tau} \, d\ln \tau.
 \end{equation}
+
+This is the standard continuous relaxation-time representation used throughout the DRT literature for impedance spectra, dielectric spectra, and related ill-posed inverse problems \cite{saccoccio2014,ivertiffee2017,boukamp2017,cordoba2018,macutkevic2004}.
 
 Equivalently, if we define
 \begin{equation}
@@ -164,7 +192,7 @@ where the code approximates the local log-width by neighboring values,
 \end{cases}
 \end{equation}
 
-This converts the continuous DRT inversion into a finite-dimensional constrained inverse problem.
+This converts the continuous DRT inversion into a finite-dimensional constrained inverse problem, which is the same regularized discretization strategy used in practical DRT solvers and parameter-selection studies \cite{saccoccio2014,schluter2019,maradesa2023}.
 
 \section{Tikhonov Regularization and Non-Negative DRT Recovery}
 
@@ -209,7 +237,7 @@ The role of each term is:
 \item the non-negativity constraint enforces a physically interpretable relaxation spectrum.
 \end{itemize}
 
-Larger $\lambda$ produces smoother spectra with larger residuals, while smaller $\lambda$ produces sharper spectra that risk overfitting measurement noise.
+Larger $\lambda$ produces smoother spectra with larger residuals, while smaller $\lambda$ produces sharper spectra that risk overfitting measurement noise. This bias-variance tradeoff is the basic reason regularization-parameter selection is a central part of modern DRT analysis \cite{golub79,hansen93,schluter2019,maradesa2023,carbone2025}.
 
 \section{Residuals Used Throughout the Workflow}
 
@@ -312,11 +340,11 @@ Conceptually, GCV balances two effects:
 
 The denominator penalizes models whose effective degrees of freedom approach the data count.
 
-This is the main reason the workflow prefers GCV over the L-curve criterion. GCV is derived as an estimate of the leave-one-out prediction error, so it directly asks which $\lambda$ best predicts data that were not used in the fit. That is the relevant objective for DRT inversion, where the goal is a stable impedance representation that generalizes across frequency points and across datasets.
+This is the main reason the workflow prefers GCV over the L-curve criterion. GCV is derived as an estimate of the leave-one-out prediction error, so it directly asks which $\lambda$ best predicts data that were not used in the fit. That is the relevant objective for DRT inversion, where the goal is a stable impedance representation that generalizes across frequency points and across datasets \cite{golub79,schluter2019,maradesa2023}.
 
 The L-curve uses the corner of the parametric curve $(\|A\gamma-b\|_2,\|\gamma\|_2)$. In practice, the location of that corner can shift with the discretization of the relaxation-time grid, the amount of noise, and the numerical rule used to detect curvature. That makes the L-curve more subjective and less reproducible in large automated sweeps.
 
-By contrast, GCV is a scalar score with a clear statistical interpretation: the residual term rewards fidelity, while the hat-matrix trace estimates the effective degrees of freedom and penalizes overfitting. Bayesian DRT methods are attractive when one wants a full posterior distribution, uncertainty quantification, or explicit prior information about smoothness or sparsity. However, they require a prior or hyperprior specification and are usually more expensive to run and tune across many datasets. For this workflow, the objective is not posterior inference but a stable regularization level that can be chosen automatically and consistently across temperatures and samples. GCV does that with one deterministic score and no prior tuning, so it is the better default for the present impedance-inversion pipeline \cite{golub79,hansen93,ciucci2015,schluter2019,danzer2019}.
+By contrast, GCV is a scalar score with a clear statistical interpretation: the residual term rewards fidelity, while the hat-matrix trace estimates the effective degrees of freedom and penalizes overfitting. Bayesian DRT methods are attractive when one wants a full posterior distribution, uncertainty quantification, or explicit prior information about smoothness or sparsity \cite{ciucci2015,carbone2025}. However, they require a prior or hyperprior specification and are usually more expensive to run and tune across many datasets. For this workflow, the objective is not posterior inference but a stable regularization level that can be chosen automatically and consistently across temperatures and samples. GCV does that with one deterministic score and no prior tuning, so it is the better default for the present impedance-inversion pipeline \cite{golub79,hansen93,ciucci2015,schluter2019,danzer2019,maradesa2023,carbone2025}.
 
 \section{GCV Slope Criterion and Lambda Selection Policy}
 
@@ -336,7 +364,7 @@ If such a flat region exists, the workflow selects the largest $\lambda$ in that
 \lambda_{\mathrm{best}} = \arg\min_{\lambda} \mathrm{nGCV}(\lambda).
 \end{equation}
 
-Thus the MATLAB selection policy is a hybrid of plateau detection and standard GCV minimization.
+Thus the MATLAB selection policy is a hybrid of plateau detection and standard GCV minimization, chosen to avoid over-interpreting small numerical differences between nearby admissible regularization levels \cite{schluter2019,maradesa2023,carbone2025}.
 
 \begin{figure}[h]
 \centering
@@ -366,7 +394,7 @@ Thus the MATLAB selection policy is a hybrid of plateau detection and standard G
 
 \section{Robustness of the Selected $\lambda$}
 
-After the GCV step has selected $\lambda_{\mathrm{best}}$, the code still checks how stable that choice is under nearby perturbations. The reason is that a low-GCV solution can still be locally fragile: a small change in $\lambda$, or a small random perturbation in the measured spectrum, may move the solution toward a noticeably different DRT if the inverse problem is close to ill-conditioned.
+After the GCV step has selected $\lambda_{\mathrm{best}}$, the code still checks how stable that choice is under nearby perturbations. The reason is that a low-GCV solution can still be locally fragile: a small change in $\lambda$, or a small random perturbation in the measured spectrum, may move the solution toward a noticeably different DRT if the inverse problem is close to ill-conditioned \cite{tuncer2001,saccoccio2014,maradesa2023,carbone2025}.
 
 The lambda-perturbation study answers a local question: does the residual change smoothly when $\lambda$ is moved above and below the selected value? If the residual curve is flat, then the selected point is not an isolated numerical accident but lies on a stable regularization plateau. The bootstrap analysis answers a different but complementary question: if the spectrum is resampled with realistic noise, do the recovered DRT peaks remain in the same locations and with similar widths and amplitudes? Together, these diagnostics confirm that the GCV-selected $\lambda$ is not only optimal by score, but also robust to small data and parameter perturbations.
 
@@ -451,7 +479,7 @@ The code tests several candidate basis sizes and regularization values, retains 
 \text{total residual \%} &= 100\frac{\|[\Re(\bm{r});\Im(\bm{r})]\|_2}{\|[\Re(\bm{Z}_{\mathrm{exp}});\Im(\bm{Z}_{\mathrm{exp}})]\|_2}.
 \end{align}
 
-The same KK procedure is applied both to the measured impedance and to the DRT-reconstructed impedance as a consistency check on the inversion.
+The same KK procedure is applied both to the measured impedance and to the DRT-reconstructed impedance as a consistency check on the inversion. That is a useful implementation-level validation because it checks whether the regularized DRT solution remains compatible with a causal passive response, not merely whether it gives a small fitting residual \cite{boukamp2017,ivertiffee2017}.
 
 \section{ZARC Element}
 
@@ -489,6 +517,8 @@ which identifies an effective RC-style time constant
 \begin{equation}
 \tau_k = R_k C_k.
 \end{equation}
+
+This ZARC parameterization is widely used in impedance modeling and in DRT-based interpretations of dielectric and electrochemical spectra \cite{cordoba2018,ivertiffee2017,boukamp2017}.
 
 \section{Exact DRT of a ZARC}
 
@@ -538,7 +568,7 @@ Using $y = \ln(\tau/\tau_0)$, so that $u = e^{-ny}$, this becomes the symmetric 
 \gamma(y) = \frac{R\sin(\pi n)}{2\pi\left[\cosh(ny) + \cos(\pi n)\right]}.
 \end{equation}
 
-This is the exact DRT of a ZARC element.
+This is the exact DRT of a ZARC element, and the closed-form log-time density is a standard reference result for connecting ZARC fits to continuous relaxation spectra \cite{cordoba2018,macutkevic2004}.
 
 \section{Derivation: ZARC as an Infinite Series of ZAP Elements}
 
@@ -728,7 +758,7 @@ so that
 C_{\mathrm{est}} = \frac{\tau_{\mathrm{peak}}}{R_{\mathrm{est}}}.
 \end{equation}
 
-For a true ZARC, the parallel element is a CPE with parameter $Q$, so $C_{\mathrm{est}}$ should be read as an effective RC-style summary rather than an exact ideal capacitance whenever $n < 1$.
+For a true ZARC, the parallel element is a CPE with parameter $Q$, so $C_{\mathrm{est}}$ should be read as an effective RC-style summary rather than an exact ideal capacitance whenever $n < 1$. That interpretation is consistent with the broader ZARC/CPE literature in impedance spectroscopy \cite{cordoba2018,ivertiffee2017}.
 
 \section{Heuristic Calculation of $R$, $C$, and $n$ in the Present MATLAB Workflow}
 
@@ -741,7 +771,7 @@ C_k &= \frac{\tau_k}{R_k}, \\
 n_k &= \frac{1.144}{1 + \sigma_k}.
 \end{align}
 
-The first three relations follow naturally from the Gaussian approximation to the DRT peak: area gives resistance, the center gives relaxation time, and $\tau = RC$ supplies an effective capacitance. The final relation for $n$ is heuristic in the present code. It enforces the trend that broader peaks imply lower $n$, but it is not derived from the Tikhonov inversion itself.
+The first three relations follow naturally from the Gaussian approximation to the DRT peak: area gives resistance, the center gives relaxation time, and $\tau = RC$ supplies an effective capacitance. The final relation for $n$ is heuristic in the present code. It enforces the trend that broader peaks imply lower $n$, but it is not derived from the Tikhonov inversion itself. In the published DRT literature, similar post-processing fits are often used as interpretation aids rather than as part of the inversion objective \cite{danzer2019,schluter2019,maradesa2023}.
 
 \section{FWHM-Based $n$ Formula and Check of the $1.144/n$ Expression}
 
@@ -756,7 +786,7 @@ and the theory-based $n$ is defined implicitly by
 \mathrm{FWHM}_{\mathrm{ZARC}}(n) = \mathrm{FWHM}_{\mathrm{Gauss}}.
 \end{equation}
 
-So the mathematically correct FWHM-based statement is an implicit equation in $n$, solved numerically; it is \emph{not} a direct closed form like $n = 1.144/\sigma$ or $n = 1.144/n$.
+So the mathematically correct FWHM-based statement is an implicit equation in $n$, solved numerically; it is \emph{not} a direct closed form like $n = 1.144/\sigma$ or $n = 1.144/n$. This is consistent with the more general observation in the recent regularization-selection literature that many parameter mappings are empirical summaries and should be checked against the exact model shape when a closed-form relationship is available \cite{maradesa2023,carbone2025}.
 
 For the current MATLAB heuristic,
 \begin{equation}
@@ -846,7 +876,7 @@ n \approx \frac{1.144}{1 + \sigma}
 \end{equation}
 for the exported peak parameter $n$. This form is not derived from the exact ZARC DRT above. It only imposes the qualitative trend that broader DRT peaks should correspond to smaller $n$.
 
-The FWHM-based relation derived in this note is theory-linked because it comes directly from the exact DRT shape of the ZARC element, but it is presented here as a derivation and alternative mapping, not as the active formula in the present single-file code.
+The FWHM-based relation derived in this note is theory-linked because it comes directly from the exact DRT shape of the ZARC element, but it is presented here as a derivation and alternative mapping, not as the active formula in the present single-file code. The distinction between heuristic and derivation-based post-processing is important in DRT work because the chosen interpretation formula should not be conflated with the inversion itself \cite{cordoba2018,danzer2019,maradesa2023}.
 
 \section{Summary of Formulas}
 
@@ -865,7 +895,7 @@ If one wants a theory-based alternative, then $n_{\mathrm{est}}$ may instead be 
 \mathrm{FWHM}_{\mathrm{ZARC}}(n_{\mathrm{est}}) = \mathrm{FWHM}_{\mathrm{Gauss}}.
 \end{equation}
 
-Thus the present code uses the heuristic $n_{\mathrm{heuristic}}$, while the FWHM-based relation in this note gives the derivation-based alternative.
+Thus the present code uses the heuristic $n_{\mathrm{heuristic}}$, while the FWHM-based relation in this note gives the derivation-based alternative. The code keeps both the heuristic output and the exact derivation in the note so the heuristic can be checked against a model-based alternative when needed \cite{maradesa2023,carbone2025}.
 
 \section{Code Output Inventory}
 
@@ -877,10 +907,12 @@ For each input workbook, the MATLAB script writes multiple Excel workbooks keyed
 \item \texttt{\_peak\_detail\_result.xlsx}: the refined per-peak $\tau$, amplitude, $\sigma$, FWHM, $R$, $C$, and $n$ table,
 \item \texttt{\_temperature\_plot\_data.xlsx}: Nyquist, DRT, KK, and peak-marker tables for plotting,
 \item \texttt{\_refined\_peak\_profiles.xlsx}: dense per-temperature refined peak curves for post-processing,
-\item \texttt{\_kk\_result.xlsx}, \texttt{\_sensitivity\_result.xlsx}, and \texttt{\_lambda\_perturbation\_result.xlsx}: diagnostic outputs.
+\item \texttt{\_kk\_result.xlsx}, \texttt{\_sensitivity\_result.xlsx}, and \texttt{\_lambda\_perturbation\_result.xlsx}: diagnostic outputs,
+\item \texttt{\_temperature\_rgb\_peak\_map.png}: RGB map of the top peak components across temperatures,
+\item \texttt{drt\_matlab2011\_run.log}: execution log captured with MATLAB diary.
 \end{itemize}
 
-The refined peak profile workbook is especially important when individual Gaussian peak components need to be analyzed temperature-by-temperature outside MATLAB.
+The refined peak profile workbook is especially important when individual Gaussian peak components need to be analyzed temperature-by-temperature outside MATLAB. In addition, the script writes summary sheets to the KK, sensitivity, and lambda-perturbation workbooks after all temperatures are completed, so both per-temperature details and run-level aggregates are preserved. Similar exported intermediate products are useful in recent DRT workflows because they make later comparison, cross-validation, and uncertainty checks easier to reproduce \cite{schluter2019,maradesa2023,carbone2025}.
 
 \section{Detailed RBF Interpolation and Gaussian Basis Fitting Theory}
 
@@ -890,7 +922,7 @@ The first refinement step constructs a smooth continuous model of the DRT using 
 \begin{equation}
 \gamma_{\mathrm{RBF}}(x) = \sum_{j=1}^{N} w_j \exp\!\left[-(\varepsilon \cdot d_j)^2\right],
 \end{equation}
-where $d_j = |x - x_j|$ is the Euclidean distance and $\varepsilon$ is a shape parameter that determines the width of each Gaussian basis.
+where $d_j = |x - x_j|$ is the Euclidean distance and $\varepsilon$ is a shape parameter that determines the width of each Gaussian basis. This smooth refinement is a post-processing step for interpretation and peak localization rather than part of the regularized inversion itself \cite{danzer2019,maradesa2023}.
 
 The shape parameter is computed from the data spacing as
 \begin{equation}
@@ -966,7 +998,7 @@ The characteristic relaxation time is the peak center:
 
 \subsubsection{CPE Exponent Estimation}
 
-The \textbf{empirically optimal} formula (tested on S2022 data, 2.99\% lower Nyquist residuals) is the heuristic:
+The \textbf{empirically optimal} formula (tested on S2022 data, 2.99\% lower Nyquist residuals) is the heuristic \cite{danzer2019,schluter2019,maradesa2023}:
 \begin{equation}
 n_k = \frac{1.144}{1 + \sigma_k}.
 \end{equation}
@@ -987,38 +1019,44 @@ where $\phi_{\text{apex}} = -\pi n / 4$ is the phase angle at peak impedance.
 
 \begin{thebibliography}{99}
 
-\bibitem{golub79}
-G. H. Golub, M. Heath, and G. Wahba, "Generalized cross-validation as a method for choosing a good ridge parameter," Technometrics 21(2), 215--223 (1979).
+\bibitem{maradesa2023}
+A. Maradesa; B. Py; T. H. Wan; M. B. Effat; F. Ciucci. Selecting the Regularization Parameter in the Distribution of Relaxation Times. \textit{J. Electrochem. Soc.} \textbf{2023}, \textit{170} (3), 030502. https://doi.org/10.1149/1945-7111/acbca4.
 
-\bibitem{hansen93}
-P. C. Hansen and D. P. O'Leary, "The use of the L-curve in the regularization of discrete ill-posed problems," SIAM J. Sci. Comput. 14(6), 1487--1503 (1993).
-
-\bibitem{schluter2019}
-N. Schluter, J. Schmitt, and R. Hanke, "Finding the optimal regularization parameter in distribution of relaxation times analysis," ChemElectroChem 6, 6027--6035 (2019).
-
-\bibitem{danzer2019}
-M. A. Danzer, S. M. Schmidt, and R. Zeis, "Generalized distribution of relaxation times analysis for the characterization of impedance spectra," Batteries 5(3), 53 (2019).
+\bibitem{carbone2025}
+P. Carbone; A. De Angelis; A. Bertei; A. Maradesa; F. Ciucci. Optimal Regularization for the Distribution of Relaxation Times via Frequency-Band Selection. \textit{J. Electrochem. Soc.} \textbf{2025}, \textit{172} (2), 020533. https://doi.org/10.1149/1945-7111/adb5c6.
 
 \bibitem{ciucci2015}
-F. Ciucci and C. Chen, "Analysis of electrochemical impedance spectroscopy data using the distribution of relaxation times: A Bayesian and hierarchical Bayesian approach," Electrochim. Acta 167, 439--454 (2015).
+F. Ciucci; C. Chen. Analysis of Electrochemical Impedance Spectroscopy Data Using the Distribution of Relaxation Times: A Bayesian and Hierarchical Bayesian Approach. \textit{Electrochim. Acta} \textbf{2015}, \textit{167}, 439--454. https://doi.org/10.1016/j.electacta.2015.03.123.
+
+\bibitem{danzer2019}
+M. A. Danzer; S. M. Schmidt; R. Zeis. Generalized Distribution of Relaxation Times Analysis for the Characterization of Impedance Spectra. \textit{Batteries} \textbf{2019}, \textit{5} (3), 53. https://doi.org/10.3390/batteries5030053.
+
+\bibitem{schluter2019}
+N. Schluter; J. Schmitt; R. Hanke. Finding the Optimal Regularization Parameter in Distribution of Relaxation Times Analysis. \textit{ChemElectroChem} \textbf{2019}, \textit{6}, 6027--6035. https://doi.org/10.1002/celc.201901863.
 
 \bibitem{saccoccio2014}
-M. Saccoccio, T. H. Wan, C. Chen, and F. Ciucci, "Optimal regularization in distribution of relaxation times applied to electrochemical impedance spectroscopy: ridge and lasso regression methods - a theoretical and experimental study," Electrochim. Acta 147, 470--482 (2014).
+M. Saccoccio; T. H. Wan; C. Chen; F. Ciucci. Optimal Regularization in Distribution of Relaxation Times Applied to Electrochemical Impedance Spectroscopy: Ridge and Lasso Regression Methods - A Theoretical and Experimental Study. \textit{Electrochim. Acta} \textbf{2014}, \textit{147}, 470--482. https://doi.org/10.1016/j.electacta.2014.09.058.
 
 \bibitem{ivertiffee2017}
-E. Ivers-Tiffee and A. Weber, "Evaluation of electrochemical impedance spectra by the distribution of relaxation times," J. Ceram. Soc. Jpn. 125(4), 193--201 (2017).
+E. Ivers-Tiffee; A. Weber. Evaluation of Electrochemical Impedance Spectra by the Distribution of Relaxation Times. \textit{J. Ceram. Soc. Jpn.} \textbf{2017}, \textit{125} (4), 193--201. https://doi.org/10.2109/jcersj2.17015.
 
 \bibitem{boukamp2017}
-B. A. Boukamp, "Analysis and application of distribution of relaxation times in solid state ionics," Solid State Ionics 302, 12--18 (2017).
+B. A. Boukamp. Analysis and Application of Distribution of Relaxation Times in Solid State Ionics. \textit{Solid State Ionics} \textbf{2017}, \textit{302}, 12--18. https://doi.org/10.1016/j.ssi.2017.02.024.
 
 \bibitem{cordoba2018}
-P. Cordoba-Torres, "A general theory for the impedance response of dielectric films with a distribution of relaxation times," Electrochim. Acta 282, 892--904 (2018).
+P. Cordoba-Torres. A General Theory for the Impedance Response of Dielectric Films with a Distribution of Relaxation Times. \textit{Electrochim. Acta} \textbf{2018}, \textit{282}, 892--904. https://doi.org/10.1016/j.electacta.2018.06.161.
 
 \bibitem{macutkevic2004}
-J. Macutkevic, J. Banys, and A. Matulis, "Determination of the distribution of the relaxation times from dielectric spectra," Nonlinear Anal. Model. Control 9(1), 75--88 (2004).
+J. Macutkevic; J. Banys; A. Matulis. Determination of the Distribution of the Relaxation Times from Dielectric Spectra. \textit{Nonlinear Anal. Model. Control} \textbf{2004}, \textit{9} (1), 75--88.
+
+\bibitem{golub79}
+G. H. Golub; M. Heath; G. Wahba. Generalized Cross-Validation as a Method for Choosing a Good Ridge Parameter. \textit{Technometrics} \textbf{1979}, \textit{21} (2), 215--223. https://doi.org/10.1080/00401706.1979.10489751.
+
+\bibitem{hansen93}
+P. C. Hansen; D. P. O'Leary. The Use of the L-Curve in the Regularization of Discrete Ill-Posed Problems. \textit{SIAM J. Sci. Comput.} \textbf{1993}, \textit{14} (6), 1487--1503. https://doi.org/10.1137/0914086.
 
 \bibitem{tuncer2001}
-E. Tuncer and S. M. Gubanski, "On dielectric data analysis: using the Monte Carlo method to obtain relaxation time distribution and comparing non-linear spectral function fit," IEEE Trans. Dielectr. Electr. Insul. 8(2), 310--318 (2001).
+E. Tuncer; S. M. Gubanski. On Dielectric Data Analysis: Using the Monte Carlo Method to Obtain Relaxation Time Distribution and Comparing Non-Linear Spectral Function Fit. \textit{IEEE Trans. Dielectr. Electr. Insul.} \textbf{2001}, \textit{8} (2), 310--318. https://doi.org/10.1109/94.922261.
 \end{thebibliography}
 
 

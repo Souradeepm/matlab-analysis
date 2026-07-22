@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  22 JUL 2026 07:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.7.21)  22 JUL 2026 07:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -622,48 +622,56 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
 (C:\Users\mitra\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+Overfull \hbox (3.13066pt too wide) in paragraph at lines 43--44
+[]\OT1/cmr/m/n/10.95 write temperature-wise Ex-cel out-puts (Nyquist/DRT/RCN/KK
+/peaks/sensitivity/lambda
+ []
+
 [1
 
-{C:/Users/mitra/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-Overfull \hbox (8.54967pt too wide) in paragraph at lines 84--85
+{C:/Users/mitra/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
+[3]
+Overfull \hbox (8.54967pt too wide) in paragraph at lines 106--107
 []\OT1/cmtt/m/n/10.95 remove[]inductive[]effects[]matlab2011\OT1/cmr/m/n/10.95 
 : re-moves the con-tigu-ous high-frequency tail where
  []
 
-[2]
-Overfull \hbox (12.48424pt too wide) in paragraph at lines 92--93
+
+Overfull \hbox (12.48424pt too wide) in paragraph at lines 114--115
 []\OT1/cmtt/m/n/10.95 tr[]drt[]gcv[]impart[]matlab2011 \OT1/cmr/m/n/10.95 and \
 OT1/cmtt/m/n/10.95 tr[]drt[]gcv[]repart[]matlab2011\OT1/cmr/m/n/10.95 : solve t
 he component-
  []
 
 
-Overfull \hbox (21.3307pt too wide) in paragraph at lines 108--109
+Overfull \hbox (21.3307pt too wide) in paragraph at lines 131--132
 []\OT1/cmtt/m/n/10.95 perform[]kk[]test[]matlab2011 \OT1/cmr/m/n/10.95 and \OT1
 /cmtt/m/n/10.95 solve[]kk[]candidate[]matlab2011\OT1/cmr/m/n/10.95 : es-ti-mate
  KK-consistent
  []
 
-[3]
-Overfull \hbox (2.81448pt too wide) in paragraph at lines 216--217
+[4] [5]
+Overfull \hbox (2.81448pt too wide) in paragraph at lines 244--245
 \OT1/cmr/m/n/10.95 Once a can-di-date DRT $\OML/cmm/b/it/10.95 ^^M$ \OT1/cmr/m/
 n/10.95 and re-sis-tance $\OML/cmm/m/it/10.95 R[]$ \OT1/cmr/m/n/10.95 are found
 , the code re-con-structs the fit-ted impedance 
  []
 
-[4] [5] [6]
+[6] [7] [8] [9]
+Overfull \hbox (5.82748pt too wide) in paragraph at lines 482--483
+\OT1/cmr/m/n/10.95 reconstructed impedance as a con-sis-tency check on the in-v
+er-sion. That is a use-ful implementation-
+ []
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[7] [8] [9]
-Overfull \hbox (16.38629pt too wide) in paragraph at lines 567--568
+[10]
+Overfull \hbox (16.38629pt too wide) in paragraph at lines 597--598
 []\OT1/cmr/m/n/10.95 Each sum-mand is ex-actly one ZAP el-e-ment in se-ries. Ta
 k-ing the re-fine-ment limit $[][] ^^A [] \OML/cmm/m/it/10.95 ^^\[] \OMS/cmsy/m
 /n/10.95 !
  []
 
-[10]
-Overfull \hbox (0.65488pt too wide) in paragraph at lines 660--660
+[11] [12]
+Overfull \hbox (0.65488pt too wide) in paragraph at lines 690--690
 []\OT1/cmr/bx/n/14.4 Peak De-tec-tion, RBF Re-fine-ment, and Gaus-sian Peak Mod
 el 
  []
@@ -671,33 +679,80 @@ el
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[11] [12] [13] [14]
-Overfull \hbox (24.91444pt too wide) in paragraph at lines 879--880
+[13] [14] [15] [16]
+Overfull \hbox (24.91444pt too wide) in paragraph at lines 909--910
 [][]\OT1/cmtt/m/n/10.95 refined[]peak[]profiles.xlsx\OT1/cmr/m/n/10.95 : dense 
 per-temperature re-fined peak curves for post-processing, 
  []
 
 
-Overfull \hbox (5.84993pt too wide) in paragraph at lines 880--881
+Overfull \hbox (5.84993pt too wide) in paragraph at lines 910--911
 [][]\OT1/cmtt/m/n/10.95 kk[]result.xlsx\OT1/cmr/m/n/10.95 , []\OT1/cmtt/m/n/10.
 95 sensitivity[]result.xlsx\OT1/cmr/m/n/10.95 , and []\OT1/cmtt/m/n/10.95 lambd
 a[]perturbation[]result.xlsx\OT1/cmr/m/n/10.95 :
  []
 
-[15] [16] [17] [18] (zarc_drt_derivation.aux)
+[17] [18] [19]
+Underfull \hbox (badness 1365) in paragraph at lines 1041--1042
+\OT1/cmr/m/n/10.95 Dis-tri-bu-tion of Re-lax-ation Times. \OT1/cmr/m/it/10.95 J
+. Ce-ram. Soc. Jpn. \OT1/cmr/bx/n/10.95 2017\OT1/cmr/m/n/10.95 , \OT1/cmr/m/it/
+10.95 125 \OT1/cmr/m/n/10.95 (4), 193--201.
+ []
+
+
+Underfull \hbox (badness 1325) in paragraph at lines 1047--1048
+\OT1/cmr/m/n/10.95 with a Dis-tri-bu-tion of Re-lax-ation Times. \OT1/cmr/m/it/
+10.95 Elec-trochim. Acta \OT1/cmr/bx/n/10.95 2018\OT1/cmr/m/n/10.95 , \OT1/cmr/
+m/it/10.95 282\OT1/cmr/m/n/10.95 , 892--904.
+ []
+
+
+Underfull \hbox (badness 1546) in paragraph at lines 1053--1054
+[]\OT1/cmr/m/n/10.95 G. H. Golub; M. Heath; G. Wahba. Gen-er-al-ized Cross-Vali
+dation as a Method
+ []
+
+
+Underfull \hbox (badness 2418) in paragraph at lines 1053--1054
+\OT1/cmr/m/n/10.95 for Choos-ing a Good Ridge Pa-ram-e-ter. \OT1/cmr/m/it/10.95
+ Tech-no-met-rics \OT1/cmr/bx/n/10.95 1979\OT1/cmr/m/n/10.95 , \OT1/cmr/m/it/10
+.95 21 \OT1/cmr/m/n/10.95 (2), 215--223.
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 1056--1057
+[]\OT1/cmr/m/n/10.95 P. C. Hansen; D. P. O'Leary. The Use of the L-Curve in the
+ Reg-u-lar-iza-tion
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 1056--1057
+\OT1/cmr/m/n/10.95 of Dis-crete Ill-Posed Prob-lems. \OT1/cmr/m/it/10.95 SIAM J
+. Sci. Com-put. \OT1/cmr/bx/n/10.95 1993\OT1/cmr/m/n/10.95 , \OT1/cmr/m/it/10.9
+5 14 \OT1/cmr/m/n/10.95 (6), 1487--1503.
+ []
+
+
+Underfull \hbox (badness 2922) in paragraph at lines 1059--1060
+\OT1/cmr/m/n/10.95 tral Func-tion Fit. \OT1/cmr/m/it/10.95 IEEE Trans. Di-elect
+r. Electr. In-sul. \OT1/cmr/bx/n/10.95 2001\OT1/cmr/m/n/10.95 , \OT1/cmr/m/it/1
+0.95 8 \OT1/cmr/m/n/10.95 (2), 310--318.
+ []
+
+[20] (zarc_drt_derivation.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15372 strings out of 467871
- 312667 string characters out of 5418376
- 711998 words of memory out of 5000000
- 43981 multiletter control sequences out of 15000+600000
+ 15412 strings out of 467871
+ 313282 string characters out of 5418376
+ 713206 words of memory out of 5000000
+ 44021 multiletter control sequences out of 15000+600000
  645679 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 102i,10n,107p,926b,723s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 102i,10n,107p,981b,741s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\mitra\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1095.pk><C:/Users/mitra/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/mitra/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -725,9 +780,9 @@ msfonts/cm/cmsy8.pfb><C:/Users/mitra/AppData/Local/Programs/MiKTeX/fonts/type1/
 public/amsfonts/cm/cmti10.pfb><C:/Users/mitra/AppData/Local/Programs/MiKTeX/fon
 ts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/mitra/AppData/Local/Programs/M
 iKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on zarc_drt_derivation.pdf (18 pages, 345459 bytes).
+Output written on zarc_drt_derivation.pdf (20 pages, 364508 bytes).
 PDF statistics:
- 183 PDF objects out of 1000 (max. 8388607)
+ 190 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
