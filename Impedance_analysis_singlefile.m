@@ -57,6 +57,10 @@ lambda_perturb_output_file = fullfile(repo_root, sprintf('%s_lambda_perturbation
 peak_output_file = fullfile(repo_root, sprintf('%s_peak_detail_result.xlsx', sample_tag));
 plot_data_output_file = fullfile(repo_root, sprintf('%s_temperature_plot_data.xlsx', sample_tag));
 peak_profile_output_file = fullfile(repo_root, sprintf('%s_refined_peak_profiles.xlsx', sample_tag));
+rgb_visualization_file = fullfile(repo_root, sprintf('%s_temperature_rgb_peak_map.png', sample_tag));
+
+% Initialize cell array to collect peak data across all temperatures for RGB visualization
+all_temps_peak_data = cell(num_sets, 1);
 
 for ab = 1:sz/3
 % Slice the workbook into one impedance spectrum and one temperature label.
@@ -551,6 +555,13 @@ rcn_sheet = make_sheet_name_2011('RCN', temperature(ab));
 write_matrix_with_header_2011(plot_data_output_file, rcn_sheet, ...
     {'peak_id','tau_s','amplitude','sigma_logtau','fwhm_logtau','R_ohm','C_F','n_est','is_hidden'}, peak_numeric);
 
+% Collect peak data for RGB multi-temperature visualization
+all_temps_peak_data{ab} = struct( ...
+    'temperature', temperature(ab), ...
+    'tau_dense', peak_refine.tau_dense, ...
+    'peaks', data_peaks_fitted, ...
+    'peak_count', numel(data_peaks_fitted));
+
 peak_profile_sheet = make_sheet_name_2011('PFIT', temperature(ab));
 [peak_profile_header, peak_profile_data] = build_refined_peak_profile_export_2011(peak_refine, data_peaks_fitted);
 write_matrix_with_header_2011(peak_profile_output_file, peak_profile_sheet, peak_profile_header, peak_profile_data);
@@ -567,6 +578,15 @@ pk_points = [freq_peak(:), tau_peak(:), gamma_peak(:), R_file(:), C_file(:), n_f
 write_matrix_with_header_2011(plot_data_output_file, pk_sheet, ...
     {'freq_peak_Hz','tau_peak_s','gamma_peak_ohm','R_ohm','C_F','n_est'}, pk_points);
 diary off;
+end
+
+% Generate RGB multi-temperature peak visualization
+fprintf('\n========== Multi-Temperature RGB Peak Visualization ==========\n');
+try
+    generate_temperature_rgb_peak_map(all_temps_peak_data, temperature, rgb_visualization_file);
+    fprintf('RGB peak visualization exported to: %s\n', rgb_visualization_file);
+catch ME
+    fprintf('Warning: RGB visualization generation failed: %s\n', ME.message);
 end
 
 xlswrite(analysis_output_file,analysis_results);
@@ -1871,6 +1891,126 @@ function n_val = estimate_n_from_phase_2011(tau_peak, amplitude, gamma_ref)
     % Placeholder: return heuristic if insufficient data
     % In a full implementation, one would measure phase from Nyquist or Bode plot.
     n_val = 0.5 + 0.2 * exp(-amplitude / 100);  % Heuristic fallback
+end
+
+% ============================================================================
+% RGB Multi-Temperature Peak Visualization Function
+% ============================================================================
+function generate_temperature_rgb_peak_map(all_temps_peak_data, temperature_vec, output_file)
+% generate_temperature_rgb_peak_map - Create RGB visualization of top 3 DRT peaks across temperatures
+%
+% Creates a 256 x n_temps x 3 RGB image where:
+%   X-axis (columns): relaxation time ln(tau) mapped to 256 pixels
+%   Y-axis (rows): temperature indices
+%   R channel: highest-area peak
+%   G channel: second-highest-area peak
+%   B channel: third-highest-area peak
+%   Intensity: pixel value (0-255) represents DRT magnitude at that ln(tau)
+%
+% INPUTS:
+%   all_temps_peak_data: cell array of structs, one per temperature
+%                        each containing: temperature, tau_dense, peaks, peak_count
+%   temperature_vec: row vector of temperatures (K)
+%   output_file: path to output PNG file
+%
+% OUTPUTS:
+%   Saves RGB visualization PNG to output_file
+
+    num_temps = numel(all_temps_peak_data);
+    if num_temps == 0
+        fprintf('Warning: no temperature data to visualize\n');
+        return;
+    end
+    
+    % Build master ln_tau grid from first temperature's tau_dense
+    tau_dense_1 = all_temps_peak_data{1}.tau_dense(:);
+    ln_tau_master = log(tau_dense_1);
+    n_ln_tau = numel(ln_tau_master);
+    
+    % Normalize ln_tau to pixel grid [0, 255]
+    ln_tau_min = min(ln_tau_master);
+    ln_tau_max = max(ln_tau_master);
+    if ln_tau_max <= ln_tau_min
+        fprintf('Warning: invalid ln_tau range\n');
+        return;
+    end
+    ln_tau_pixel_grid = linspace(0, 255, n_ln_tau);
+    
+    % Initialize RGB image: [n_temps, 256, 3]
+    rgb_image = zeros(num_temps, 256, 3, 'uint8');
+    
+    % Process each temperature
+    for temp_idx = 1:num_temps
+        peak_data = all_temps_peak_data{temp_idx};
+        peaks = peak_data.peaks;
+        n_peaks = peak_data.peak_count;
+        
+        if n_peaks == 0
+            continue;  % Skip temperature with no peaks
+        end
+        
+        % Compute peak areas: integral of Gaussian = A * sigma * sqrt(2*pi)
+        peak_areas = zeros(n_peaks, 1);
+        for p = 1:n_peaks
+            peak_areas(p) = peaks(p).amplitude * peaks(p).sigma * sqrt(2 * pi);
+        end
+        
+        % Sort peaks by area (descending)
+        [~, sort_idx] = sort(peak_areas, 'descend');
+        top_3_idx = sort_idx(1:min(3, n_peaks));
+        
+        % Reconstruct Gaussian curves for each top peak
+        tau_dense_t = peak_data.tau_dense(:);
+        ln_tau_t = log(tau_dense_t);
+        
+        % Initialize R, G, B channels for this temperature
+        r_channel = zeros(1, 256, 'double');
+        g_channel = zeros(1, 256, 'double');
+        b_channel = zeros(1, 256, 'double');
+        
+        % Assign top 3 peaks to R, G, B
+        channels = [r_channel; g_channel; b_channel];
+        for rank = 1:min(3, numel(top_3_idx))
+            peak_idx = top_3_idx(rank);
+            p = peaks(peak_idx);
+            
+            % Reconstruct Gaussian: A * exp(-(ln_tau - mu)^2 / (2*sigma^2))
+            gaussian_vals = p.amplitude * exp(-((ln_tau_t - log(p.tau)) .^ 2) / (2 * p.sigma ^ 2));
+            
+            % Interpolate to pixel grid
+            if exist('interp1', 'file') == 2
+                pixel_vals = interp1(ln_tau_t, gaussian_vals, ...
+                    linspace(ln_tau_min, ln_tau_max, 256), 'linear', 0);
+            else
+                % MATLAB 2011 fallback: simple nearest-neighbor
+                [~, closest_idx] = min(abs(ln_tau_t - linspace(ln_tau_min, ln_tau_max, 256)'), [], 1);
+                pixel_vals = gaussian_vals(closest_idx);
+            end
+            
+            % Normalize to [0, 255]
+            max_val = max(pixel_vals);
+            if max_val > 0
+                pixel_vals = uint8(round(255 * pixel_vals / max_val));
+            else
+                pixel_vals = uint8(zeros(1, 256));
+            end
+            
+            channels(rank, :) = pixel_vals;
+        end
+        
+        % Fill RGB image for this temperature
+        rgb_image(temp_idx, :, 1) = channels(1, :);  % R
+        rgb_image(temp_idx, :, 2) = channels(2, :);  % G
+        rgb_image(temp_idx, :, 3) = channels(3, :);  % B
+    end
+    
+    % Save RGB image as PNG
+    try
+        imwrite(rgb_image, output_file);
+        fprintf('RGB peak visualization saved: %s (%d x 256 x 3)\n', output_file, num_temps);
+    catch ME
+        fprintf('Error writing PNG: %s\n', ME.message);
+    end
 end
 
 
