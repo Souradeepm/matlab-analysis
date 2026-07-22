@@ -1,2 +1,0 @@
-Temperature,SelectedLambda,RID,CV,Variance,Score,PeakCount
-280.470000,1.00000000e-02,8.266276e+03,1.165215e+05,3.585883e+04,7.242831e-02,3

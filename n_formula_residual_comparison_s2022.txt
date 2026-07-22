@@ -1,0 +1,17 @@
+n-formula Nyquist residual comparison for S2022
+Generated: 2026-07-22 03:41:58
+
+Formula A (heuristic): n = 1.144 / (1 + sigma)
+Formula B (FWHM-derived): solve sqrt(2*log(2))*sigma*n = acosh(2 + cos(pi*n))
+
+Temp(K)	Npeaks	MeanResA	MeanResB	Best	Improve(%)
+30.4	5	4457.72	4519.16	heuristic	1.36
+107.5	3	2796.77	2906.61	heuristic	3.78
+159.5	5	2042.59	2081.67	heuristic	1.88
+170.4	3	1958.21	2050.32	heuristic	4.49
+179.5	4	1941.74	1990.01	heuristic	2.43
+199.6	3	2115.68	2212.73	heuristic	4.39
+
+Global mean residual (heuristic): 2552.12
+Global mean residual (fwhm): 2626.75
+Global best formula: heuristic (improvement 2.84%)

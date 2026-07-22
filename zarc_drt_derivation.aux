@@ -1,0 +1,58 @@
+\relax 
+\@writefile{toc}{\contentsline {section}{\numberline {1}Purpose}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Code-Level Workflow Summary}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Execution Flowchart}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}How the MATLAB Functions Map to the Mathematics}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}DRT Representation}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Discrete Forward Model Used in the MATLAB Code}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Tikhonov Regularization and Non-Negative DRT Recovery}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Residuals Used Throughout the Workflow}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Component-Wise Inversion and Cross-Validation Logic}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Generalized Cross-Validation Criterion}{5}{}\protected@file@percent }
+\citation{golub79}
+\citation{hansen93}
+\citation{ciucci2015}
+\citation{schluter2019}
+\citation{danzer2019}
+\@writefile{toc}{\contentsline {section}{\numberline {11}GCV Slope Criterion and Lambda Selection Policy}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Illustrative nGCV-vs-$\lambda $ profile showing the plateau-based selection policy used in the MATLAB workflow.}}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12}Robustness of the Selected $\lambda $}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13}Kramers-Kronig Consistency Test Used in the Code}{7}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Illustrative bootstrap-sensitivity view: individual bootstrap DRT reconstructions, mean curve, and uncertainty band over $\log (\tau )$.}}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {14}ZARC Element}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {15}Exact DRT of a ZARC}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {16}Derivation: ZARC as an Infinite Series of ZAP Elements}{10}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces ZARC as a continuum sum of ZAP elements: binning the DRT density over $\ln \tau $ yields a finite Debye/ZAP series, whose refinement limit gives the exact integral representation.}}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {17}Area Under the Peak and Resistance}{11}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {18}Peak Detection, RBF Refinement, and Gaussian Peak Model}{11}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Illustrative peak-refinement stage: RBF-smoothed DRT profile and Gaussian component decomposition used to export per-peak parameters.}}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {19}Time Constant and Capacitance-Style Parameter}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {20}Heuristic Calculation of $R$, $C$, and $n$ in the Present MATLAB Workflow}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {21}FWHM-Based $n$ Formula and Check of the $1.144/n$ Expression}{13}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {22}Exact FWHM of the ZARC DRT}{13}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {23}FWHM of the Gaussian Peak Fit}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {24}Theory-Based Estimate of $n$ from the Fitted Peak Width}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {25}Current Code Formula for $n$}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {26}Summary of Formulas}{14}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27}Code Output Inventory}{15}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {28}Detailed RBF Interpolation and Gaussian Basis Fitting Theory}{15}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {28.1}Radial Basis Function Model}{15}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {28.2}Base Peak Detection}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {28.3}Hidden Peak Detection via Second Derivative}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {28.4}Gaussian Sum Fitting}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {28.5}Per-Peak Circuit Parameter Extraction}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {28.5.1}Resistance from Peak Area}{16}{}\protected@file@percent }
+\bibcite{golub79}{1}
+\bibcite{hansen93}{2}
+\bibcite{schluter2019}{3}
+\bibcite{danzer2019}{4}
+\bibcite{ciucci2015}{5}
+\bibcite{saccoccio2014}{6}
+\bibcite{ivertiffee2017}{7}
+\bibcite{boukamp2017}{8}
+\bibcite{cordoba2018}{9}
+\bibcite{macutkevic2004}{10}
+\bibcite{tuncer2001}{11}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {28.5.2}Characteristic Time and Capacitance}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {28.5.3}CPE Exponent Estimation}{17}{}\protected@file@percent }
+\gdef \@abspage@last{18}

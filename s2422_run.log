@@ -1,9 +1,0 @@
-{Error using xlsread
-File C:\Users\mitra\Downloads\matlab analysis\S2422-SapIMPEDANCE 29 October 2024 2.26 .xls not in Microsoft Excel Format.
-
-Error in run_s2422_check (line 8)
-[data, text, raw] = xlsread(input_path); %#ok<ASGLU>
-
-Error in run (line 91)
-evalin('caller', strcat(script, ';'));
-} 

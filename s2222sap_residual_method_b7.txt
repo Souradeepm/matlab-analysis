@@ -1,2 +1,0 @@
-Temperature,SelectedLambda,MeanResidual,PeakCount
-280.470000,1.00000000e-04,1.383346e+02,4
