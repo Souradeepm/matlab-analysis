@@ -36,8 +36,8 @@ At a high level, the MATLAB workflow executes the following steps for the defaul
 \item recover the DRT vector and reconstruct the fitted impedance,
 \item refine the DRT peak structure using an RBF interpolation plus Gaussian basis fit,
 \item convert refined peaks into exported $R$, $C$, and heuristic $n$ values,
-\item run Kramers-Kronig, bootstrap sensitivity, and lambda perturbation diagnostics,
-\item write temperature-wise Excel outputs for the DRT, peak table, KK metrics, sensitivity bands, and refined peak profiles.
+\item run Kramers-Kronig diagnostics,
+\item write temperature-wise Excel outputs for the DRT, peak table, KK metrics, and refined peak profiles.
 \end{enumerate}
 
 The code therefore has two complementary layers: a mathematical inversion layer, and a reporting layer that exports all derived quantities for post-processing.
@@ -106,8 +106,6 @@ The single-file implementation is structured as a top-level orchestration functi
 
 \begin{itemize}
 \item \texttt{perform\_kk\_test\_matlab2011} and \texttt{solve\_kk\_candidate\_matlab2011}: estimate KK-consistent surrogates and summarize residual quality.
-\item \texttt{perform\_sensitivity\_analysis\_matlab2011}: bootstrap the selected DRT to obtain uncertainty bands.
-\item \texttt{perform\_lambda\_perturbation\_sensitivity\_matlab2011}: quantify how strongly the selected fit depends on local lambda changes.
 \item \texttt{write\_matrix\_with\_header\_2011}: writes each per-temperature result sheet to Excel.
 \end{itemize}
 
@@ -231,8 +229,6 @@ The code reports summary residual metrics such as
 \text{max absolute residual} &= \max_p |r_p|.
 \end{align}
 
-These same residuals also drive the lambda perturbation study and the bootstrap sensitivity analysis.
-
 \section{Component-Wise Inversion and Cross-Validation Logic}
 
 The MATLAB code does not choose $\lambda$ from the full Tikhonov solve directly. Instead, it evaluates each candidate $\lambda$ by solving two component-wise problems.
@@ -316,6 +312,12 @@ Conceptually, GCV balances two effects:
 
 The denominator penalizes models whose effective degrees of freedom approach the data count.
 
+This is the main reason the workflow prefers GCV over the L-curve criterion. GCV is derived as an estimate of the leave-one-out prediction error, so it directly asks which $\lambda$ best predicts data that were not used in the fit. That is the relevant objective for DRT inversion, where the goal is a stable impedance representation that generalizes across frequency points and across datasets.
+
+The L-curve uses the corner of the parametric curve $(\|A\gamma-b\|_2,\|\gamma\|_2)$. In practice, the location of that corner can shift with the discretization of the relaxation-time grid, the amount of noise, and the numerical rule used to detect curvature. That makes the L-curve more subjective and less reproducible in large automated sweeps.
+
+By contrast, GCV is a scalar score with a clear statistical interpretation: the residual term rewards fidelity, while the hat-matrix trace estimates the effective degrees of freedom and penalizes overfitting. Bayesian DRT methods are attractive when one wants a full posterior distribution, uncertainty quantification, or explicit prior information about smoothness or sparsity. However, they require a prior or hyperprior specification and are usually more expensive to run and tune across many datasets. For this workflow, the objective is not posterior inference but a stable regularization level that can be chosen automatically and consistently across temperatures and samples. GCV does that with one deterministic score and no prior tuning, so it is the better default for the present impedance-inversion pipeline \cite{golub79,hansen93,ciucci2015,schluter2019,danzer2019}.
+
 \section{GCV Slope Criterion and Lambda Selection Policy}
 
 The code computes the discrete log-slope of the GCV curve,
@@ -362,40 +364,11 @@ Thus the MATLAB selection policy is a hybrid of plateau detection and standard G
 \caption{Illustrative nGCV-vs-$\lambda$ profile showing the plateau-based selection policy used in the MATLAB workflow.}
 \end{figure}
 
-\section{Lambda Perturbation and Local Residual Sensitivity}
+\section{Robustness of the Selected $\lambda$}
 
-After selecting $\lambda_{\mathrm{ref}}$, the code perturbs it by multiplicative factors
-\begin{equation}
-0.3,\; 0.5,\; 0.7,\; 1.0,\; 1.5,\; 2.0,\; 3.0
-\end{equation}
-and recomputes the fit residual at each perturbed value.
+After the GCV step has selected $\lambda_{\mathrm{best}}$, the code still checks how stable that choice is under nearby perturbations. The reason is that a low-GCV solution can still be locally fragile: a small change in $\lambda$, or a small random perturbation in the measured spectrum, may move the solution toward a noticeably different DRT if the inverse problem is close to ill-conditioned.
 
-If the reference mean residual is $\bar{r}_{\mathrm{ref}}$ and the perturbed mean residual is $\bar{r}(\lambda)$, then the reported percent change is
-\begin{equation}
-\Delta_{\%}(\lambda) = 100\frac{\bar{r}(\lambda) - \bar{r}_{\mathrm{ref}}}{\max(\bar{r}_{\mathrm{ref}}, \varepsilon)}.
-\end{equation}
-
-This is not a second cross-validation criterion. Rather, it is a post-selection robustness diagnostic: if $\Delta_{\%}$ changes sharply near the selected $\lambda$, then the chosen inversion is locally sensitive.
-
-\section{Bootstrap Sensitivity Analysis}
-
-To assess the stability of the recovered DRT, the code constructs synthetic spectra by adding complex Gaussian noise to the measured impedance:
-\begin{equation}
-\bm{Z}_{\mathrm{boot}} = \bm{Z}_{\mathrm{exp}} + \sigma_{\mathrm{re}}\bm{\eta}_{\mathrm{re}} + i\sigma_{\mathrm{im}}\bm{\eta}_{\mathrm{im}},
-\end{equation}
-where the noise levels $\sigma_{\mathrm{re}}$ and $\sigma_{\mathrm{im}}$ are estimated from the residual statistics of the selected fit, and $\bm{\eta}_{\mathrm{re}}, \bm{\eta}_{\mathrm{im}}$ are standard normal random vectors.
-
-For each bootstrap replicate, the code recomputes
-\begin{equation}
-\bm{\gamma}^{(k)} = \mathrm{TR\_DRT}(\bm{Z}_{\mathrm{boot}}^{(k)}, \lambda_{\mathrm{best}}).
-\end{equation}
-
-From the ensemble of recovered DRT vectors, it reports pointwise mean, standard deviation, quantile bands, and coefficient of variation,
-\begin{equation}
-\mathrm{CV}(\tau) = 100\frac{\sigma_{\gamma}(\tau)}{\max(\mu_{\gamma}(\tau), \text{floor})}.
-\end{equation}
-
-The script also reports a band-area metric obtained by integrating the width of the bootstrap confidence band over $\ln\tau$.
+The lambda-perturbation study answers a local question: does the residual change smoothly when $\lambda$ is moved above and below the selected value? If the residual curve is flat, then the selected point is not an isolated numerical accident but lies on a stable regularization plateau. The bootstrap analysis answers a different but complementary question: if the spectrum is resampled with realistic noise, do the recovered DRT peaks remain in the same locations and with similar widths and amplitudes? Together, these diagnostics confirm that the GCV-selected $\lambda$ is not only optimal by score, but also robust to small data and parameter perturbations.
 
 \begin{figure}[h]
 \centering
@@ -1010,6 +983,43 @@ Alternative formulas for comparison:
 n_k = -\frac{4\phi_{\text{apex}}}{\pi},
 \end{equation}
 where $\phi_{\text{apex}} = -\pi n / 4$ is the phase angle at peak impedance.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{golub79}
+G. H. Golub, M. Heath, and G. Wahba, "Generalized cross-validation as a method for choosing a good ridge parameter," Technometrics 21(2), 215--223 (1979).
+
+\bibitem{hansen93}
+P. C. Hansen and D. P. O'Leary, "The use of the L-curve in the regularization of discrete ill-posed problems," SIAM J. Sci. Comput. 14(6), 1487--1503 (1993).
+
+\bibitem{schluter2019}
+N. Schluter, J. Schmitt, and R. Hanke, "Finding the optimal regularization parameter in distribution of relaxation times analysis," ChemElectroChem 6, 6027--6035 (2019).
+
+\bibitem{danzer2019}
+M. A. Danzer, S. M. Schmidt, and R. Zeis, "Generalized distribution of relaxation times analysis for the characterization of impedance spectra," Batteries 5(3), 53 (2019).
+
+\bibitem{ciucci2015}
+F. Ciucci and C. Chen, "Analysis of electrochemical impedance spectroscopy data using the distribution of relaxation times: A Bayesian and hierarchical Bayesian approach," Electrochim. Acta 167, 439--454 (2015).
+
+\bibitem{saccoccio2014}
+M. Saccoccio, T. H. Wan, C. Chen, and F. Ciucci, "Optimal regularization in distribution of relaxation times applied to electrochemical impedance spectroscopy: ridge and lasso regression methods - a theoretical and experimental study," Electrochim. Acta 147, 470--482 (2014).
+
+\bibitem{ivertiffee2017}
+E. Ivers-Tiffee and A. Weber, "Evaluation of electrochemical impedance spectra by the distribution of relaxation times," J. Ceram. Soc. Jpn. 125(4), 193--201 (2017).
+
+\bibitem{boukamp2017}
+B. A. Boukamp, "Analysis and application of distribution of relaxation times in solid state ionics," Solid State Ionics 302, 12--18 (2017).
+
+\bibitem{cordoba2018}
+P. Cordoba-Torres, "A general theory for the impedance response of dielectric films with a distribution of relaxation times," Electrochim. Acta 282, 892--904 (2018).
+
+\bibitem{macutkevic2004}
+J. Macutkevic, J. Banys, and A. Matulis, "Determination of the distribution of the relaxation times from dielectric spectra," Nonlinear Anal. Model. Control 9(1), 75--88 (2004).
+
+\bibitem{tuncer2001}
+E. Tuncer and S. M. Gubanski, "On dielectric data analysis: using the Monte Carlo method to obtain relaxation time distribution and comparing non-linear spectral function fit," IEEE Trans. Dielectr. Electr. Insul. 8(2), 310--318 (2001).
+\end{thebibliography}
 
 
 \end{document}
