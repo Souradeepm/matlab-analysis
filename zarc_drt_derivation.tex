@@ -2,6 +2,7 @@
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage{amsmath,amssymb,bm}
 \usepackage{mathtools}
+\usepackage{float}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric}
 
@@ -26,7 +27,7 @@ The implementation context is the single-file workflow \texttt{Impedance\_analys
 
 \section{Code-Level Workflow Summary}
 
-At a high level, the MATLAB workflow executes the following steps for the default workbook \texttt{S2022Sap.xlsx}:
+At a high level, the current analysis workflow executes the following steps for a raw multi-temperature impedance data file:
 
 \begin{enumerate}
 \item load the multi-temperature workbook and split it into three-column blocks,
@@ -34,17 +35,16 @@ At a high level, the MATLAB workflow executes the following steps for the defaul
 \item remove invalid frequencies and the high-frequency inductive tail,
 \item build the DRT projection matrices and select the regularization parameter by generalized cross-validation,
 \item recover the DRT vector and reconstruct the fitted impedance,
-\item run a local lambda-perturbation robustness check around the selected $\lambda$,
 \item refine the DRT peak structure using an RBF interpolation plus Gaussian basis fit,
 \item convert refined peaks into exported $R$, $C$, and heuristic $n$ values,
 \item reconstruct an explicit series $R$-$C$-$n$ impedance model from fitted peaks and compare it with the measured and DRT-fit Nyquist curves,
 \item run Kramers-Kronig diagnostics on both measured impedance and DRT-reconstructed impedance,
-\item run bootstrap sensitivity analysis for DRT uncertainty bands,
-\item write temperature-wise Excel outputs (Nyquist/DRT/RCN/KK/peaks/sensitivity/lambda sheets),
-\item after all temperatures are processed, generate the RGB multi-temperature peak map and write per-workbook summary sheets.
+\item run noise-injection sensitivity checks (multiple noise levels and random trials) around the selected fit,
+\item accumulate consolidated arrays for raw/DRT/peak/RCN data,
+\item after all temperatures are processed, generate global EPS figures and write consolidated Excel sheets (\texttt{RAW\_ALL}, \texttt{DRT\_ALL}, \texttt{PEAK\_ALL}, \texttt{RCN\_ALL}, plus summary matrices).
 \end{enumerate}
 
-The code therefore has two complementary layers: a mathematical inversion layer, and a reporting layer that exports all derived quantities for post-processing. That pairing is now standard in modern DRT software, where the inversion method and the exported diagnostics are treated as part of the reproducible method description rather than as an implementation afterthought \cite{schluter2019,maradesa2023,carbone2025}.
+The code therefore has two complementary layers: a mathematical inversion layer and a reporting/visualization layer. The second layer is not cosmetic; it makes the method auditable temperature-by-temperature and preserves diagnostics needed to interpret regularization and peak-parameter stability \cite{schluter2019,maradesa2023,carbone2025}.
 
 \section{Software and Reproducibility Note}
 
@@ -56,83 +56,85 @@ In practical terms, this note documents the mapping from the top-level script to
 
 \section{Execution Flowchart}
 
-\begin{center}
-\begin{tikzpicture}[scale=0.92, transform shape,
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=0.88, transform shape,
 	node distance=6mm and 8mm,
 	block/.style={rectangle, rounded corners, draw, align=center, minimum width=3.9cm, minimum height=7.5mm},
 	decision/.style={diamond, draw, align=center, aspect=2, inner sep=1pt},
 	line/.style={-Latex}
 ]
-\node[block] (start) {Start \texttt{Impedance\_analysis\_singlefile}};
-\node[block, below=of start] (load) {Load workbook \texttt{S2022Sap.xlsx} \\ and parse temperature headers};
-\node[block, below=of load] (split) {Loop over each temperature block \\ $[f, |Z|, \theta]$};
-\node[block, below=of split] (pre) {Build complex impedance, sort frequencies, \\ remove invalid and inductive-tail points};
+\node[block] (start) {Start analysis workflow};
+\node[block, below=of start] (load) {Load raw data file \\ and parse temperature headers};
+\node[block, below=of load] (init) {Initialize master arrays, $\lambda$-grid, \\ output paths, and figure export queue};
+\node[decision, below=of init] (hasnext) {More temperature \\ blocks?};
+\node[block, below=of hasnext] (pre) {Build complex impedance, sort frequencies, \\ remove invalid and inductive-tail points};
 \node[block, below=of pre] (gcv) {Construct $A_{\mathrm{re}}$, $A_{\mathrm{im}}$ \\ and select $\lambda$ by GCV};
-\node[block, below=of gcv] (drt) {Compute DRT $\gamma(\tau)$ and fitted impedance \\ then evaluate residuals};
-\node[block, below=of drt] (lampert) {Lambda-perturbation check around \\ selected $\lambda$};
-\node[block, below=of lampert] (peaks) {RBF refinement, hidden-peak detection, \\ Gaussian peak fitting};
+\node[block, below=of gcv] (drt) {Compute DRT $\gamma(\tau)$, fitted impedance, \\ and residual statistics};
+\node[block, below=of drt] (peaks) {RBF refinement, hidden-peak detection, \\ Gaussian peak fitting};
 \node[block, below=of peaks] (rcn) {Build series R-C-n reconstruction \\ and Nyquist comparison};
 \node[block, below=of rcn] (kk) {Run KK checks on measured and \\ DRT-reconstructed spectra};
-\node[block, below=of kk] (sens) {Bootstrap DRT sensitivity \\ and uncertainty bands};
-\node[block, below=of sens] (exports) {Export per-temperature sheets: \\ NYQ, DRT, RCN, KK, PEAK, SENS, LAMBDA, PFIT};
-\node[block, below=of exports] (post) {After loop: generate RGB peak map \\ and workbook summary sheets};
+\node[block, below=of kk] (sens) {Run noise-injection sensitivity \\ (multiple levels and trials)};
+\node[block, below=of sens] (stash) {Append to consolidated arrays \\ and store per-temperature peak profile};
+\node[block, right=32mm of hasnext] (post) {After loop: generate global EPS figures \\ and write consolidated workbook sheets};
 \node[block, below=of post] (end) {Finalize and stop};
 
 \draw[line] (start) -- (load);
-\draw[line] (load) -- (split);
-\draw[line] (split) -- (pre);
+\draw[line] (load) -- (init);
+\draw[line] (init) -- (hasnext);
+\draw[line] (hasnext) -- node[right] {yes} (pre);
 \draw[line] (pre) -- (gcv);
 \draw[line] (gcv) -- (drt);
-\draw[line] (drt) -- (lampert);
-\draw[line] (lampert) -- (peaks);
+\draw[line] (drt) -- (peaks);
 \draw[line] (peaks) -- (rcn);
 \draw[line] (rcn) -- (kk);
 \draw[line] (kk) -- (sens);
-\draw[line] (sens) -- (exports);
-\draw[line] (exports) -- (post);
+\draw[line] (sens) -- (stash);
+\draw[line] (stash.west) -- ++(-18mm,0) |- node[left] {next block} (hasnext.west);
+\draw[line] (hasnext.east) -- node[above] {no} (post.west);
 \draw[line] (post) -- (end);
 \end{tikzpicture}
-\end{center}
+\caption{Generalized end-to-end analysis flow with explicit per-temperature loop, branch conditions, and post-loop export stage.}
+\end{figure}
 
 \section{How the MATLAB Functions Map to the Mathematics}
 
-The single-file implementation is structured as a top-level orchestration function plus a set of local helper functions.
+The current implementation is mostly an inline top-level loop plus a compact local-helper block. Matrix assembly, GCV scoring, and KK/noise summaries are computed directly inside the per-temperature loop; peak refinement and export-writing use local helpers.
 
 \subsection*{Input and Preprocessing Helpers}
 
 \begin{itemize}
-\item \texttt{load\_input\_dataset\_2011}: reads the numeric workbook block and extracts temperature labels from the first header row.
-\item \texttt{load\_f\_Z\_theta\_2011}: converts the three-column workbook slice into a frequency vector and a complex impedance vector.
-\item \texttt{remove\_inductive\_effects\_matlab2011}: removes the contiguous high-frequency tail where $\Im(Z) > 0$, which would otherwise distort the DRT inversion.
+\item Workbook parsing uses inline \texttt{readmatrix}/\texttt{readcell} logic, with fallback handling for robust import.
+\item Frequency/magnitude/phase conversion to complex impedance is performed inline per temperature block.
+\item Inductive-tail removal is performed inline by trimming the contiguous high-frequency region where $\Im(Z)>0$.
 \end{itemize}
 
 \subsection*{DRT Inversion and Forward Model Helpers}
 
 \begin{itemize}
-\item \texttt{calc\_A\_re\_matlab2011} and \texttt{calc\_A\_im\_matlab2011}: assemble the discrete real and imaginary DRT projection matrices.
-\item \texttt{TR\_DRT\_matlab2011}: solves the full non-negative Tikhonov-regularized inverse problem.
-\item \texttt{tr\_drt\_gcv\_impart\_matlab2011} and \texttt{tr\_drt\_gcv\_repart\_matlab2011}: solve the component-wise ridge problems used during GCV scoring.
-\item \texttt{calculate\_EIS\_matlab2011}: performs the forward projection from the recovered DRT back to complex impedance.
-\item \texttt{calculate\_eis\_from\_rcn\_peaks\_matlab2011}: reconstructs impedance from fitted series R-C-n peak branches.
+\item $A_{\mathrm{re}}$ and $A_{\mathrm{im}}$ are assembled inline in the main loop from the measured frequency grid.
+\item Imaginary-branch and real-branch nonnegative ridge solves for GCV scoring are computed inline with \texttt{lsqnonneg}.
+\item DRT forward reconstruction is computed inline as $Z_{\mathrm{cal}} = R_\infty + A_{\mathrm{re}}\gamma + iA_{\mathrm{im}}\gamma$.
+\item \texttt{calculate\_eis\_from\_rcn\_peaks\_2023}: reconstructs impedance from fitted series R-C-n peak branches.
 \end{itemize}
 
 \subsection*{Peak Refinement Helpers}
 
 \begin{itemize}
-\item \texttt{create\_rbf\_model\_2011} and \texttt{rbf\_eval\_2011}: interpolate the raw DRT onto a dense log-time grid.
-\item \texttt{detect\_hidden\_peaks\_second\_derivative\_2011}: identifies shoulder-like peaks through curvature analysis.
-\item \texttt{fit\_rbf\_gaussian\_peaks\_2011}: fits a Gaussian sum to the refined DRT profile, converts peak area to $R$, center to $\tau$, and then uses the current heuristic formula for $n$.
-\item \texttt{build\_refined\_peak\_profile\_export\_2011}: exports the dense RBF curve, summed fit, baseline, and each individual fitted Gaussian component to Excel.
+\item \texttt{create\_rbf\_model\_2023} and \texttt{rbf\_eval\_2023}: interpolate the raw DRT onto a dense log-time grid.
+\item \texttt{find\_peaks\_simple\_2023}: base local-maxima detection with height and spacing constraints.
+\item \texttt{detect\_hidden\_peaks\_second\_derivative\_2023}: curvature-based shoulder/hidden-peak detection.
+\item \texttt{fit\_rbf\_gaussian\_peaks\_2023}, \texttt{solve\_gaussian\_rbf\_sum\_fit\_2023}, and \texttt{evaluate\_gaussian\_rbf\_sum\_2023}: Gaussian-sum fitting and parameter extraction.
+\item \texttt{gaussian\_fwhm\_from\_sigma\_2023}: converts fitted $\sigma$ to log-time FWHM.
 \end{itemize}
 
 \subsection*{Validation and Reporting Helpers}
 
 \begin{itemize}
-\item \texttt{perform\_kk\_test\_matlab2011} and \texttt{solve\_kk\_candidate\_matlab2011}: estimate KK-consistent surrogates and summarize residual quality.
-\item \texttt{perform\_lambda\_perturbation\_sensitivity\_matlab2011}: checks local residual sensitivity around the selected regularization level.
-\item \texttt{perform\_sensitivity\_analysis\_matlab2011}: runs bootstrap uncertainty estimation for the DRT profile.
-\item \texttt{generate\_temperature\_rgb\_peak\_map}: creates a multi-temperature RGB visualization from the top fitted peaks.
-\item \texttt{write\_matrix\_with\_header\_2011}: writes each per-temperature result sheet to Excel.
+\item KK candidate sweep and residual metrics are computed inline in the main loop.
+\item Noise sensitivity (multi-level, multi-trial residual statistics) is computed inline in the main loop.
+\item \texttt{prepare\_excel\_output\_path\_2023}: handles locked-output fallback by switching to a timestamped workbook name.
+\item \texttt{write\_excel\_block\_2023}: writes consolidated sheets via non-COM Excel I/O.
 \end{itemize}
 
 \section{DRT Representation}
@@ -366,7 +368,7 @@ If such a flat region exists, the workflow selects the largest $\lambda$ in that
 
 Thus the MATLAB selection policy is a hybrid of plateau detection and standard GCV minimization, chosen to avoid over-interpreting small numerical differences between nearby admissible regularization levels \cite{schluter2019,maradesa2023,carbone2025}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
 \draw[->] (0,0) -- (8.2,0) node[right] {$\log_{10}(\lambda)$};
@@ -392,13 +394,13 @@ Thus the MATLAB selection policy is a hybrid of plateau detection and standard G
 \caption{Illustrative nGCV-vs-$\lambda$ profile showing the plateau-based selection policy used in the MATLAB workflow.}
 \end{figure}
 
-\section{Robustness of the Selected $\lambda$}
+\section{Robustness Checks in the Current Script}
 
-After the GCV step has selected $\lambda_{\mathrm{best}}$, the code still checks how stable that choice is under nearby perturbations. The reason is that a low-GCV solution can still be locally fragile: a small change in $\lambda$, or a small random perturbation in the measured spectrum, may move the solution toward a noticeably different DRT if the inverse problem is close to ill-conditioned \cite{tuncer2001,saccoccio2014,maradesa2023,carbone2025}.
+After selecting $\lambda$ by the GCV policy, the current script performs a direct noise-injection sensitivity check around the selected fit. For each noise level (e.g., $0.5\%$ to $10\%$), several random perturbations are added to the complex impedance data, the inversion is re-solved at the selected $\lambda$, and residual percentages are summarized.
 
-The lambda-perturbation study answers a local question: does the residual change smoothly when $\lambda$ is moved above and below the selected value? If the residual curve is flat, then the selected point is not an isolated numerical accident but lies on a stable regularization plateau. The bootstrap analysis answers a different but complementary question: if the spectrum is resampled with realistic noise, do the recovered DRT peaks remain in the same locations and with similar widths and amplitudes? Together, these diagnostics confirm that the GCV-selected $\lambda$ is not only optimal by score, but also robust to small data and parameter perturbations.
+This is different from a full bootstrap uncertainty pipeline: it is a fast operational robustness check designed for large temperature sweeps. The output answers a practical question: if experimental noise increases, how quickly does fit quality degrade at the chosen regularization level? This keeps runtime low while still reporting stability diagnostics that can be compared across temperatures and samples \cite{tuncer2001,saccoccio2014,maradesa2023,carbone2025}.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
 \draw[->] (0,0) -- (8.6,0) node[right] {$\log(\tau)$};
@@ -418,7 +420,7 @@ The lambda-perturbation study answers a local question: does the residual change
 				 .. controls (4.2,2.25) and (5.0,1.75) .. (5.8,1.4)
 				 .. controls (6.5,1.1) and (7.2,0.82) .. (8.1,0.68);
 
-% A few bootstrap sample curves
+% A few perturbation-response sample curves
 \draw[thin,gray!70] (0.8,0.85) .. controls (1.7,1.05) and (2.5,1.9) .. (3.4,2.25)
 				   .. controls (4.1,2.45) and (5.0,1.95) .. (5.8,1.55)
 				   .. controls (6.5,1.22) and (7.2,0.95) .. (8.1,0.75);
@@ -429,11 +431,55 @@ The lambda-perturbation study answers a local question: does the residual change
 				   .. controls (4.1,2.2) and (5.0,1.62) .. (5.8,1.33)
 				   .. controls (6.5,1.03) and (7.2,0.84) .. (8.1,0.7);
 
-\node[font=\small,blue] at (6.8,2.75) {bootstrap mean $\mu_\gamma(\tau)$};
+\node[font=\small,blue] at (6.8,2.75) {mean response $\mu_\gamma(\tau)$};
 \node[font=\small] at (6.4,3.3) {shaded band: quantile interval};
-\node[font=\small] at (2.6,3.9) {thin gray lines: individual bootstrap DRTs};
+\node[font=\small] at (2.6,3.9) {thin gray lines: individual perturbed DRTs};
 \end{tikzpicture}
-\caption{Illustrative bootstrap-sensitivity view: individual bootstrap DRT reconstructions, mean curve, and uncertainty band over $\log(\tau)$.}
+\caption{Illustrative uncertainty view. In the current script, robustness is reported through noise-injection residual statistics; this schematic still shows the general idea that stable inversions should vary smoothly under perturbations.}
+\end{figure}
+
+\section{How the EPS Images Are Formed}
+
+The script generates each published image from arrays accumulated during the temperature loop, then saves vector graphics at the end with \texttt{print(...,'-depsc')}. The active figures are:
+
+\begin{enumerate}
+\item \texttt{\_peak\_XXXK.eps}: per-temperature DRT peak plot (RBF curve, Gaussian fit, base/hidden markers).
+\item \texttt{\_rgb\_peak\_map.eps}: RGB map where channels encode ranked peak components across temperature.
+\item \texttt{\_ngcv\_imag\_colormap.eps}: temperature-vs-$\lambda$ nGCV matrix for imaginary-branch inversion.
+\item \texttt{\_ngcv\_real\_colormap.eps}: temperature-vs-$\lambda$ nGCV matrix for real-branch inversion.
+\item \texttt{\_combined\_residual\_lambda\_temp.eps}: combined residual map with selected-$\lambda$ overlay.
+\item \texttt{\_noise\_mean\_residual\_colormap.eps}: temperature-vs-noise-level mean residual map.
+\item \texttt{\_kk\_raw\_residual\_vs\_temp.eps}: KK residual trends over temperature.
+\end{enumerate}
+
+The RGB map is formed in three steps:
+\begin{enumerate}
+\item For each temperature, identify up to three dominant fitted peaks.
+\item Convert each peak component to a dense log-time profile over a common axis.
+\item Normalize and assign channel intensities (R/G/B) by ranked peak contribution, then stack all temperatures as image rows.
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+\draw[rounded corners,draw] (0.0,1.7) rectangle (2.9,3.2);
+\node[font=\small,align=center] at (1.45,2.45) {Per-temperature\\fitted peaks};
+
+\draw[->,thick] (2.95,2.45) -- (4.2,2.45);
+
+\draw[rounded corners,draw] (4.2,1.7) rectangle (7.3,3.2);
+\node[font=\small,align=center] at (5.75,2.45) {Dense $\ln\tau$ profiles\\(top-3 components)};
+
+\draw[->,thick] (7.35,2.45) -- (8.6,2.45);
+
+\draw[rounded corners,draw] (8.6,1.7) rectangle (11.8,3.2);
+\node[font=\small,align=center] at (10.2,2.45) {Channel map\\R/G/B assignment};
+
+\draw[->,thick] (10.2,1.65) -- (10.2,0.8);
+\draw[draw] (9.0,0.1) rectangle (11.4,0.8);
+\node[font=\small] at (10.2,0.45) {RGB temperature image};
+\end{tikzpicture}
+\caption{Image-construction pipeline used for the RGB peak map in the MATLAB workflow.}
 \end{figure}
 
 \section{Kramers-Kronig Consistency Test Used in the Code}
@@ -601,7 +647,7 @@ Z(\omega)-R_{\infty}
 \end{equation}
 which proves that any DRT-representable impedance is the limit of an infinite series of ZAP elements.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
 % Left: continuum density over log tau
@@ -672,6 +718,22 @@ In DRT, the resistance contribution of a relaxation process is the area under th
 R = \int_{-\infty}^{\infty} \gamma(y) \, dy.
 \end{equation}
 
+The reason is that resistance is defined from the \emph{DC limit} of impedance. Starting from
+\begin{equation}
+Z(\omega)-R_\infty = \int_0^\infty \frac{\Gamma(\tau)}{1+i\omega\tau}\,d\ln\tau,
+\end{equation}
+set $\omega \to 0$ to obtain
+\begin{equation}
+Z(0)-R_\infty = \int_0^\infty \Gamma(\tau)\,d\ln\tau.
+\end{equation}
+So the total distributed resistance is exactly the unweighted area under the DRT.
+
+By contrast,
+\begin{equation}
+\int_0^\infty \frac{\Gamma(\tau)}{1+(\omega\tau)^2}\,d\ln\tau
+\end{equation}
+is a frequency-dependent quantity: it is the real-part weighting kernel at a specific nonzero $\omega$, not the total resistance parameter. Therefore it cannot replace $\int \Gamma\,d\ln\tau$ as the definition of resistance.
+
 In the workflow, each refined peak is approximated locally by a Gaussian in log-time,
 \begin{equation}
 \gamma_{\mathrm{fit}}(y) = A \exp\left[-\frac{(y-\mu)^2}{2\sigma^2}\right].
@@ -714,7 +776,7 @@ The objective minimized in the code is a penalized least-squares function,
 
 This keeps the fitted Gaussian components compact and suppresses numerically unstable peak widths.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
 \draw[->] (0,0) -- (9.2,0) node[right] {$\log(\tau)$};
@@ -770,6 +832,24 @@ R_k &= A_k \sigma_k \sqrt{2\pi}, \\
 C_k &= \frac{\tau_k}{R_k}, \\
 n_k &= \frac{1.144}{1 + \sigma_k}.
 \end{align}
+
+The resistance expression is tied to the DC limit of the DRT model, not to a finite-frequency kernel. Starting from
+\begin{equation}
+Z(\omega)-R_\infty = \int \frac{\Gamma(\tau)}{1+i\omega\tau}\,d\ln\tau,
+\end{equation}
+take $\omega \to 0$:
+\begin{equation}
+Z(0)-R_\infty = \int \Gamma(\tau)\,d\ln\tau.
+\end{equation}
+So the total distributed resistance is the unweighted area under the DRT. In contrast,
+\begin{equation}
+\int \frac{\Gamma(\tau)}{1+(\omega\tau)^2}\,d\ln\tau
+\end{equation}
+is the real-part contribution at a specific finite $\omega$:
+\begin{equation}
+\Re Z(\omega)-R_\infty = \int \frac{\Gamma(\tau)}{1+(\omega\tau)^2}\,d\ln\tau.
+\end{equation}
+Therefore the code uses peak area in $d\ln\tau$ to estimate resistance, while the frequency-weighted integral is used to interpret real-impedance contribution versus frequency.
 
 The first three relations follow naturally from the Gaussian approximation to the DRT peak: area gives resistance, the center gives relaxation time, and $\tau = RC$ supplies an effective capacitance. The final relation for $n$ is heuristic in the present code. It enforces the trend that broader peaks imply lower $n$, but it is not derived from the Tikhonov inversion itself. In the published DRT literature, similar post-processing fits are often used as interpretation aids rather than as part of the inversion objective \cite{danzer2019,schluter2019,maradesa2023}.
 
@@ -899,20 +979,15 @@ Thus the present code uses the heuristic $n_{\mathrm{heuristic}}$, while the FWH
 
 \section{Code Output Inventory}
 
-For each input workbook, the MATLAB script writes multiple Excel workbooks keyed by a filesystem-safe sample tag:
+For each input workbook, the current script writes one consolidated workbook plus EPS figures:
 
 \begin{itemize}
-\item \texttt{\_analysis\_result.xlsx}: the raw DRT vectors per temperature,
-\item \texttt{\_peak\_result.xlsx}: the legacy compact peak matrix,
-\item \texttt{\_peak\_detail\_result.xlsx}: the refined per-peak $\tau$, amplitude, $\sigma$, FWHM, $R$, $C$, and $n$ table,
-\item \texttt{\_temperature\_plot\_data.xlsx}: Nyquist, DRT, KK, and peak-marker tables for plotting,
-\item \texttt{\_refined\_peak\_profiles.xlsx}: dense per-temperature refined peak curves for post-processing,
-\item \texttt{\_kk\_result.xlsx}, \texttt{\_sensitivity\_result.xlsx}, and \texttt{\_lambda\_perturbation\_result.xlsx}: diagnostic outputs,
-\item \texttt{\_temperature\_rgb\_peak\_map.png}: RGB map of the top peak components across temperatures,
-\item \texttt{drt\_matlab2011\_run.log}: execution log captured with MATLAB diary.
+\item \texttt{\_postprocess\_data.xlsx}: consolidated sheets \texttt{RAW\_ALL}, \texttt{DRT\_ALL}, \texttt{PEAK\_ALL}, \texttt{RCN\_ALL}, \texttt{SUMMARY}, \texttt{NGCV\_IMAG}, \texttt{NGCV\_REAL}, \texttt{RESID\_LAMBDA}, \texttt{NOISE\_MEAN}, \texttt{KK\_SUMMARY}, and optional \texttt{RGB\_map\_data},
+\item \texttt{figures\_eps/}: vector images for per-temperature peak plots and global diagnostic maps,
+\item terminal/console log text from the MATLAB batch run.
 \end{itemize}
 
-The refined peak profile workbook is especially important when individual Gaussian peak components need to be analyzed temperature-by-temperature outside MATLAB. In addition, the script writes summary sheets to the KK, sensitivity, and lambda-perturbation workbooks after all temperatures are completed, so both per-temperature details and run-level aggregates are preserved. Similar exported intermediate products are useful in recent DRT workflows because they make later comparison, cross-validation, and uncertainty checks easier to reproduce \cite{schluter2019,maradesa2023,carbone2025}.
+This consolidated output design reduces workbook fragmentation and keeps the full run trace in one artifact, while the EPS directory preserves publication-quality vector plots for reporting and comparison \cite{schluter2019,maradesa2023,carbone2025}.
 
 \section{Detailed RBF Interpolation and Gaussian Basis Fitting Theory}
 
