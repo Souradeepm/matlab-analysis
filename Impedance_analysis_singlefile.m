@@ -16,7 +16,7 @@ close all;
 % - repo_root, sample_tag, output_dir, fig_dir, excel_output_file.
 % - Verified existence check for input_path.
 repo_root = fileparts(mfilename('fullpath'));
-input_path = fullfile(repo_root, 'S2422Sap.xlsx');
+input_path = fullfile(repo_root, 'S2022Sap.xlsx');
 
 if exist(input_path, 'file') ~= 2
     error('Input file not found: %s', input_path);
